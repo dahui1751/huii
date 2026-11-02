@@ -10,7 +10,7 @@
     .iphone-frame { width: 375px; height: 760px; background-color: #000; border-radius: 48px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 12px #2d2d2d; position: relative; overflow: hidden; display: flex; flex-direction: column; }
     .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background-color: #000; border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; z-index: 9999; }
     .status-bar { height: 40px; color: #fff; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 6px 24px; font-size: 13px; font-weight: 600; z-index: 9998; }
-    .screen { flex: 1; position: relative; background-color: #f2f2f7; overflow: hidden; }
+    .screen { flex: 1; position: relative; background-color: #f2f2f7; overflow: hidden; display: flex; flex-direction: column; }
     .home-indicator { width: 134px; height: 5px; background-color: #fff; border-radius: 3px; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 9999; }
     .home-screen { width: 100%; height: 100%; background: linear-gradient(180deg, #1c1c1e 0%, #2c2c2e 100%); padding: 60px 20px 20px 20px; display: flex; flex-direction: column; align-items: center; }
     .wallpaper-title { color: rgba(255, 255, 255, 0.6); font-size: 14px; margin-top: 10px; letter-spacing: 2px; }
@@ -25,182 +25,30 @@
     .app-window { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; display: none; flex-direction: column; z-index: 10; animation: slideUp 0.25s ease-out forwards; }
     .app-window.active { display: flex; }
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-    .app-header { height: 88px; background-color: rgba(246, 246, 246, 0.9); backdrop-filter: blur(10px); border-bottom: 0.5px solid #c6c6c8; display: flex; align-items: flex-end; padding: 0 16px 10px 16px; justify-content: space-between; z-index: 20; }
+    .app-header { height: 88px; background-color: rgba(246, 246, 246, 0.9); backdrop-filter: blur(10px); border-bottom: 0.5px solid #c6c6c8; display: flex; align-items: flex-end; padding: 0 16px 10px 16px; justify-content: space-between; z-index: 20; flex-shrink: 0; }
     .back-btn { color: #007aff; font-size: 16px; cursor: pointer; display: flex; align-items: center; font-weight: 500; }
     .header-title { font-size: 17px; font-weight: 600; color: #000; }
-    .chat-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background-color: #7b8b9e; padding-bottom: 20px; }
+    
+    /* 대화창 스크롤 및 레이아웃 짤림 방지 개선 */
+    .chat-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background-color: #7b8b9e; min-height: 0; }
     .chat-date { align-self: center; background-color: rgba(0, 0, 0, 0.2); color: #fff; font-size: 11px; padding: 4px 12px; border-radius: 10px; margin: 8px 0; }
-    .message { display: flex; flex-direction: column; max-width: 75%; }
+    .message { display: flex; flex-direction: column; max-width: 80%; }
     .message.received { align-self: flex-start; }
     .message.sent { align-self: flex-end; }
     .sender-name { font-size: 11px; color: #333; margin-bottom: 3px; margin-left: 4px; }
     .bubble { padding: 10px 14px; border-radius: 18px; font-size: 14px; line-height: 1.4; word-break: break-word; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
     .received .bubble { background-color: #ffffff; color: #000000; border-top-left-radius: 4px; }
     .sent .bubble { background-color: #ffe812; color: #000000; border-top-right-radius: 4px; }
-    .choice-container { background-color: #f2f2f7; padding: 12px 16px 30px 16px; border-top: 0.5px solid #d1d1d6; display: flex; flex-direction: column; gap: 8px; }
-    .choice-btn { background-color: #ffffff; color: #007aff; border: 1px solid #007aff; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; text-align: center; cursor: pointer; transition: background 0.2s; }
+    
+    /* 선택지 컨테이너 스크롤 지원 */
+    .choice-container { background-color: #f2f2f7; padding: 10px 16px 24px 16px; border-top: 0.5px solid #d1d1d6; display: flex; flex-direction: column; gap: 8px; max-height: 160px; overflow-y: auto; flex-shrink: 0; }
+    .choice-btn { background-color: #ffffff; color: #007aff; border: 1px solid #007aff; padding: 10px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; transition: background 0.2s; line-height: 1.3; }
     .choice-btn:active { background-color: #007aff; color: #ffffff; }
+    
     .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 2px; overflow-y: auto; flex: 1; background-color: #fff; }
     .photo-item { aspect-ratio: 1; background-size: cover; background-position: center; cursor: pointer; position: relative; }
     .photo-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
     .photo-modal img { max-width: 100%; max-height: 60%; border-radius: 8px; object-fit: contain; }
     .photo-modal .caption { color: #fff; margin-top: 16px; text-align: center; font-size: 14px; line-height: 1.5; }
     .photo-modal .close-btn { position: absolute; top: 50px; right: 20px; color: #fff; font-size: 24px; cursor: pointer; }
-    .note-list { flex: 1; overflow-y: auto; background-color: #f2f2f7; padding: 16px; }
-    .note-card { background-color: #fff; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .note-title { font-size: 16px; font-weight: 700; color: #1c1c1e; margin-bottom: 6px; }
-    .note-date { font-size: 11px; color: #8e8e93; margin-bottom: 8px; }
-    .note-content { font-size: 13px; color: #3a3a3c; line-height: 1.5; white-space: pre-line; }
-  </style>
-</head>
-<body>
-  <div class="iphone-frame">
-    <div class="notch"></div>
-    <div class="status-bar"><span>9:41</span><span>📶 🛜 🔋</span></div>
-    <div class="screen">
-      <div class="home-screen">
-        <h2 style="color: white; font-weight: 300; margin-top: 30px;">이생의 스마트폰</h2>
-        <p class="wallpaper-title">《李生窺牆傳》</p>
-        <div class="app-grid">
-          <div class="app-icon" onclick="openApp('chat-app')"><div class="app-box msg-bg">💬</div><span class="app-name">최씨낭자</span></div>
-          <div class="app-icon" onclick="openApp('photo-app')"><div class="app-box photo-bg">🖼️</div><span class="app-name">사진첩</span></div>
-          <div class="app-icon" onclick="openApp('note-app')"><div class="app-box note-bg">📝</div><span class="app-name">독백 메모</span></div>
-        </div>
-      </div>
-      <div id="chat-app" class="app-window">
-        <div class="app-header"><div class="back-btn" onclick="closeApp('chat-app')">❮ 홈으로</div><div class="header-title">최씨 낭자 (환신)</div><div style="width: 50px;"></div></div>
-        <div class="chat-body" id="chat-body"><div class="chat-date">오늘 (달빛이 비추는 밤)</div></div>
-        <div class="choice-container" id="choice-container"></div>
-      </div>
-      <div id="photo-app" class="app-window">
-        <div class="app-header"><div class="back-btn" onclick="closeApp('photo-app')">❮ 홈으로</div><div class="header-title">추억 사진첩</div><div style="width: 50px;"></div></div>
-        <div class="photo-grid" id="photo-grid"></div>
-        <div class="photo-modal" id="photo-modal"><span class="close-btn" onclick="closePhotoModal()">✕</span><img id="modal-img" src="" alt="사진"><div class="caption" id="modal-caption"></div></div>
-      </div>
-      <div id="note-app" class="app-window">
-        <div class="app-header"><div class="back-btn" onclick="closeApp('note-app')">❮ 홈으로</div><div class="header-title">이생의 비밀일기</div><div style="width: 50px;"></div></div>
-        <div class="note-list" id="note-list"></div>
-      </div>
-    </div>
-    <div class="home-indicator"></div>
-  </div>
-  <script>
-    const GAME_DIALOGUES = {
-      start: {
-        messages: [
-          { sender: "최씨", text: "낭군님... 밤안개가 깊은데 아직 자지 않고 계신가요?" },
-          { sender: "최씨", text: "홍건적의 난에 유명을 달리했으나, 낭군과의 약속을 잊지 못해 다시 찾아왔습니다." }
-        ],
-        choices: [
-          { text: "낭자! 정녕 당신이란 말이오? 이게 꿈은 아니겠지요?", nextKey: "path_1" },
-          { text: "무서워라... 이미 돌아가신 분이 어찌 다시 올 수 있습니까?", nextKey: "path_2" }
-        ]
-      },
-      path_1: {
-        messages: [
-          { sender: "이생", text: "낭자! 정녕 당신이란 말이오? 이게 꿈은 아니겠지요?" },
-          { sender: "최씨", text: "꿈이 아닙니다. 저승의 법도를 어기고 낭군을 뵙고자 이리 왔사옵니다." },
-          { sender: "최씨", text: "우리가 담장을 넘어 시를 나누던 그 시절이 그립지 않으신가요?" }
-        ],
-        choices: [
-          { text: "어찌 잊겠습니까. 그대와 평생 함께 살고 싶습니다.", nextKey: "path_happy" },
-          { text: "하지만 당신은 이미 이 세상 사람이 아니지 않소...", nextKey: "path_sad" }
-        ]
-      },
-      path_2: {
-        messages: [
-          { sender: "이생", text: "무서워라... 이미 돌아가신 분이 어찌 다시 올 수 있습니까?" },
-          { sender: "최씨", text: "소녀의 절의를 모르시지 않을 텐데, 어찌 저를 무서워하십니까..." },
-          { sender: "최씨", text: "비록 몸은 죽었으나 낭군을 향한 마음은 진실입니다." }
-        ],
-        choices: [
-          { text: "내가 미안하오. 그대를 향한 그리움이 눈을 가렸었소.", nextKey: "path_happy" }
-        ]
-      },
-      path_happy: {
-        messages: [
-          { sender: "이생", text: "이승이든 저승이든 상관없소. 그대와 다시 한평생을 보낼 수 있다면..." },
-          { sender: "최씨", text: "고맙습니다 낭군님... 인연이 다하는 그날까지 우리 함께 서로를 지켜주어요." }
-        ],
-        choices: [{ text: "🔄 대화 다시 시작하기", nextKey: "start" }]
-      },
-      path_sad: {
-        messages: [
-          { sender: "최씨", text: "맞습니다... 저승의 인연은 오래갈 수 없겠지요. 하지만 잠시라도 낭군 곁에 있게 해주세요." }
-        ],
-        choices: [{ text: "🔄 대화 다시 시작하기", nextKey: "start" }]
-      }
-    };
-    const PHOTOS = [
-      { url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80", caption: "담장 넘어 시를 건네받던 날. 최 낭자의 글씨는 달빛처럼 고왔다." },
-      { url: "https://images.unsplash.com/photo-1528164344705-47542687990d?w=500&q=80", caption: "부모님의 반대를 무릅쓰고 마침내 올린 첫례. 세상 무엇도 두렵지 않았다." },
-      { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80", caption: "홍건적의 난이 터지기 전, 함께 참꽃을 보며 거닐던 기슭." }
-    ];
-    const NOTES = [
-      { title: "폐허가 된 집에서", date: "신축년 가을 밤", content: "도적떼가 지나간 자리에 집은 불타고 최 낭자의 흔적만 남아있구나.\n목숨을 구한 들 무슨 소용이 있으랴. 내 어찌 그녀를 지키지 못했단 말인가." },
-      { title: "담장 아래를 거닐며", date: "경태 연간 어느 날", content: "처음 낭자의 모습을 보았던 그 담장 아래에 섰다.\n버드나무 가지는 예전과 같건만, 시를 적어 넘겨주던 어여쁜 손길은 어디로 갔는가." }
-    ];
-    function openApp(appId) { document.getElementById(appId).classList.add('active'); }
-    function closeApp(appId) { document.getElementById(appId).classList.remove('active'); }
-    function loadNode(nodeKey) {
-      const chatBody = document.getElementById('chat-body');
-      const choiceContainer = document.getElementById('choice-container');
-      const node = GAME_DIALOGUES[nodeKey];
-      if (nodeKey === 'start') { chatBody.innerHTML = '<div class="chat-date">오늘 (달빛이 비추는 밤)</div>'; }
-      node.messages.forEach(msg => {
-        const msgDiv = document.createElement('div');
-        const isUser = (msg.sender === "이생");
-        msgDiv.className = `message ${isUser ? 'sent' : 'received'}`;
-        if (!isUser) {
-          const nameDiv = document.createElement('div');
-          nameDiv.className = 'sender-name';
-          nameDiv.innerText = msg.sender;
-          msgDiv.appendChild(nameDiv);
-        }
-        const bubbleDiv = document.createElement('div');
-        bubbleDiv.className = 'bubble';
-        bubbleDiv.innerText = msg.text;
-        msgDiv.appendChild(bubbleDiv);
-        chatBody.appendChild(msgDiv);
-      });
-      chatBody.scrollTop = chatBody.scrollHeight;
-      choiceContainer.innerHTML = '';
-      if (node.choices && node.choices.length > 0) {
-        node.choices.forEach(choice => {
-          const btn = document.createElement('div');
-          btn.className = 'choice-btn';
-          btn.innerText = choice.text;
-          btn.onclick = () => loadNode(choice.nextKey);
-          choiceContainer.appendChild(btn);
-        });
-      }
-    }
-    function initPhotos() {
-      const grid = document.getElementById('photo-grid');
-      PHOTOS.forEach((item) => {
-        const div = document.createElement('div');
-        div.className = 'photo-item';
-        div.style.backgroundImage = `url('${item.url}')`;
-        div.onclick = () => openPhotoModal(item.url, item.caption);
-        grid.appendChild(div);
-      });
-    }
-    function openPhotoModal(url, caption) {
-      document.getElementById('modal-img').src = url;
-      document.getElementById('modal-caption').innerText = caption;
-      document.getElementById('photo-modal').style.display = 'flex';
-    }
-    function closePhotoModal() { document.getElementById('photo-modal').style.display = 'none'; }
-    function initNotes() {
-      const container = document.getElementById('note-list');
-      NOTES.forEach(note => {
-        const card = document.createElement('div');
-        card.className = 'note-card';
-        card.innerHTML = `<div class="note-title">${note.title}</div><div class="note-date">${note.date}</div><div class="note-content">${note.content}</div>`;
-        container.appendChild(card);
-      });
-    }
-    window.onload = () => { loadNode('start'); initPhotos(); initNotes(); };
-  </script>
-</body>
-</html>
+    .note-list { flex: 1; overflow-y: auto; background-color: #f2f
