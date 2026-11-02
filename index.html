@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>이생규장전</title>
+  <title>이생규장전 - 이생의 핸드폰</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; }
     body { background: #121212; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -21,12 +21,13 @@
     .msg { padding: 8px 12px; border-radius: 14px; font-size: 13px; max-width: 80%; line-height: 1.4; word-break: break-all; }
     .received { background: #fff; align-self: flex-start; }
     .sent { background: #ffe812; align-self: flex-end; }
-    .choices { background: #f2f2f7; padding: 10px 12px 30px 12px; display: flex; flex-direction: column; gap: 6px; border-top: 0.5px solid #ccc; }
+    .typing { background: rgba(255, 255, 255, 0.7); color: #555; font-style: italic; font-size: 11px; align-self: flex-start; }
+    .choices { background: #f2f2f7; padding: 10px 12px 30px 12px; display: flex; flex-direction: column; gap: 6px; border-top: 0.5px solid #ccc; max-height: 220px; overflow-y: auto; }
     .btn { background: #fff; color: #007aff; border: 1px solid #007aff; padding: 8px; border-radius: 10px; font-size: 12px; text-align: center; cursor: pointer; font-weight: 600; }
     .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 2px; overflow-y: auto; flex: 1; }
     .p-item { aspect-ratio: 1; background-size: cover; background-position: center; }
     .notes { padding: 12px; overflow-y: auto; flex: 1; background: #f2f2f7; }
-    .card { background: #fff; padding: 12px; border-radius: 10px; margin-bottom: 8px; font-size: 12px; }
+    .card { background: #fff; padding: 12px; border-radius: 10px; margin-bottom: 8px; font-size: 12px; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -60,18 +61,109 @@
   </div>
 
   <script>
+    /* 유교·불교적 사상 및 티키타카 결합 시나리오 */
     const DATA = {
       start: {
-        msgs: [{s:0, t:"낭군님... 밤안개가 깊은데 아직 자지 않고 계신가요?"}],
-        choices: [{t:"낭자! 정녕 당신이란 말이오?", k:"p1"}, {t:"무서워라... 어찌 오셨습니까?", k:"p2"}]
+        msgs: [
+          {s:0, t:"낭군님... 밤안개가 깊은데 자지도 않고 핸드폰만 보고 계신가요?"},
+          {s:0, t:"달빛 아래 계신 모습이 예전에 제 집 담장 넘어 몰래 훔쳐보던 때랑 똑같네요."}
+        ],
+        choices: [
+          {t:"낭자?! 진짜 당신이야? 소름 돋았잖아!", k:"reunion"}, 
+          {t:"으악 귀신이다! 정령과 사람은 엄연히 길이 다른 법이니 오지 마시오!", k:"bad_scared"}
+        ]
       },
-      p1: {
-        msgs: [{s:1, t:"낭자! 정녕 당신이란 말이오?"}, {s:0, t:"저승의 법도를 어기고 낭군을 뵙고자 왔습니다."}],
-        choices: [{t:"그대와 평생 함께 살고 싶소.", k:"start"}, {t:"다시 처음으로", k:"start"}]
+      bad_scared: {
+        msgs: [
+          {s:0, t:"귀신이라니요... 음양의 이치를 어기고 저승에서 찾아온 전여친한테 반응이 그거예요?"},
+          {s:0, t:"유교적 절개(節槪)를 지키다 목숨까지 바친 저를 그렇게 거부하시니 깊은 한이 맺히네요."},
+          {s:0, t:"이승에서의 헛된 미련을 거두고 저는 이만 인연을 끊겠습니다. 안녕히 계세요."}
+        ],
+        choices: [
+          {t:"💀 [배드 엔딩] 유교적 절의를 저버리고 소리치다 최씨 낭자와 인연이 끊겼다.", k:"start"}
+        ]
       },
-      p2: {
-        msgs: [{s:1, t:"무서워라... 어찌 오셨습니까?"}, {s:0, t:"몸은 죽었으나 낭군을 향한 마음은 진실입니다."}],
-        choices: [{t:"내가 미안하오, 안아준다.", k:"p1"}, {t:"다시 처음으로", k:"start"}]
+      reunion: {
+        msgs: [
+          {s:1, t:"낭자?! 진짜 당신이야? 소름 돋았잖아!"}, 
+          {s:0, t:"꿈 아니니까 정신 차리세요. 저승의 명부(冥府)를 어기고 염라대왕님께 빌어서 잠깐 온 거예요."},
+          {s:0, t:"불교에서 말하듯 전생에 삼천 번의 인연이 쌓여 우리가 만난 건데, 전여친 보자마자 벙쪄서 뭐 해요?"}
+        ],
+        choices: [
+          {t:"아니, 난 난리 통에 너 잃고 진짜 매일 울었어... 대체 어떻게 된 거야?", k:"first_meet"}
+        ]
+      },
+      first_meet: {
+        msgs: [
+          {s:1, t:"아니, 난 난리 통에 너 잃고 진짜 매일 울었어... 대체 어떻게 된 거야?"},
+          {s:0, t:"후... 우리 처음 만났을 때 생각나요?"},
+          {s:0, t:"낭군이 서당 가다가 우리 집 담장 너머로 서성거리면서 시 써서 던졌잖아요. 유교 집안 규수한테 감히 시를 건네며 첫눈에 반하셨었죠?"}
+        ],
+        choices: [
+          {t:"솔직히 버드나무 아래에서 너 처음 봤을 때 선녀인 줄 알았지...", k:"memories_happy"},
+          {t:"네가 먼저 시 답장 보내서 날 유혹해놓고 무슨 소리야~", k:"memories_tease"}
+        ]
+      },
+      memories_happy: {
+        msgs: [
+          {s:1, t:"솔직히 버드나무 아래에서 너 처음 봤을 때 선녀인 줄 알았지..."},
+          {s:0, t:"거봐요! 그 기나긴 억겁의 인연이 시작된 거였어요."},
+          {s:0, t:"부모님이 혼사를 반대해서 낭군이 시름시름 앓을 때, 제가 삼강오륜과 효도를 다하면서까지 부모님을 설득해 백년가약을 맺었었잖아요."}
+        ],
+        choices: [
+          {t:"맞아... 너 아니었으면 난 이미 죽었을 거야. 그런데 홍건적 난 때 무슨 일이 벌어진 거야?", k:"tragedy"}
+        ]
+      },
+      memories_tease: {
+        msgs: [
+          {s:1, t:"네가 먼저 시 답장 보내서 날 유혹해놓고 무슨 소리야~"},
+          {s:0, t:"뭐라고요?! 내 필체가 고와서 먼저 반해놓고 어디서 장난쳐요!"},
+          {s:0, t:"아무튼... 백년가약을 맺고 부모님께 효도하며 삼종지도(三從之道)를 다했던 그때가 내 인생 최고로 행복했어요..."}
+        ],
+        choices: [
+          {t:"나도 그래... 그런데 도적떼가 밀어닥쳤을 때 대체 무슨 일이 있었던 거야?", k:"tragedy"}
+        ]
+      },
+      tragedy: {
+        msgs: [
+          {s:0, t:"도적놈들이 피난길에 저를 욕보이려고 몰려왔었어요."},
+          {s:0, t:"하지만 한 남편만을 섬기는 유부녀의 정절(貞節)을 지키고자, 끝까지 욕을 퍼붓고 저항하다 칼에 베여 죽임을 당했죠..."},
+          {s:0, t:"비록 육신은 숲속에 버려져 해골이 되었지만, 낭군과 맺은 소중한 인연의 끈을 차마 놓을 수가 없었습니다."}
+        ],
+        choices: [
+          {t:"나 하나 때문에 목숨까지 바쳐 정절을 지켰단 말이야...? 정말 미안해...", k:"talk_future"}
+        ]
+      },
+      talk_future: {
+        msgs: [
+          {s:1, t:"나 하나 때문에 목숨까지 바쳐 정절을 지켰단 말이야...? 정말 미안해..."},
+          {s:0, t:"울지 마세요. 환신(幻身)으로나마 돌아와 낭군과 못다 한 정을 나누고,"},
+          {s:0, t:"버려졌던 부모님의 유골을 거두어 정식으로 장례(禮法)를 치러드렸으니 제 가슴속 응어리와 효심은 이제 다 풀렸어요."}
+        ],
+        choices: [
+          {t:"그럼 이제 저승으로 가지 말고 내 곁에 평생 숨어서 함께 살자.", k:"ask_stay"}
+        ]
+      },
+      ask_stay: {
+        msgs: [
+          {s:1, t:"그럼 이제 저승으로 가지 말고 내 곁에 평생 숨어서 함께 살자."},
+          {s:0, t:"저도 그러고 싶죠... 하지만 불교의 업보와 이승·저승의 천도(天道)는 엄 엄한 법이에요."},
+          {s:0, t:"저승의 명부가 정한 기한이 다 되었으니, 이제 더 머무르면 낭군님께도 찰나의 죄업이 미치게 돼요."}
+        ],
+        choices: [
+          {t:"제발 가지 마 최씨... 너 없이 내 남은 삶이 무슨 의미가 있어...", k:"go_heaven"}
+        ]
+      },
+      go_heaven: {
+        msgs: [
+          {s:1, t:"제발 가지 마 최씨... 너 없이 내 남은 삶이 무슨 의미가 있어..."},
+          {s:0, t:"너무 슬퍼하지 마세요. 비록 이승에서의 이별은 찰나이지만,"},
+          {s:0, t:"다음 생 윤회(輪廻)의 굴레 속에서 우리는 반드시 다시 만날 것입니다."},
+          {s:0, t:"낭군께서도 남은 생을 다 마치시는 날, 저승길 삼도천 건너편에서 제일 먼저 마중 나올게요. 안녕히, 내 사랑..."}
+        ],
+        choices: [
+          {t:"🕊️ [진 엔딩] 최씨 낭자는 바람처럼 사라져 저승으로 돌아갔다. (처음으로)", k:"start"}
+        ]
       }
     };
 
@@ -82,22 +174,58 @@
       const b = document.getElementById('chat-body');
       const c = document.getElementById('choices');
       const node = DATA[key];
+
       if(key === 'start') b.innerHTML = '';
-      node.msgs.forEach(m => {
+
+      c.innerHTML = ''; 
+
+      const userMsgs = node.msgs.filter(m => m.s === 1);
+      const replyMsgs = node.msgs.filter(m => m.s === 0);
+
+      userMsgs.forEach(m => {
         const d = document.createElement('div');
-        d.className = `msg ${m.s ? 'sent' : 'received'}`;
+        d.className = 'msg sent';
         d.innerText = m.t;
         b.appendChild(d);
       });
+      b.scrollTop = b.scrollHeight;
+
+      if (replyMsgs.length > 0) {
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'msg typing';
+        typingIndicator.innerText = '최씨 낭자가 입력 중...';
+        b.appendChild(typingIndicator);
+        b.scrollTop = b.scrollHeight;
+
+        setTimeout(() => {
+          typingIndicator.remove(); 
+
+          replyMsgs.forEach(m => {
+            const d = document.createElement('div');
+            d.className = 'msg received';
+            d.innerText = m.t;
+            b.appendChild(d);
+          });
+          b.scrollTop = b.scrollHeight;
+
+          renderChoices(node.choices);
+        }, 1200); 
+      } else {
+        renderChoices(node.choices);
+      }
+    }
+
+    function renderChoices(choices) {
+      const c = document.getElementById('choices');
       c.innerHTML = '';
-      node.choices.forEach(ch => {
+      if(!choices) return;
+      choices.forEach(ch => {
         const btn = document.createElement('div');
         btn.className = 'btn';
         btn.innerText = ch.t;
         btn.onclick = () => loadNode(ch.k);
         c.appendChild(btn);
       });
-      b.scrollTop = b.scrollHeight;
     }
 
     window.onload = () => {
@@ -106,7 +234,10 @@
       ['https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300', 'https://images.unsplash.com/photo-1528164344705-47542687990d?w=300'].forEach(u => {
         p.innerHTML += `<div class="p-item" style="background-image:url('${u}')"></div>`;
       });
-      document.getElementById('notes').innerHTML = `<div class="card"><b>폐허가 된 집에서</b><br>도적떼가 지나간 자리에 흔적만 남아있구나.</div>`;
+      document.getElementById('notes').innerHTML = 
+        `<div class="card"><b>담장 너머의 시 (詩)</b><br>버드나무 아래 낭자를 본 순간 전생의 인연임을 직감했다. 유교적 예법을 무릅쓰고 담장 너머로 마음을 전했던 날.</div>` +
+        `<div class="card"><b>절의와 효도 (節義와 孝)</b><br>도적의 칼날 앞에서도 정절을 지키고, 돌아와 부모님의 유골을 수습해 효를 다한 최 낭자의 숭고함.</div>` +
+        `<div class="card"><b>윤회의 길 (輪廻)</b><br>저승의 법도에 따라 떠나간 낭자. 다음 생 삼도천을 건너 다시 만날 날만을 기약한다.</div>`;
     };
   </script>
 </body>
