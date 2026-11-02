@@ -7,9 +7,7 @@
   <style>
     :root {
       --bg-color: #f2f2f7;
-      --card-bg: #ffffff;
       --accent-blue: #007aff;
-      --text-main: #000000;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", sans-serif; }
@@ -68,12 +66,12 @@
     .app-screen { display: none; height: 100%; padding: 16px; flex-direction: column; }
     .app-screen.active { display: flex; }
 
-    /* 홈화면 */
+    /* --- 홈화면 --- */
     .home-screen {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px 16px;
-      padding: 30px 20px;
+      gap: 20px 14px;
+      padding: 20px 16px;
     }
     .app-icon {
       display: flex;
@@ -82,24 +80,33 @@
       cursor: pointer;
     }
     .icon-box {
-      width: 60px;
-      height: 60px;
+      width: 58px;
+      height: 58px;
       border-radius: 14px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 28px;
+      font-size: 26px;
       color: white;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       margin-bottom: 6px;
     }
     .app-name { font-size: 11px; color: #333; text-align: center; }
 
+    /* 아이콘 색상 그라데이션 */
+    .icon-phone { background: linear-gradient(180deg, #34c759, #28a745); }
+    .icon-safari { background: linear-gradient(180deg, #007aff, #0056b3); }
     .icon-messages { background: linear-gradient(180deg, #34c759, #30d158); }
     .icon-photos { background: linear-gradient(180deg, #ff9500, #ff3b30); }
+    .icon-camera { background: linear-gradient(180deg, #8e8e93, #636366); }
     .icon-notes { background: linear-gradient(180deg, #ffcc00, #ff9500); }
+    .icon-clock { background: linear-gradient(180deg, #1c1c1e, #000000); }
+    .icon-maps { background: linear-gradient(180deg, #30d158, #10b981); }
+    .icon-weather { background: linear-gradient(180deg, #64d2ff, #0a84ff); }
+    .icon-podcasts { background: linear-gradient(180deg, #bf5af2, #5e5ce6); }
+    .icon-settings { background: linear-gradient(180deg, #8e8e93, #48484a); }
 
-    /* 메시지 채팅 UI */
+    /* --- 메시지 앱 --- */
     .chat-header {
       text-align: center;
       padding: 6px 0 12px;
@@ -140,7 +147,6 @@
       border-bottom-left-radius: 4px;
     }
 
-    /* 선택지 영역 */
     .choice-area {
       display: flex;
       flex-direction: column;
@@ -160,12 +166,49 @@
       transition: all 0.2s;
       text-align: center;
     }
-    .choice-btn:hover {
-      background: var(--accent-blue);
-      color: white;
+    .choice-btn.bad {
+      border-color: #ff3b30;
+      color: #ff3b30;
+    }
+    .choice-btn:hover { background: var(--accent-blue); color: white; }
+    .choice-btn.bad:hover { background: #ff3b30; color: white; }
+
+    /* --- 사진첩 앱 (iOS 3열 그리드 스타일) --- */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      overflow-y: auto;
+    }
+    .photo-thumb {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 4px;
+      cursor: pointer;
     }
 
-    /* 카드형 UI */
+    /* 사진 상세 모달 */
+    .modal {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 200;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    .modal img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
+    .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .modal-desc { font-size: 12px; color: #ccc; line-height: 1.4; margin-bottom: 16px; }
+    .modal-close { background: white; color: black; border: none; padding: 6px 16px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+    /* --- 메모장 앱 --- */
     .card-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
     .card {
       background: white;
@@ -176,15 +219,6 @@
     .card-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; color: #000; }
     .card-date { font-size: 11px; color: #8e8e93; margin-bottom: 8px; }
     .card-body { font-size: 12px; color: #3c3c43; white-space: pre-line; line-height: 1.5; }
-
-    .photo-frame {
-      width: 100%;
-      height: 130px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 8px;
-      margin-bottom: 8px;
-    }
 
     /* 하단 홈 바 */
     .home-bar-area {
@@ -216,7 +250,7 @@
     <!-- 스크린 화면 -->
     <div class="screen">
       
-      <!-- 1. 홈 화면 -->
+      <!-- 1. 아이폰 홈 화면 -->
       <div id="home" class="app-screen active">
         <div class="home-screen">
           <div class="app-icon" onclick="openApp('messages')">
@@ -231,10 +265,42 @@
             <div class="icon-box icon-notes">📝</div>
             <span class="app-name">메모</span>
           </div>
+          <div class="app-icon" onclick="alert('전화 기능은 비활성화되어 있습니다.')">
+            <div class="icon-box icon-phone">📞</div>
+            <span class="app-name">전화</span>
+          </div>
+          <div class="app-icon" onclick="alert('사파리 연결을 찾을 수 없습니다.')">
+            <div class="icon-box icon-safari">🧭</div>
+            <span class="app-name">Safari</span>
+          </div>
+          <div class="app-icon" onclick="alert('카메라 앱을 실행할 수 없습니다.')">
+            <div class="icon-box icon-camera">📷</div>
+            <span class="app-name">카메라</span>
+          </div>
+          <div class="app-icon" onclick="alert('현재 시각: 밤 9시 41분')">
+            <div class="icon-box icon-clock">⏰</div>
+            <span class="app-name">시계</span>
+          </div>
+          <div class="app-icon" onclick="alert('개성 송도 지도가 로드되었습니다.')">
+            <div class="icon-box icon-maps">🗺️</div>
+            <span class="app-name">지도</span>
+          </div>
+          <div class="app-icon" onclick="alert('달빛이 밝은 밤입니다.')">
+            <div class="icon-box icon-weather">☀️</div>
+            <span class="app-name">날씨</span>
+          </div>
+          <div class="app-icon" onclick="alert('이생규장전 오디오북 플레이어')">
+            <div class="icon-box icon-podcasts">🎙️</div>
+            <span class="app-name">팟캐스트</span>
+          </div>
+          <div class="app-icon" onclick="alert('설정 기능 준비 중')">
+            <div class="icon-box icon-settings">⚙️</div>
+            <span class="app-name">설정</span>
+          </div>
         </div>
       </div>
 
-      <!-- 2. 메시지 앱 -->
+      <!-- 2. 메시지 앱 (미연시 챗) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -247,28 +313,34 @@
         </div>
 
         <div class="choice-area" id="choiceArea">
-          <button class="choice-btn" onclick="makeChoice(1, '그대를 향한 그리움에 잠을 이룰 수 없소.')">그대를 향한 그리움에 잠을 이룰 수 없소.</button>
-          <button class="choice-btn" onclick="makeChoice(2, '당신이 정말 혼령이 되어 내게 돌아온 것이오?')">당신이 정말 혼령이 되어 내게 돌아온 것이오?</button>
+          <button class="choice-btn" onclick="sendMyMessage('그대를 향한 그리움에 잠을 이룰 수 없소.', 'good')">그대를 향한 그리움에 잠을 이룰 수 없소.</button>
+          <button class="choice-btn bad" onclick="sendMyMessage('귀신이 어찌 헛소리를 하느냐! 당장 물러가라!', 'bad')">귀신이 어찌 헛소리를 하느냐! 당장 물러가라! [배드엔딩]</button>
         </div>
       </div>
 
-      <!-- 3. 사진 앨범 앱 -->
+      <!-- 3. 사진 앨범 앱 (아이폰 3열 갤러리 10장) -->
       <div id="photos" class="app-screen">
-        <h2 style="font-size: 18px; margin-bottom: 10px;">추억 앨범</h2>
-        <div class="card-list">
-          <div class="card">
-            <div class="photo-frame" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400');"></div>
-            <div class="card-title">🌸 담장 너머의 첫 만남</div>
-            <div class="card-date">개성 송도 담장 밑</div>
-            <div class="card-body">담장 안으로 글을 넘기며 그대와 처음 마음을 주고받았던 그날...</div>
-          </div>
-          <div class="card">
-            <div class="photo-frame" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400');"></div>
-            <div class="card-title">🌙 죽음을 넘어선 재회</div>
-            <div class="card-date">비극 이후의 어느 밤</div>
-            <div class="card-body">홍건적의 난으로 이별했으나, 저승의 법도를 어기고 내 곁으로 돌아와 준 소중한 당신.</div>
-          </div>
+        <h2 style="font-size: 16px; margin-bottom: 8px;">라이브러리 (10장)</h2>
+        <div class="photo-grid">
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300');" onclick="showPhoto('🌸 담장 너머의 첫 만남', '담장 안으로 글을 넘기며 그대와 처음 눈을 맞추던 날.', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300');" onclick="showPhoto('🌙 달빛 아래 시회', '은은한 달빛을 조명 삼아 함께 시를 읊던 소중한 시간.', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=300');" onclick="showPhoto('💍 언약의 증표', '양가 부모님의 반대를 무릅쓰고 주고받았던 은가락지.', 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=300');" onclick="showPhoto('⛰️ 송림 산책', '서당 수업이 끝나고 함께 거닐던 개성 송악산 길.', 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=300');" onclick="showPhoto('🍁 단풍 밑 맹세', '가을 단풍처럼 붉고 영원한 사랑을 약속하던 날.', 'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300');" onclick="showPhoto('🍵 신혼의 안락함', '마침내 결실을 맺고 부부의 정을 나누던 날들.', 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300');" onclick="showPhoto('🔥 홍건적의 난 비극', '전쟁의 화마가 휩쓸고 지나가 최씨를 잃었던 비통한 순간.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300');" onclick="showPhoto('👻 혼령의 환생', '죽음을 초월하여 밤 안개 속에서 환생해 나타난 최씨.', 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=300');" onclick="showPhoto('✨ 3년간의 행복', '이승 사람들의 눈을 피해 다시 나눈 기적 같은 나날.', 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=300');" onclick="showPhoto('🌅 영원한 이별', '저승의 기한이 다하여 바람처럼 사라진 최씨의 넋.', 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400')"></div>
         </div>
+      </div>
+
+      <!-- 사진 모달 팝업 -->
+      <div class="modal" id="photoModal">
+        <img id="modalImg" src="" alt="사진">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+        <button class="modal-close" onclick="closePhoto()">닫기</button>
       </div>
 
       <!-- 4. 메모장 앱 -->
@@ -310,56 +382,84 @@
       document.getElementById('home').classList.add('active');
     }
 
+    /* 사진 모달 팝업 */
+    function showPhoto(title, desc, url) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDesc').innerText = desc;
+      document.getElementById('modalImg').src = url;
+      document.getElementById('photoModal').style.display = 'flex';
+    }
+
+    function closePhoto() {
+      document.getElementById('photoModal').style.display = 'none';
+    }
+
+    /* 미연시 선택지 및 배드엔딩 처리 */
     let step = 1;
 
-    function makeChoice(choiceNum, selectedText) {
+    function sendMyMessage(text, type) {
       const chatList = document.getElementById('chatList');
       const choiceArea = document.getElementById('choiceArea');
 
-      // 1. 내가 클릭한 대답 메시지를 즉시 화면 오른쪽(내 말풍선)에 표시
+      // 1. 내 선택 메시지 표시
       const myBubble = document.createElement('div');
       myBubble.className = 'bubble me';
-      myBubble.innerText = selectedText;
+      myBubble.textContent = text;
       chatList.appendChild(myBubble);
       chatList.scrollTop = chatList.scrollHeight;
 
-      // 2. 선택 후 버튼 지우기
       choiceArea.innerHTML = '';
 
-      // 3. 최낭자 혼령의 답변 및 다음 선택지 진행
-      if (step === 1) {
+      // 2. 배드엔딩 선택 시: 혼령의 슬픈 반응 후 메시지 앱 자동 종료(홈으로 이동)
+      if (type === 'bad') {
         setTimeout(() => {
           const ghostReply = document.createElement('div');
           ghostReply.className = 'bubble ghost';
-          
-          if (choiceNum === 1) {
-            ghostReply.innerText = "저 역시 낭군님을 잊지 못해 이승과 저승의 한계를 넘어 이렇게 찾아왔답니다...";
-          } else {
-            ghostReply.innerText = "비록 육신은 산산조각 났으나, 낭군님을 향한 제 넋은 사라지지 않고 돌아왔습니다.";
-          }
+          ghostReply.textContent = "낭군님... 정녕 저를 귀신이라 물리치시는군요... 슬프도다...";
           chatList.appendChild(ghostReply);
           chatList.scrollTop = chatList.scrollHeight;
 
-          // 다음 선택지 버튼 생성
+          // 1.2초 후 미연시 창 강제 닫기 (홈화면으로 튕김)
+          setTimeout(() => {
+            alert('최낭자의 혼령이 슬피 울며 사라졌습니다. (메시지 앱 종료)');
+            goHome();
+            
+            // 리셋
+            chatList.innerHTML = `<div class="bubble ghost">낭군님, 밤이 깊었는데 아직 잠들지 못하셨나요?</div>`;
+            choiceArea.innerHTML = `
+              <button class="choice-btn" onclick="sendMyMessage('그대를 향한 그리움에 잠을 이룰 수 없소.', 'good')">그대를 향한 그리움에 잠을 이룰 수 없소.</button>
+              <button class="choice-btn bad" onclick="sendMyMessage('귀신이 어찌 헛소리를 하느냐! 당장 물러가라!', 'bad')">귀신이 어찌 헛소리를 하느냐! 당장 물러가라! [배드엔딩]</button>
+            `;
+            step = 1;
+          }, 1200);
+        }, 600);
+        return;
+      }
+
+      // 3. 해피/스토리 진행
+      setTimeout(() => {
+        const ghostReply = document.createElement('div');
+        ghostReply.className = 'bubble ghost';
+
+        if (step === 1) {
+          ghostReply.textContent = "저 역시 낭군님을 잊지 못해 이승과 저승의 한계를 넘어 이렇게 찾아왔답니다...";
+          chatList.appendChild(ghostReply);
+          chatList.scrollTop = chatList.scrollHeight;
+
           choiceArea.innerHTML = `
-            <button class="choice-btn" onclick="makeChoice(1, '우리 다시는 헤어지지 말고 영원히 함께합시다.')">우리 다시는 헤어지지 말고 영원히 함께합시다.</button>
-            <button class="choice-btn" onclick="makeChoice(2, '이것이 꿈이라 해도 좋으니 내 곁에 머물러주오.')">이것이 꿈이라 해도 좋으니 내 곁에 머물러주오.</button>
+            <button class="choice-btn" onclick="sendMyMessage('우리 다시는 헤어지지 말고 영원히 함께합시다.', 'good')">우리 다시는 헤어지지 말고 영원히 함께합시다.</button>
+            <button class="choice-btn bad" onclick="sendMyMessage('너는 이미 죽은 몸이다. 어서 저승으로 돌아가라.', 'bad')">너는 이미 죽은 몸이다. 어서 저승으로 돌아가라. [배드엔딩]</button>
           `;
           step = 2;
-        }, 800);
 
-      } else if (step === 2) {
-        setTimeout(() => {
-          const ghostReply = document.createElement('div');
-          ghostReply.className = 'bubble ghost';
-          ghostReply.innerText = "낭군님... 비록 저승의 명수가 정해져 있어 머지않아 떠나야 하지만, 지금 이 순간만큼은 오직 두 사람만의 사랑을 나누어요.";
+        } else if (step === 2) {
+          ghostReply.textContent = "낭군님... 비록 저승의 명수가 정해져 있어 머지않아 떠나야 하지만, 지금 이 순간만큼은 오직 두 사람만의 사랑을 나누어요.";
           chatList.appendChild(ghostReply);
           chatList.scrollTop = chatList.scrollHeight;
 
-          // 엔딩 안내
           choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#8e8e93; padding:10px;">[엔딩: 시공을 초월한 애절한 사랑]</div>`;
-        }, 800);
-      }
+        }
+      }, 600);
     }
   </script>
 </body>
