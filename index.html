@@ -5,158 +5,183 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>이생규장전 - 이생의 핸드폰</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; user-select: none; }
-    body { background-color: #121212; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+      user-select: none; 
+    }
+    body { 
+      background-color: #0b0b0e; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      overflow: hidden; 
+      padding: 20px 0;
+    }
     
-    /* 아이폰 프레임 크기 및 레이아웃 수정 */
-    .iphone-frame { width: 375px; height: 760px; background-color: #000; border-radius: 48px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 12px #2d2d2d; position: relative; overflow: hidden; display: flex; flex-direction: column; }
-    .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background-color: #000; border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; z-index: 9999; }
-    .status-bar { height: 40px; color: #fff; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 6px 24px; font-size: 13px; font-weight: 600; z-index: 9998; }
-    .screen { flex: 1; position: relative; background-color: #f2f2f7; overflow: hidden; display: flex; flex-direction: column; }
-    .home-indicator { width: 134px; height: 5px; background-color: #fff; border-radius: 3px; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 9999; pointer-events: none; }
+    /* 실제 최신 아이폰(19.5:9) 비율로 세로 크기를 넉넉하게 확장 */
+    .iphone-frame { 
+      width: 410px; 
+      height: 880px; 
+      background-color: #000; 
+      border-radius: 54px; 
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 12px #2c2c2e; 
+      position: relative; 
+      overflow: hidden; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    .notch { 
+      position: absolute; 
+      top: 0; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 140px; 
+      height: 30px; 
+      background-color: #000; 
+      border-bottom-left-radius: 20px; 
+      border-bottom-right-radius: 20px; 
+      z-index: 9999; 
+    }
+    .status-bar { 
+      height: 44px; 
+      color: #fff; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-end; 
+      padding: 0 28px 8px 28px; 
+      font-size: 14px; 
+      font-weight: 600; 
+      z-index: 9998; 
+    }
+    .screen { 
+      flex: 1; 
+      position: relative; 
+      background-color: #f2f2f7; 
+      overflow: hidden; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    .home-indicator { 
+      width: 134px; 
+      height: 5px; 
+      background-color: #fff; 
+      border-radius: 3px; 
+      position: absolute; 
+      bottom: 8px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      z-index: 9999; 
+      pointer-events: none; 
+    }
     
-    .home-screen { width: 100%; height: 100%; background: linear-gradient(180deg, #1c1c1e 0%, #2c2c2e 100%); padding: 60px 20px 20px 20px; display: flex; flex-direction: column; align-items: center; }
-    .wallpaper-title { color: rgba(255, 255, 255, 0.6); font-size: 14px; margin-top: 10px; letter-spacing: 2px; }
-    .app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; width: 100%; padding: 0 10px; }
-    .app-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-    .app-box { width: 64px; height: 64px; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.1s; }
+    /* iOS 17 홈 화면 스타일 */
+    .home-screen { 
+      width: 100%; 
+      height: 100%; 
+      background: linear-gradient(180deg, #1f2232 0%, #0d0f17 100%); 
+      padding: 65px 24px 20px 24px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    }
+    .lock-clock { 
+      color: rgba(255, 255, 255, 0.9); 
+      font-size: 42px; 
+      font-weight: 200; 
+      margin-top: 10px; 
+      letter-spacing: -1px; 
+    }
+    .lock-date { 
+      color: rgba(255, 255, 255, 0.6); 
+      font-size: 14px; 
+      font-weight: 500; 
+      margin-top: -4px; 
+    }
+    .wallpaper-title { 
+      color: rgba(255, 255, 255, 0.4); 
+      font-size: 13px; 
+      margin-top: 15px; 
+      letter-spacing: 3px; 
+    }
+    
+    .app-grid { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 28px 18px; 
+      margin-top: 60px; 
+      width: 100%; 
+    }
+    .app-icon { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      cursor: pointer; 
+    }
+    .app-box { 
+      width: 68px; 
+      height: 68px; 
+      border-radius: 18px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      font-size: 32px; 
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4); 
+      transition: transform 0.1s; 
+    }
     .app-box:active { transform: scale(0.9); }
-    .app-name { color: #fff; font-size: 12px; margin-top: 6px; font-weight: 500; }
-    .msg-bg { background: linear-gradient(135deg, #34c759, #30d158); }
-    .photo-bg { background: linear-gradient(135deg, #ff9500, #ffcc00); }
-    .note-bg { background: linear-gradient(135deg, #ffd60a, #ffb300); }
+    .app-name { color: #fff; font-size: 12px; margin-top: 8px; font-weight: 500; }
     
-    .app-window { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; display: none; flex-direction: column; z-index: 10; animation: slideUp 0.25s ease-out forwards; }
+    .msg-bg { background: linear-gradient(135deg, #34c759, #30d158); }
+    .photo-bg { background: linear-gradient(135deg, #ff9500, #ff5e00); }
+    .note-bg { background: linear-gradient(135deg, #ffd60a, #ff9500); }
+    
+    .app-window { 
+      position: absolute; 
+      top: 0; left: 0; 
+      width: 100%; height: 100%; 
+      background-color: #fff; 
+      display: none; 
+      flex-direction: column; 
+      z-index: 10; 
+      animation: slideUp 0.25s ease-out forwards; 
+    }
     .app-window.active { display: flex; }
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-    .app-header { height: 88px; background-color: rgba(246, 246, 246, 0.9); backdrop-filter: blur(10px); border-bottom: 0.5px solid #c6c6c8; display: flex; align-items: flex-end; padding: 0 16px 10px 16px; justify-content: space-between; z-index: 20; flex-shrink: 0; }
+    
+    .app-header { 
+      height: 92px; 
+      background-color: rgba(246, 246, 246, 0.95); 
+      backdrop-filter: blur(10px); 
+      border-bottom: 0.5px solid #c6c6c8; 
+      display: flex; 
+      align-items: flex-end; 
+      padding: 0 16px 12px 16px; 
+      justify-content: space-between; 
+      z-index: 20; 
+      flex-shrink: 0; 
+    }
     .back-btn { color: #007aff; font-size: 16px; cursor: pointer; display: flex; align-items: center; font-weight: 500; }
     .header-title { font-size: 17px; font-weight: 600; color: #000; }
     
-    .chat-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background-color: #7b8b9e; min-height: 0; }
+    /* 대화창 레이아웃 및 짤림 완벽 방지 */
+    .chat-body { 
+      flex: 1; 
+      padding: 16px; 
+      overflow-y: auto; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      background-color: #728294; 
+      min-height: 0; 
+    }
     .chat-date { align-self: center; background-color: rgba(0, 0, 0, 0.2); color: #fff; font-size: 11px; padding: 4px 12px; border-radius: 10px; margin: 8px 0; }
     .message { display: flex; flex-direction: column; max-width: 80%; }
     .message.received { align-self: flex-start; }
     .message.sent { align-self: flex-end; }
-    .sender-name { font-size: 11px; color: #333; margin-bottom: 3px; margin-left: 4px; }
+    .sender-name { font-size: 11px; color: #222; margin-bottom: 3px; margin-left: 4px; font-weight: 500; }
     .bubble { padding: 10px 14px; border-radius: 18px; font-size: 14px; line-height: 1.4; word-break: break-word; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
     .received .bubble { background-color: #ffffff; color: #000000; border-top-left-radius: 4px; }
-    .sent .bubble { background-color: #ffe812; color: #000000; border-top-right-radius: 4px; }
-    
-    /* 하단 선택지 영역 짤림 방지 핵심 수정 (하단 여백 35px 추가 및 패딩 조율) */
-    .choice-container { 
-      background-color: #f2f2f7; 
-      padding: 10px 16px 35px 16px; 
-      border-top: 0.5px solid #d1d1d6; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 6px; 
-      max-height: 200px; 
-      overflow-y: auto; 
-      flex-shrink: 0; 
-    }
-    .choice-btn { 
-      background-color: #ffffff; 
-      color: #007aff; 
-      border: 1px solid #007aff; 
-      padding: 9px 12px; 
-      border-radius: 12px; 
-      font-size: 13px; 
-      font-weight: 600; 
-      text-align: center; 
-      cursor: pointer; 
-      transition: background 0.2s; 
-      line-height: 1.3; 
-    }
-    .choice-btn:active { background-color: #007aff; color: #ffffff; }
-    
-    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 2px; overflow-y: auto; flex: 1; background-color: #fff; }
-    .photo-item { aspect-ratio: 1; background-size: cover; background-position: center; cursor: pointer; position: relative; }
-    .photo-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
-    .photo-modal img { max-width: 100%; max-height: 60%; border-radius: 8px; object-fit: contain; }
-    .photo-modal .caption { color: #fff; margin-top: 16px; text-align: center; font-size: 14px; line-height: 1.5; }
-    .photo-modal .close-btn { position: absolute; top: 50px; right: 20px; color: #fff; font-size: 24px; cursor: pointer; }
-    
-    .note-list { flex: 1; overflow-y: auto; background-color: #f2f2f7; padding: 16px 16px 35px 16px; }
-    .note-card { background-color: #fff; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .note-title { font-size: 16px; font-weight: 700; color: #1c1c1e; margin-bottom: 6px; }
-    .note-date { font-size: 11px; color: #8e8e93; margin-bottom: 8px; }
-    .note-content { font-size: 13px; color: #3a3a3c; line-height: 1.5; white-space: pre-line; }
-  </style>
-</head>
-<body>
-  <div class="iphone-frame">
-    <div class="notch"></div>
-    <div class="status-bar"><span>9:41</span><span>📶 🛜 🔋</span></div>
-    <div class="screen">
-      <div class="home-screen">
-        <h2 style="color: white; font-weight: 300; margin-top: 30px;">이생의 스마트폰</h2>
-        <p class="wallpaper-title">《李生窺牆傳》</p>
-        <div class="app-grid">
-          <div class="app-icon" onclick="openApp('chat-app')"><div class="app-box msg-bg">💬</div><span class="app-name">최씨낭자</span></div>
-          <div class="app-icon" onclick="openApp('photo-app')"><div class="app-box photo-bg">🖼️</div><span class="app-name">사진첩</span></div>
-          <div class="app-icon" onclick="openApp('note-app')"><div class="app-box note-bg">📝</div><span class="app-name">독백 메모</span></div>
-        </div>
-      </div>
-      <div id="chat-app" class="app-window">
-        <div class="app-header"><div class="back-btn" onclick="closeApp('chat-app')">❮ 홈으로</div><div class="header-title">최씨 낭자 (환신)</div><div style="width: 50px;"></div></div>
-        <div class="chat-body" id="chat-body"><div class="chat-date">오늘 (달빛이 비추는 밤)</div></div>
-        <div class="choice-container" id="choice-container"></div>
-      </div>
-      <div id="photo-app" class="app-window">
-        <div class="app-header"><div class="back-btn" onclick="closeApp('photo-app')">❮ 홈으로</div><div class="header-title">추억 사진첩</div><div style="width: 50px;"></div></div>
-        <div class="photo-grid" id="photo-grid"></div>
-        <div class="photo-modal" id="photo-modal"><span class="close-btn" onclick="closePhotoModal()">✕</span><img id="modal-img" src="" alt="사진"><div class="caption" id="modal-caption"></div></div>
-      </div>
-      <div id="note-app" class="app-window">
-        <div class="app-header"><div class="back-btn" onclick="closeApp('note-app')">❮ 홈으로</div><div class="header-title">이생의 비밀일기</div><div style="width: 50px;"></div></div>
-        <div class="note-list" id="note-list"></div>
-      </div>
-    </div>
-    <div class="home-indicator"></div>
-  </div>
-  <script>
-    const GAME_DIALOGUES = {
-      start: {
-        messages: [
-          { sender: "최씨", text: "낭군님... 밤안개가 깊은데 아직 자지 않고 계신가요?" },
-          { sender: "최씨", text: "홍건적의 난에 유명을 달리했으나, 낭군과의 약속을 잊지 못해 다시 찾아왔습니다." }
-        ],
-        choices: [
-          { text: "낭자! 정녕 당신이란 말이오? 이게 꿈은 아니겠지요?", nextKey: "path_1" },
-          { text: "무서워라... 이미 돌아가신 분이 어찌 다시 올 수 있습니까?", nextKey: "path_2" }
-        ]
-      },
-      path_1: {
-        messages: [
-          { sender: "이생", text: "낭자! 정녕 당신이란 말이오? 이게 꿈은 아니겠지요?" },
-          { sender: "최씨", text: "꿈이 아닙니다. 저승의 법도를 어기고 낭군을 뵙고자 이리 왔사옵니다." },
-          { sender: "최씨", text: "우리가 담장을 넘어 시를 나누던 그 시절이 그립지 않으신가요?" }
-        ],
-        choices: [
-          { text: "어찌 잊겠습니까. 그대와 평생 함께 살고 싶습니다.", nextKey: "path_happy" },
-          { text: "하지만 당신은 이미 이 세상 사람이 아니지 않소...", nextKey: "path_sad" }
-        ]
-      },
-      path_2: {
-        messages: [
-          { sender: "이생", text: "무서워라... 이미 돌아가신 분이 어찌 다시 올 수 있습니까?" },
-          { sender: "최씨", text: "소녀의 절의를 모르시지 않을 텐데, 어찌 저를 무서워하십니까..." },
-          { sender: "최씨", text: "비록 몸은 죽었으나 낭군을 향한 마음은 진실입니다." }
-        ],
-        choices: [
-          { text: "내가 미안하오. 그대를 향한 그리움이 눈을 가렸었소.", nextKey: "path_happy" },
-          { text: "돌아가시오... 산 자와 죽은 자는 함께할 수 없는 법이오.", nextKey: "path_sad" }
-        ]
-      },
-      path_happy: {
-        messages: [
-          { sender: "이생", text: "이승이든 저승이든 상관없소. 그대와 다시 한평생을 보낼 수 있다면..." },
-          { sender: "최씨", text: "고맙습니다 낭군님... 인연이 다하는 그날까지 우리 함께 서로를 지켜주어요." }
-        ],
-        choices: [
-          { text: "🔄 대화 다시 시작하기", nextKey: "start" },
-          { text: "📝 메모장에 이 순간을 기록하기", nextKey: "note_hint" }
-        ]
-      },
-      path_sad:
