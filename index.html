@@ -7,7 +7,9 @@
   <style>
     :root {
       --bg-color: #f2f2f7;
+      --card-bg: #ffffff;
       --accent-blue: #007aff;
+      --text-main: #000000;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", sans-serif; }
@@ -21,6 +23,7 @@
       padding: 20px;
     }
 
+    /* 아이폰 프레임 */
     .iphone {
       width: 375px;
       height: 760px;
@@ -33,6 +36,7 @@
       flex-direction: column;
     }
 
+    /* 상단바 & 노치 */
     .status-bar {
       height: 48px;
       padding: 0 24px;
@@ -66,12 +70,42 @@
     .app-screen { display: none; height: 100%; padding: 16px; flex-direction: column; }
     .app-screen.active { display: flex; }
 
-    /* --- 홈화면 --- */
-    .home-screen {
+    /* --- 홈화면 & 위젯 --- */
+    .home-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      padding: 10px 14px;
+    }
+
+    /* 상단 시계 & 날씨 위젯 */
+    .widget-area {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .widget {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .widget-clock { font-size: 26px; font-weight: 700; color: #1c1c1e; }
+    .widget-date { font-size: 11px; color: #8e8e93; margin-top: 2px; }
+    .widget-weather { font-size: 13px; font-weight: 600; color: #1c1c1e; }
+    .widget-sub { font-size: 11px; color: #007aff; margin-top: 4px; }
+
+    /* 메인 앱 그리드 */
+    .app-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px 14px;
-      padding: 20px 16px;
+      gap: 16px 10px;
     }
     .app-icon {
       display: flex;
@@ -80,8 +114,8 @@
       cursor: pointer;
     }
     .icon-box {
-      width: 58px;
-      height: 58px;
+      width: 56px;
+      height: 56px;
       border-radius: 14px;
       display: flex;
       justify-content: center;
@@ -89,24 +123,33 @@
       font-size: 26px;
       color: white;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .app-name { font-size: 11px; color: #333; text-align: center; }
 
-    /* 아이콘 색상 그라데이션 */
+    .icon-photos { background: linear-gradient(180deg, #ff9500, #ff3b30); }
+    .icon-notes { background: linear-gradient(180deg, #ffcc00, #ff9500); }
+    .icon-camera { background: linear-gradient(180deg, #8e8e93, #636366); }
+    .icon-maps { background: linear-gradient(180deg, #30d158, #10b981); }
+    .icon-weather { background: linear-gradient(180deg, #64d2ff, #0a84ff); }
+    .icon-settings { background: linear-gradient(180deg, #8e8e93, #48484a); }
+
+    /* 하단 Dock (전화, 사파리, 메시지, 음악) */
+    .dock-bar {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-around;
+      margin-top: auto;
+    }
     .icon-phone { background: linear-gradient(180deg, #34c759, #28a745); }
     .icon-safari { background: linear-gradient(180deg, #007aff, #0056b3); }
     .icon-messages { background: linear-gradient(180deg, #34c759, #30d158); }
-    .icon-photos { background: linear-gradient(180deg, #ff9500, #ff3b30); }
-    .icon-camera { background: linear-gradient(180deg, #8e8e93, #636366); }
-    .icon-notes { background: linear-gradient(180deg, #ffcc00, #ff9500); }
-    .icon-clock { background: linear-gradient(180deg, #1c1c1e, #000000); }
-    .icon-maps { background: linear-gradient(180deg, #30d158, #10b981); }
-    .icon-weather { background: linear-gradient(180deg, #64d2ff, #0a84ff); }
-    .icon-podcasts { background: linear-gradient(180deg, #bf5af2, #5e5ce6); }
-    .icon-settings { background: linear-gradient(180deg, #8e8e93, #48484a); }
+    .icon-music { background: linear-gradient(180deg, #ff2d55, #ff375f); }
 
-    /* --- 메시지 앱 --- */
+    /* --- 메시지 앱 (iMessage 스타일) --- */
     .chat-header {
       text-align: center;
       padding: 6px 0 12px;
@@ -147,6 +190,7 @@
       border-bottom-left-radius: 4px;
     }
 
+    /* 선택지 버튼 (모두 동일한 아이폰 블루 디자인) */
     .choice-area {
       display: flex;
       flex-direction: column;
@@ -166,14 +210,9 @@
       transition: all 0.2s;
       text-align: center;
     }
-    .choice-btn.bad {
-      border-color: #ff3b30;
-      color: #ff3b30;
-    }
     .choice-btn:hover { background: var(--accent-blue); color: white; }
-    .choice-btn.bad:hover { background: #ff3b30; color: white; }
 
-    /* --- 사진첩 앱 (iOS 3열 그리드 스타일) --- */
+    /* --- 사진첩 앱 (3열 그리드) --- */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -189,7 +228,6 @@
       cursor: pointer;
     }
 
-    /* 사진 상세 모달 */
     .modal {
       display: none;
       position: absolute;
@@ -250,57 +288,72 @@
     <!-- 스크린 화면 -->
     <div class="screen">
       
-      <!-- 1. 아이폰 홈 화면 -->
+      <!-- 1. 아이폰 홈 화면 (위젯 + 앱 + 하단 Dock) -->
       <div id="home" class="app-screen active">
-        <div class="home-screen">
-          <div class="app-icon" onclick="openApp('messages')">
-            <div class="icon-box icon-messages">💬</div>
-            <span class="app-name">메시지</span>
+        <div class="home-container">
+          
+          <!-- 위젯 영역 -->
+          <div>
+            <div class="widget-area">
+              <div class="widget">
+                <div class="widget-clock">09:41</div>
+                <div class="widget-date">조선 세종 해, 달빛 밝은 밤</div>
+              </div>
+              <div class="widget">
+                <div class="widget-weather">🌙 14° 맑음</div>
+                <div class="widget-sub">개성 송도 담장 밑</div>
+              </div>
+            </div>
+
+            <!-- 메인 아이콘 그리드 -->
+            <div class="app-grid">
+              <div class="app-icon" onclick="openApp('photos')">
+                <div class="icon-box icon-photos">🖼️</div>
+                <span class="app-name">사진</span>
+              </div>
+              <div class="app-icon" onclick="openApp('notes')">
+                <div class="icon-box icon-notes">📝</div>
+                <span class="app-name">메모</span>
+              </div>
+              <div class="app-icon" onclick="alert('개성 송도 지도가 로드되었습니다.')">
+                <div class="icon-box icon-maps">🗺️</div>
+                <span class="app-name">지도</span>
+              </div>
+              <div class="app-icon" onclick="alert('카메라 앱을 실행할 수 없습니다.')">
+                <div class="icon-box icon-camera">📷</div>
+                <span class="app-name">카메라</span>
+              </div>
+              <div class="app-icon" onclick="alert('달빛이 은은하게 비치는 밤입니다.')">
+                <div class="icon-box icon-weather">☀️</div>
+                <span class="app-name">날씨</span>
+              </div>
+              <div class="app-icon" onclick="alert('설정 준비 중')">
+                <div class="icon-box icon-settings">⚙️</div>
+                <span class="app-name">설정</span>
+              </div>
+            </div>
           </div>
-          <div class="app-icon" onclick="openApp('photos')">
-            <div class="icon-box icon-photos">🖼️</div>
-            <span class="app-name">사진</span>
+
+          <!-- 하단 Dock (전화, Safari, 메시지, 음악) -->
+          <div class="dock-bar">
+            <div class="app-icon" onclick="alert('전화 연결이 끊겨 있습니다.')">
+              <div class="icon-box icon-phone">📞</div>
+            </div>
+            <div class="app-icon" onclick="alert('사파리 연결을 찾을 수 없습니다.')">
+              <div class="icon-box icon-safari">🧭</div>
+            </div>
+            <div class="app-icon" onclick="openApp('messages')">
+              <div class="icon-box icon-messages">💬</div>
+            </div>
+            <div class="app-icon" onclick="alert('이생규장전 시 연작 음원이 재생 중입니다.')">
+              <div class="icon-box icon-music">🎵</div>
+            </div>
           </div>
-          <div class="app-icon" onclick="openApp('notes')">
-            <div class="icon-box icon-notes">📝</div>
-            <span class="app-name">메모</span>
-          </div>
-          <div class="app-icon" onclick="alert('전화 기능은 비활성화되어 있습니다.')">
-            <div class="icon-box icon-phone">📞</div>
-            <span class="app-name">전화</span>
-          </div>
-          <div class="app-icon" onclick="alert('사파리 연결을 찾을 수 없습니다.')">
-            <div class="icon-box icon-safari">🧭</div>
-            <span class="app-name">Safari</span>
-          </div>
-          <div class="app-icon" onclick="alert('카메라 앱을 실행할 수 없습니다.')">
-            <div class="icon-box icon-camera">📷</div>
-            <span class="app-name">카메라</span>
-          </div>
-          <div class="app-icon" onclick="alert('현재 시각: 밤 9시 41분')">
-            <div class="icon-box icon-clock">⏰</div>
-            <span class="app-name">시계</span>
-          </div>
-          <div class="app-icon" onclick="alert('개성 송도 지도가 로드되었습니다.')">
-            <div class="icon-box icon-maps">🗺️</div>
-            <span class="app-name">지도</span>
-          </div>
-          <div class="app-icon" onclick="alert('달빛이 밝은 밤입니다.')">
-            <div class="icon-box icon-weather">☀️</div>
-            <span class="app-name">날씨</span>
-          </div>
-          <div class="app-icon" onclick="alert('이생규장전 오디오북 플레이어')">
-            <div class="icon-box icon-podcasts">🎙️</div>
-            <span class="app-name">팟캐스트</span>
-          </div>
-          <div class="app-icon" onclick="alert('설정 기능 준비 중')">
-            <div class="icon-box icon-settings">⚙️</div>
-            <span class="app-name">설정</span>
-          </div>
+
         </div>
       </div>
 
-      <!-- 2. 메시지 앱 (미연시 챗) -->
+      <!-- 2. 메시지 앱 (이생규장전 서사 바탕 미연시 챗) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -309,12 +362,12 @@
         </div>
         
         <div class="message-list" id="chatList">
-          <div class="bubble ghost">낭군님, 밤이 깊었는데 아직 잠들지 못하셨나요?</div>
+          <div class="bubble ghost">낭군님, 이 깊은 밤 홀로 등불을 밝히고 계시나요...</div>
         </div>
 
         <div class="choice-area" id="choiceArea">
-          <button class="choice-btn" onclick="sendMyMessage('그대를 향한 그리움에 잠을 이룰 수 없소.', 'good')">그대를 향한 그리움에 잠을 이룰 수 없소.</button>
-          <button class="choice-btn bad" onclick="sendMyMessage('귀신이 어찌 헛소리를 하느냐! 당장 물러가라!', 'bad')">귀신이 어찌 헛소리를 하느냐! 당장 물러가라! [배드엔딩]</button>
+          <button class="choice-btn" onclick="sendMyMessage('그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.', 1)">그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.</button>
+          <button class="choice-btn" onclick="sendMyMessage('당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?', 2)">당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?</button>
         </div>
       </div>
 
@@ -382,7 +435,6 @@
       document.getElementById('home').classList.add('active');
     }
 
-    /* 사진 모달 팝업 */
     function showPhoto(title, desc, url) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalDesc').innerText = desc;
@@ -394,14 +446,14 @@
       document.getElementById('photoModal').style.display = 'none';
     }
 
-    /* 미연시 선택지 및 배드엔딩 처리 */
+    /* 이생규장전 원작 서사 미연시 진행 로직 */
     let step = 1;
 
-    function sendMyMessage(text, type) {
+    function sendMyMessage(text, choiceNum) {
       const chatList = document.getElementById('chatList');
       const choiceArea = document.getElementById('choiceArea');
 
-      // 1. 내 선택 메시지 표시
+      // 1. 내 대답 메시지를 오른쪽 파란 말풍선으로 화면에 즉시 출력
       const myBubble = document.createElement('div');
       myBubble.className = 'bubble me';
       myBubble.textContent = text;
@@ -410,56 +462,90 @@
 
       choiceArea.innerHTML = '';
 
-      // 2. 배드엔딩 선택 시: 혼령의 슬픈 반응 후 메시지 앱 자동 종료(홈으로 이동)
-      if (type === 'bad') {
-        setTimeout(() => {
-          const ghostReply = document.createElement('div');
-          ghostReply.className = 'bubble ghost';
-          ghostReply.textContent = "낭군님... 정녕 저를 귀신이라 물리치시는군요... 슬프도다...";
-          chatList.appendChild(ghostReply);
-          chatList.scrollTop = chatList.scrollHeight;
-
-          // 1.2초 후 미연시 창 강제 닫기 (홈화면으로 튕김)
-          setTimeout(() => {
-            alert('최낭자의 혼령이 슬피 울며 사라졌습니다. (메시지 앱 종료)');
-            goHome();
-            
-            // 리셋
-            chatList.innerHTML = `<div class="bubble ghost">낭군님, 밤이 깊었는데 아직 잠들지 못하셨나요?</div>`;
-            choiceArea.innerHTML = `
-              <button class="choice-btn" onclick="sendMyMessage('그대를 향한 그리움에 잠을 이룰 수 없소.', 'good')">그대를 향한 그리움에 잠을 이룰 수 없소.</button>
-              <button class="choice-btn bad" onclick="sendMyMessage('귀신이 어찌 헛소리를 하느냐! 당장 물러가라!', 'bad')">귀신이 어찌 헛소리를 하느냐! 당장 물러가라! [배드엔딩]</button>
-            `;
-            step = 1;
-          }, 1200);
-        }, 600);
-        return;
-      }
-
-      // 3. 해피/스토리 진행
+      // 2. 이생규장전 원작 서사 대화 진행
       setTimeout(() => {
         const ghostReply = document.createElement('div');
         ghostReply.className = 'bubble ghost';
 
         if (step === 1) {
-          ghostReply.textContent = "저 역시 낭군님을 잊지 못해 이승과 저승의 한계를 넘어 이렇게 찾아왔답니다...";
-          chatList.appendChild(ghostReply);
-          chatList.scrollTop = chatList.scrollHeight;
+          if (choiceNum === 1) {
+            ghostReply.textContent = "낭군님, 저 역시 이승의 미련을 버리지 못해 이슬을 머금고 찾아왔습니다. 기억하시나요... 담장 너머로 처음 시를 주고받았던 그날을...";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
 
-          choiceArea.innerHTML = `
-            <button class="choice-btn" onclick="sendMyMessage('우리 다시는 헤어지지 말고 영원히 함께합시다.', 'good')">우리 다시는 헤어지지 말고 영원히 함께합시다.</button>
-            <button class="choice-btn bad" onclick="sendMyMessage('너는 이미 죽은 몸이다. 어서 저승으로 돌아가라.', 'bad')">너는 이미 죽은 몸이다. 어서 저승으로 돌아가라. [배드엔딩]</button>
-          `;
-          step = 2;
+            choiceArea.innerHTML = `
+              <button class="choice-btn" onclick="sendMyMessage('어찌 잊겠소. 그대가 넘겨준 시 한 구절에 내 마음이 모두 흔들렸거늘.', 1)">어찌 잊겠소. 그대가 넘겨준 시 한 구절에 내 마음이 모두 흔들렸거늘.</button>
+              <button class="choice-btn" onclick="sendMyMessage('그 참혹했던 도적들의 난 속에서 정녕 목숨을 잃었던 것이오?', 2)">그 참혹했던 도적들의 난 속에서 정녕 목숨을 잃었던 것이오?</button>
+            `;
+            step = 2;
+          } else {
+            // 이별 엔딩 분기 (자동 메시지 창 종료)
+            ghostReply.textContent = "낭군님께서 저를 두려워하시니, 제 슬픈 넋은 더 이상 머무를 수 없군요... 부디 만수무강하십시오...";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
+
+            setTimeout(() => {
+              alert('최낭자의 혼령이 바람처럼 사라졌습니다. (메시지 앱 종료)');
+              resetChat();
+              goHome();
+            }, 1200);
+            return;
+          }
 
         } else if (step === 2) {
-          ghostReply.textContent = "낭군님... 비록 저승의 명수가 정해져 있어 머지않아 떠나야 하지만, 지금 이 순간만큼은 오직 두 사람만의 사랑을 나누어요.";
-          chatList.appendChild(ghostReply);
-          chatList.scrollTop = chatList.scrollHeight;
+          if (choiceNum === 1) {
+            ghostReply.textContent = "부모님의 반대도 극복하고 부부의 연을 맺었건만, 홍건적의 난으로 절개를 지키다 참변을 당하고 말았습니다... 하지만 낭군님을 향한 맹세는 죽어서도 변하지 않았어요.";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
 
-          choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#8e8e93; padding:10px;">[엔딩: 시공을 초월한 애절한 사랑]</div>`;
+            choiceArea.innerHTML = `
+              <button class="choice-btn" onclick="sendMyMessage('비록 환신일지라도 내 곁에 남아 영원히 함께해주오.', 1)">비록 환신일지라도 내 곁에 남아 영원히 함께해주오.</button>
+              <button class="choice-btn" onclick="sendMyMessage('저승의 법도가 있을 터인데 어찌 계속 머물 수 있겠소...', 2)">저승의 법도가 있을 터인데 어찌 계속 머물 수 있겠소...</button>
+            `;
+            step = 3;
+          } else {
+            ghostReply.textContent = "도적들에게 절개를 지키고자 스스로 목숨을 끊었답니다... 비록 육신은 산천에 버려졌으나 정인은 잊지 못해 찾아왔습니다.";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
+
+            choiceArea.innerHTML = `
+              <button class="choice-btn" onclick="sendMyMessage('내 손으로 시신을 거두고 그대의 억울함을 달래주겠소.', 1)">내 손으로 시신을 거두고 그대의 억울함을 달래주겠소.</button>
+              <button class="choice-btn" onclick="sendMyMessage('음양의 길이 다르니 이제 그만 미련을 거두시오.', 2)">음양의 길이 다르니 이제 그만 미련을 거두시오.</button>
+            `;
+            step = 3;
+          }
+
+        } else if (step === 3) {
+          if (choiceNum === 1) {
+            ghostReply.textContent = "낭군님... 비록 3년의 짧은 세월 동안만 이승에서 함께할 수 있는 명수이나, 당신과의 사랑은 천년이 지나도 영원할 것입니다.";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
+
+            choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#8e8e93; padding:10px;">[트루 엔딩: 죽음을 초월한 영원한 약속]</div>`;
+          } else {
+            ghostReply.textContent = "저승의 명수가 다하여 이제는 참으로 헤어질 시간인가 봅니다... 낭군님, 부디 평안히 지내소서...";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
+
+            setTimeout(() => {
+              alert('최낭자가 눈물을 흘리며 은하수 저편으로 사라졌습니다. (메시지 앱 종료)');
+              resetChat();
+              goHome();
+            }, 1200);
+          }
         }
       }, 600);
+    }
+
+    function resetChat() {
+      const chatList = document.getElementById('chatList');
+      const choiceArea = document.getElementById('choiceArea');
+      chatList.innerHTML = `<div class="bubble ghost">낭군님, 이 깊은 밤 홀로 등불을 밝히고 계시나요...</div>`;
+      choiceArea.innerHTML = `
+        <button class="choice-btn" onclick="sendMyMessage('그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.', 1)">그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.</button>
+        <button class="choice-btn" onclick="sendMyMessage('당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?', 2)">당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?</button>
+      `;
+      step = 1;
     }
   </script>
 </body>
