@@ -23,7 +23,6 @@
       padding: 20px;
     }
 
-    /* 아이폰 프레임 */
     .iphone {
       width: 375px;
       height: 760px;
@@ -36,7 +35,6 @@
       flex-direction: column;
     }
 
-    /* 상단바 & 노치 */
     .status-bar {
       height: 48px;
       padding: 0 24px;
@@ -70,7 +68,7 @@
     .app-screen { display: none; height: 100%; padding: 16px; flex-direction: column; }
     .app-screen.active { display: flex; }
 
-    /* --- 홈화면 & 위젯 --- */
+    /* 홈화면 */
     .home-container {
       display: flex;
       flex-direction: column;
@@ -79,7 +77,6 @@
       padding: 10px 14px;
     }
 
-    /* 상단 시계 & 날씨 위젯 */
     .widget-area {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -101,7 +98,6 @@
     .widget-weather { font-size: 13px; font-weight: 600; color: #1c1c1e; }
     .widget-sub { font-size: 11px; color: #007aff; margin-top: 4px; }
 
-    /* 메인 앱 그리드 */
     .app-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -134,7 +130,6 @@
     .icon-weather { background: linear-gradient(180deg, #64d2ff, #0a84ff); }
     .icon-settings { background: linear-gradient(180deg, #8e8e93, #48484a); }
 
-    /* 하단 Dock (전화, 사파리, 메시지, 음악) */
     .dock-bar {
       background: rgba(255, 255, 255, 0.45);
       backdrop-filter: blur(15px);
@@ -149,7 +144,7 @@
     .icon-messages { background: linear-gradient(180deg, #34c759, #30d158); }
     .icon-music { background: linear-gradient(180deg, #ff2d55, #ff375f); }
 
-    /* --- 메시지 앱 (iMessage 스타일) --- */
+    /* 메시지 앱 */
     .chat-header {
       text-align: center;
       padding: 6px 0 12px;
@@ -190,7 +185,6 @@
       border-bottom-left-radius: 4px;
     }
 
-    /* 선택지 버튼 (모두 동일한 아이폰 블루 디자인) */
     .choice-area {
       display: flex;
       flex-direction: column;
@@ -212,7 +206,7 @@
     }
     .choice-btn:hover { background: var(--accent-blue); color: white; }
 
-    /* --- 사진첩 앱 (3열 그리드) --- */
+    /* 사진첩 */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -246,15 +240,16 @@
     .modal-desc { font-size: 12px; color: #ccc; line-height: 1.4; margin-bottom: 16px; }
     .modal-close { background: white; color: black; border: none; padding: 6px 16px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
-    /* --- 메모장 앱 --- */
-    .card-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+    /* 메모장 */
+    .card-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
     .card {
       background: white;
       border-radius: 12px;
       padding: 14px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
-    .card-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; color: #000; }
+    .card-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; color: #000; }
+    .card-tag { font-size: 10px; color: #007aff; font-weight: 600; margin-bottom: 4px; }
     .card-date { font-size: 11px; color: #8e8e93; margin-bottom: 8px; }
     .card-body { font-size: 12px; color: #3c3c43; white-space: pre-line; line-height: 1.5; }
 
@@ -288,11 +283,9 @@
     <!-- 스크린 화면 -->
     <div class="screen">
       
-      <!-- 1. 아이폰 홈 화면 (위젯 + 앱 + 하단 Dock) -->
+      <!-- 1. 아이폰 홈 화면 -->
       <div id="home" class="app-screen active">
         <div class="home-container">
-          
-          <!-- 위젯 영역 -->
           <div>
             <div class="widget-area">
               <div class="widget">
@@ -305,7 +298,6 @@
               </div>
             </div>
 
-            <!-- 메인 아이콘 그리드 -->
             <div class="app-grid">
               <div class="app-icon" onclick="openApp('photos')">
                 <div class="icon-box icon-photos">🖼️</div>
@@ -334,7 +326,6 @@
             </div>
           </div>
 
-          <!-- 하단 Dock (전화, Safari, 메시지, 음악) -->
           <div class="dock-bar">
             <div class="app-icon" onclick="alert('전화 연결이 끊겨 있습니다.')">
               <div class="icon-box icon-phone">📞</div>
@@ -349,11 +340,10 @@
               <div class="icon-box icon-music">🎵</div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- 2. 메시지 앱 (이생규장전 서사 바탕 미연시 챗) -->
+      <!-- 2. 메시지 앱 -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -371,7 +361,7 @@
         </div>
       </div>
 
-      <!-- 3. 사진 앨범 앱 (아이폰 3열 갤러리 10장) -->
+      <!-- 3. 사진 앨범 앱 -->
       <div id="photos" class="app-screen">
         <h2 style="font-size: 16px; margin-bottom: 8px;">라이브러리 (10장)</h2>
         <div class="photo-grid">
@@ -396,22 +386,97 @@
         <button class="modal-close" onclick="closePhoto()">닫기</button>
       </div>
 
-      <!-- 4. 메모장 앱 -->
+      <!-- 4. 메모장 앱 (삼기삼별 8개 메모 완벽 적용) -->
       <div id="notes" class="app-screen">
-        <h2 style="font-size: 18px; margin-bottom: 10px;">이생의 메모장</h2>
+        <h2 style="font-size: 18px; margin-bottom: 10px;">이생의 메모장 (8개)</h2>
         <div class="card-list">
           <div class="card">
-            <div class="card-title">📜 담장을 넘겨준 글 (贈詩)</div>
-            <div class="card-date">이생이 최 처자에게 바친 시</div>
-            <div class="card-body">담장 안의 봄빛을 엿보았더니
-선녀 같은 그대의 모습 그리워라.
-어찌하면 담을 넘어 들어가
-그대 손을 잡을 수 있으리.</div>
+            <div class="card-title">메모 01. 잊을 수 없는 그날</div>
+            <div class="card-tag"># 첫 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">오늘 담장 너머 꽃밭에서 한 여인을 만났다.
+우연히 마주친 눈빛이 어찌나 선명하던지, 돌아오는 길에도 자꾸만 그 모습이 떠올랐다.
+이름은 최씨라 하였다.
+서로 시를 주고받았는데, 글자마다 마음이 담겨 있는 듯했다.
+내일도 그곳에 가면 다시 만날 수 있을까.
+아무래도 내 마음이 그 사람에게 향한 듯하다.</div>
           </div>
           <div class="card">
-            <div class="card-title">📖 홀로 남겨진 밤의 일기</div>
-            <div class="card-date">최씨가 세상을 떠난 후</div>
-            <div class="card-body">사랑하는 정인을 잃고 세상에 홀로 남겨진 삶이 무슨 의미가 있으랴. 매일 밤 달빛을 보며 그대의 온기를 그리워한다...</div>
+            <div class="card-title">메모 02. 최씨에게 보내지 못한 시</div>
+            <div class="card-tag"># 첫 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">오늘도 그대 생각에 글을 썼다.
+몇 번이고 고쳐 썼으나 마음을 온전히 담을 수 없었다.
+그대와 나눈 시 한 수를 다시 읽었다.
+어찌 몇 줄의 글로 사람의 마음이 이토록 설렐 수 있을까.
+내일은 꼭 직접 전해야겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 03. 반드시 다시 만나리라</div>
+            <div class="card-tag"># 첫 번째 이별</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">부친께서 나를 영남으로 보내셨다.
+최씨에게 작별 인사조차 제대로 건네지 못했다.
+갑작스러운 이별이 이토록 괴로운 것인 줄 몰랐다.
+그대가 나를 기다리고 있을까.
+내가 돌아갈 때까지 부디 무탈하기를.
+반드시 다시 만나러 가겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 04. 혼인하던 날</div>
+            <div class="card-tag"># 두 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">마침내 최씨와 혼인하였다.
+오랜 기다림 끝에 다시 만난 그 사람과 한집에서 살아간다는 것이 아직도 믿기지 않는다.
+아침에 눈을 뜨면 그대가 있고, 저녁에 돌아오면 그대가 있다.
+이보다 더한 행복이 세상에 있을까.
+앞으로도 매일 그대와 시를 나누고 싶다.
+이 행복이 오래도록 계속되기를.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 05. 집으로 돌아가고 싶다</div>
+            <div class="card-tag"># 두 번째 이별</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">홍건적의 난으로 집이 무너지고 말았다.
+최씨는 끝내 돌아오지 못했다.
+집에 돌아와도 나를 맞아주는 사람이 없다.
+함께 걷던 길도, 마주 앉아 시를 읽던 자리도 이제는 모두 사라졌다.
+최씨가 없는 세상에서 내가 무엇을 바라며 살아야 할까.
+그대와 함께했던 날들이 꿈이 아니었으면 좋겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 06. 꿈이라도 좋으니</div>
+            <div class="card-tag"># 세 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">오늘 밤, 최씨가 돌아왔다.
+믿을 수 없었다. 분명 죽었다고 생각했던 그 사람이 내 앞에 서 있었다.
+꿈인지 생시인지 알 수 없었으나 나는 아무것도 묻지 않았다.
+그저 다시 만났다는 사실만으로 충분했다.
+그대가 귀신이라 하여도 상관없다.
+살아서 함께하지 못한 세월을 이제라도 함께하고 싶다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 07. 우리에게 남은 시간</div>
+            <div class="card-tag"># 세 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">그대와 다시 함께한 지 여러 해가 흘렀다.
+우리는 부모님의 장례도 함께 치렀고, 예전처럼 시를 나누며 지냈다.
+문득 생각해 보니 그대와 함께하는 하루하루가 얼마나 소중한지 모르겠다.
+사람들은 우리를 이해하지 못할지도 모른다.
+그러나 내게는 지금 이 순간이 가장 행복하다.
+부디 이 시간이 조금만 더 길었으면 좋겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 08. 마지막으로 남기는 말</div>
+            <div class="card-tag"># 세 번째 이별</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">오늘 최씨가 떠났다.
+이제는 나를 기다려 달라는 말조차 할 수 없었다.
+세 번이나 그대를 만났고, 세 번이나 그대를 잃었다.
+처음에는 우연이었고, 두 번째는 운명이었으며, 마지막은 기적이었다.
+그대와 함께했던 기억을 잊지 않겠다.
+그대가 없는 이 세상에서 나는 오래 머물 자신이 없다.
+언젠가 다시 만날 수 있기를.</div>
           </div>
         </div>
       </div>
@@ -446,14 +511,13 @@
       document.getElementById('photoModal').style.display = 'none';
     }
 
-    /* 이생규장전 원작 서사 미연시 진행 로직 */
+    /* 이생규장전 미연시 로직 */
     let step = 1;
 
     function sendMyMessage(text, choiceNum) {
       const chatList = document.getElementById('chatList');
       const choiceArea = document.getElementById('choiceArea');
 
-      // 1. 내 대답 메시지를 오른쪽 파란 말풍선으로 화면에 즉시 출력
       const myBubble = document.createElement('div');
       myBubble.className = 'bubble me';
       myBubble.textContent = text;
@@ -462,7 +526,6 @@
 
       choiceArea.innerHTML = '';
 
-      // 2. 이생규장전 원작 서사 대화 진행
       setTimeout(() => {
         const ghostReply = document.createElement('div');
         ghostReply.className = 'bubble ghost';
@@ -479,7 +542,6 @@
             `;
             step = 2;
           } else {
-            // 이별 엔딩 분기 (자동 메시지 창 종료)
             ghostReply.textContent = "낭군님께서 저를 두려워하시니, 제 슬픈 넋은 더 이상 머무를 수 없군요... 부디 만수무강하십시오...";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
