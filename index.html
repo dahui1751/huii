@@ -74,10 +74,10 @@
     .app-screen { display: none; height: 100%; padding: 16px; flex-direction: column; }
     .app-screen.active { display: flex; }
 
-    /* --- 0. 잠금화면 --- */
+    /* --- 0. 잠금화면 (최씨와 함께 찍은 셀카 배경) --- */
     #lock-screen {
-      background: linear-gradient(180deg, rgba(20,20,35,0.85) 0%, rgba(40,30,60,0.95) 100%), 
-                  url('photo3.png') center/cover;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), 
+                  url('photo4.png') center/cover no-repeat;
       color: white;
       justify-content: space-between;
       align-items: center;
@@ -198,7 +198,95 @@
     .icon-messages { background: linear-gradient(180deg, #34c759, #30d158); }
     .icon-music { background: linear-gradient(180deg, #ff2d55, #ff375f); }
 
-    /* --- 메시지 앱 --- */
+    /* --- 2. 전화 앱 (iOS 스타일) --- */
+    #phone-app {
+      background: #000000;
+      color: white;
+      padding: 30px 16px 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .call-header {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .call-avatar {
+      width: 80px;
+      height: 80px;
+      background: #333;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+    }
+    .call-name { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+    .call-status { font-size: 13px; color: #8e8e93; }
+    
+    .call-era-selector {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      justify-content: center;
+    }
+    .era-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 14px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .era-btn.active {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+    }
+
+    .call-transcript-box {
+      width: 100%;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 14px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #e5e5ea;
+      margin: 16px 0;
+      text-align: left;
+    }
+    .call-transcript-box p { margin-bottom: 8px; }
+    .call-transcript-box .speaker { font-weight: 600; color: #64d2ff; }
+
+    .call-controls {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px 10px;
+      justify-items: center;
+      margin-bottom: 20px;
+    }
+    .call-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .call-btn-end {
+      background: #ff3b30;
+      grid-column: 2;
+    }
+
+    /* --- 3. 메시지 앱 --- */
     .chat-header {
       text-align: center;
       padding: 6px 0 12px;
@@ -260,7 +348,7 @@
     }
     .choice-btn:hover { background: var(--accent-blue); color: white; }
 
-    /* --- 사진첩 앱 (3열 그리드) --- */
+    /* --- 4. 사진첩 앱 --- */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -294,7 +382,7 @@
     .modal-desc { font-size: 12px; color: #ccc; line-height: 1.4; margin-bottom: 16px; }
     .modal-close { background: white; color: black; border: none; padding: 6px 16px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
-    /* --- 메모장 앱 --- */
+    /* --- 5. 메모장 앱 --- */
     .card-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
     .card {
       background: white;
@@ -337,7 +425,7 @@
     <!-- 스크린 화면 -->
     <div class="screen">
       
-      <!-- 0. 잠금화면 (Lock Screen) -->
+      <!-- 0. 잠금화면 (최씨 커플 셀카 배경) -->
       <div id="lock-screen" class="app-screen active">
         <div>
           <div class="lock-date">1361년 고려 공민왕 10년, 달빛 밝은 밤</div>
@@ -374,11 +462,11 @@
             <div class="widget-area">
               <div class="widget">
                 <div class="widget-clock">09:41</div>
-                <div class="widget-date">조선 세종 해, 달빛 밝은 밤</div>
+                <div class="widget-date">고려 1361년, 달빛 밝은 밤</div>
               </div>
               <div class="widget">
                 <div class="widget-weather">🌙 14° 맑음</div>
-                <div class="widget-sub">개성 송도 담장 밑</div>
+                <div class="widget-sub">담장 밑</div>
               </div>
             </div>
 
@@ -411,7 +499,7 @@
           </div>
 
           <div class="dock-bar">
-            <div class="app-icon" onclick="alert('전화 연결이 끊겨 있습니다.')">
+            <div class="app-icon" onclick="openApp('phone-app')">
               <div class="icon-box icon-phone">📞</div>
             </div>
             <div class="app-icon" onclick="alert('사파리 연결을 찾을 수 없습니다.')">
@@ -427,7 +515,35 @@
         </div>
       </div>
 
-      <!-- 2. 메시지 앱 -->
+      <!-- 2. 전화 앱 (iOS 스타일 통화 기능) -->
+      <div id="phone-app" class="app-screen">
+        <div class="call-header">
+          <div class="call-avatar">🌸</div>
+          <div class="call-name">최낭자 (최씨 처자)</div>
+          <div class="call-status" id="callTimer">00:12</div>
+
+          <div class="call-era-selector">
+            <button class="era-btn active" id="eraBeforeBtn" onclick="setCallEra('before')">홍건적 침입 전</button>
+            <button class="era-btn" id="eraAfterBtn" onclick="setCallEra('after')">홍건적 침입 후 (재회)</button>
+          </div>
+        </div>
+
+        <div class="call-transcript-box" id="callTranscript">
+          <!-- 음성 대화 내용이 로드됩니다 -->
+        </div>
+
+        <div class="call-controls">
+          <div class="call-btn">🔇</div>
+          <div class="call-btn">⌨️</div>
+          <div class="call-btn">🔊</div>
+          <div class="call-btn">➕</div>
+          <div class="call-btn">🎥</div>
+          <div class="call-btn">👤</div>
+          <div class="call-btn call-btn-end" onclick="goHome()">📞</div>
+        </div>
+      </div>
+
+      <!-- 3. 메시지 앱 (확장된 미연시) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -440,12 +556,11 @@
         </div>
 
         <div class="choice-area" id="choiceArea">
-          <button class="choice-btn" onclick="sendMyMessage('그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.', 1)">그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.</button>
-          <button class="choice-btn" onclick="sendMyMessage('당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?', 2)">당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?</button>
+          <!-- JS에서 동적으로 선택지 구성 -->
         </div>
       </div>
 
-      <!-- 3. 사진 앨범 앱 (업로드한 photo1.png ~ photo10.png 연결) -->
+      <!-- 4. 사진 앨범 앱 -->
       <div id="photos" class="app-screen">
         <h2 style="font-size: 16px; margin-bottom: 8px;">이생의 갤러리 (8장)</h2>
         <div class="photo-grid">
@@ -457,7 +572,6 @@
           <div class="photo-thumb" style="background-image: url('photo6.png');" onclick="showPhoto('🍵 6. 최씨와의 재회', '내 앞에 앉아있는 여인은 귀신인가 최씨인가.', 'photo6.png')"></div>
           <div class="photo-thumb" style="background-image: url('photo7.png');" onclick="showPhoto('🔥 7. 함께 나눈 기적의 술잔', '숨겨둔 재산을 찾은 후 마시는 술은 참 달구나.', 'photo7.png')"></div>
           <div class="photo-thumb" style="background-image: url('photo8.png');" onclick="showPhoto('👻 8. 저승의 법에 따라 이별하는 현실', '어찌 널 보내고 내가 온전히 살아갈 수 있을까.', 'photo8.png')"></div>
-        
         </div>
       </div>
 
@@ -469,7 +583,7 @@
         <button class="modal-close" onclick="closePhoto()">닫기</button>
       </div>
 
-      <!-- 4. 메모장 앱 -->
+      <!-- 5. 메모장 앱 -->
       <div id="notes" class="app-screen">
         <h2 style="font-size: 18px; margin-bottom: 10px;">이생의 메모장 (8개)</h2>
         <div class="card-list">
@@ -477,89 +591,49 @@
             <div class="card-title">메모 01. 잊을 수 없는 그날</div>
             <div class="card-tag"># 첫 번째 만남</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 담장 너머 꽃밭에서 한 여인을 만났다.
-우연히 마주친 눈빛이 어찌나 선명하던지, 돌아오는 길에도 자꾸만 그 모습이 떠올랐다.
-이름은 최씨라 하였다.
-서로 시를 주고받았는데, 글자마다 마음이 담겨 있는 듯했다.
-내일도 그곳에 가면 다시 만날 수 있을까.
-아무래도 내 마음이 그 사람에게 향한 듯하다.</div>
+            <div class="card-body">오늘 담장 너머 꽃밭에서 한 여인을 만났다. 우연히 마주친 눈빛이 어찌나 선명하던지, 돌아오는 길에도 자꾸만 그 모습이 떠올랐다...</div>
           </div>
           <div class="card">
             <div class="card-title">메모 02. 최씨에게 보내지 못한 시</div>
             <div class="card-tag"># 첫 번째 만남</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘도 그대 생각에 글을 썼다.
-몇 번이고 고쳐 썼으나 마음을 온전히 담을 수 없었다.
-그대와 나눈 시 한 수를 다시 읽었다.
-어찌 몇 줄의 글로 사람의 마음이 이토록 설렐 수 있을까.
-내일은 꼭 직접 전해야겠다.</div>
+            <div class="card-body">오늘도 그대 생각에 글을 썼다. 몇 번이고 고쳐 썼으나 마음을 온전히 담을 수 없었다...</div>
           </div>
           <div class="card">
             <div class="card-title">메모 03. 반드시 다시 만나리라</div>
             <div class="card-tag"># 첫 번째 이별</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">부친께서 나를 영남으로 보내셨다.
-최씨에게 작별 인사조차 제대로 건네지 못했다.
-갑작스러운 이별이 이토록 괴로운 것인 줄 몰랐다.
-그대가 나를 기다리고 있을까.
-내가 돌아갈 때까지 부디 무탈하기를.
-반드시 다시 만나러 가겠다.</div>
+            <div class="card-body">부친께서 나를 영남으로 보내셨다. 최씨에게 작별 인사조차 제대로 건네지 못했다...</div>
           </div>
           <div class="card">
             <div class="card-title">메모 04. 혼인하던 날</div>
             <div class="card-tag"># 두 번째 만남</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">마침내 최씨와 혼인하였다.
-오랜 기다림 끝에 다시 만난 그 사람과 한집에서 살아간다는 것이 아직도 믿기지 않는다.
-아침에 눈을 뜨면 그대가 있고, 저녁에 돌아오면 그대가 있다.
-이보다 더한 행복이 세상에 있을까.
-앞으로도 매일 그대와 시를 나누고 싶다.
-이 행복이 오래도록 계속되기를.</div>
+            <div class="card-body">마침내 최씨와 혼인하였다. 오랜 기다림 끝에 다시 만난 그 사람과 한집에서 살아간다는 것이 믿기지 않는다...</div>
           </div>
           <div class="card">
             <div class="card-title">메모 05. 집으로 돌아가고 싶다</div>
             <div class="card-tag"># 두 번째 이별</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">홍건적의 난으로 집이 무너지고 말았다.
-최씨는 끝내 돌아오지 못했다.
-집에 돌아와도 나를 맞아주는 사람이 없다.
-함께 걷던 길도, 마주 앉아 시를 읽던 자리도 이제는 모두 사라졌다.
-최씨가 없는 세상에서 내가 무엇을 바라며 살아야 할까.
-그대와 함께했던 날들이 꿈이 아니었으면 좋겠다.</div>
+            <div class="card-body">홍건적의 난으로 집이 무너지고 말았다. 최씨는 끝내 돌아오지 못했다...</div>
           </div>
           <div class="card">
             <div class="card-title">메모 06. 꿈이라도 좋으니</div>
             <div class="card-tag"># 세 번째 만남</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 밤, 최씨가 돌아왔다.
-믿을 수 없었다. 분명 죽었다고 생각했던 그 사람이 내 앞에 서 있었다.
-꿈인지 생시인지 알 수 없었으나 나는 아무것도 묻지 않았다.
-그저 다시 만났다는 사실만으로 충분했다.
-그대가 귀신이라 하여도 상관없다.
-살아서 함께하지 못한 세월을 이제라도 함께하고 싶다.</div>
+            <div class="card-body">오늘 밤, 최씨가 돌아왔다. 분명 죽었다고 생각했던 그 사람이 내 앞에 서 있었다...</div>
           </div>
           <div class="card">
             <div class="card-title">메모 07. 우리에게 남은 시간</div>
             <div class="card-tag"># 세 번째 만남</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">그대와 다시 함께한 지 여러 해가 흘렀다.
-우리는 부모님의 장례도 함께 치렀고, 예전처럼 시를 나누며 지냈다.
-문득 생각해 보니 그대와 함께하는 하루하루가 얼마나 소중한지 모르겠다.
-사람들은 우리를 이해하지 못할지도 모른다.
-그러나 내게는 지금 이 순간이 가장 행복하다.
-부디 이 시간이 조금만 더 길었으면 좋겠다.</div>
+            <div class="card-body">그대와 다시 함께한 지 여러 해가 흘렀다. 부모님의 장례도 함께 치렀고 시를 나누며 지냈다...</div>
           </div>
           <div class="card">
             <div class="card-title">메모 08. 마지막으로 남기는 말</div>
             <div class="card-tag"># 세 번째 이별</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 최씨가 떠났다.
-이제는 나를 기다려 달라는 말조차 할 수 없었다.
-세 번이나 그대를 만났고, 세 번이나 그대를 잃었다.
-처음에는 우연이었고, 두 번째는 운명이었으며, 마지막은 기적이었다.
-그대와 함께했던 기억을 잊지 않겠다.
-그대가 없는 이 세상에서 나는 오래 머물 자신이 없다.
-언젠가 다시 만날 수 있기를.</div>
+            <div class="card-body">오늘 최씨가 떠났다. 세 번이나 만났고, 세 번이나 잃었다. 언젠가 다시 만날 수 있기를...</div>
           </div>
         </div>
       </div>
@@ -573,6 +647,7 @@
   </div>
 
   <script>
+    /* 기본 UI 및 네비게이션 로직 */
     function unlockPhone() {
       document.getElementById('statusBar').classList.remove('lock-mode');
       goHome();
@@ -585,10 +660,19 @@
 
     function openApp(appId) {
       document.querySelectorAll('.app-screen').forEach(el => el.classList.remove('active'));
-      document.getElementById(appId).classList.add('active');
+      const target = document.getElementById(appId);
+      target.classList.add('active');
+
+      if(appId === 'phone-app') {
+        startCallTimer();
+        setCallEra('before');
+      } else {
+        stopCallTimer();
+      }
     }
 
     function goHome() {
+      stopCallTimer();
       document.querySelectorAll('.app-screen').forEach(el => el.classList.remove('active'));
       document.getElementById('home').classList.add('active');
     }
@@ -604,13 +688,68 @@
       document.getElementById('photoModal').style.display = 'none';
     }
 
-    /* 이생규장전 미연시 로직 */
+    /* --- 1. 전화 앱 기능 --- */
+    let callTimerInterval = null;
+    let secondsElapsed = 0;
+
+    function startCallTimer() {
+      stopCallTimer();
+      secondsElapsed = 12;
+      callTimerInterval = setInterval(() => {
+        secondsElapsed++;
+        const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+        const secs = String(secondsElapsed % 60).padStart(2, '0');
+        document.getElementById('callTimer').innerText = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function stopCallTimer() {
+      if(callTimerInterval) clearInterval(callTimerInterval);
+    }
+
+    function setCallEra(era) {
+      const beforeBtn = document.getElementById('eraBeforeBtn');
+      const afterBtn = document.getElementById('eraAfterBtn');
+      const transcript = document.getElementById('callTranscript');
+
+      if(era === 'before') {
+        beforeBtn.classList.add('active');
+        afterBtn.classList.remove('active');
+        transcript.innerHTML = `
+          <p><span class="speaker">최낭자:</span> 낭군님, 부친께서 영남으로 보내신다는 소식을 들었습니다... 정말 이대로 떠나시는 건가요?</p>
+          <p><span class="speaker">이생:</span> 내 마음도 찢어질 것 같소. 하지만 부모님의 뜻을 어길 수 없으니... 매일 밤 담장 아래서 주고받던 시를 읽으며 그대를 그리워하겠소.</p>
+          <p><span class="speaker">최낭자:</span> 기다리겠습니다. 낭군님이 돌아오실 때까지 제 마음은 변함없을 것입니다.</p>
+        `;
+      } else {
+        afterBtn.classList.add('active');
+        beforeBtn.classList.remove('active');
+        transcript.innerHTML = `
+          <p><span class="speaker">이생:</span> 최 낭자! 정녕 그대란 말이오? 난 난리 속에 그대가 목숨을 잃었다 들어 매일 밤 눈물로 지샜소...</p>
+          <p><span class="speaker">최낭자:</span> 낭군님... 비록 제 육신은 홍건적에게 절개를 지키다 산천에 버려졌으나, 낭군님과의 약속을 잊지 못해 이렇게 혼령으로나마 찾아왔습니다.</p>
+          <p><span class="speaker">이생:</span> 환신(幻身)이어도 좋고 귀신이어도 상관없소. 다시는 그대의 손을 놓지 않겠소.</p>
+        `;
+      }
+    }
+
+    /* --- 2. 미연시 스토리 분기 로직 (5단계 확장) --- */
     let step = 1;
+
+    // 미연시 선택지 초기화
+    function renderStepChoices() {
+      const choiceArea = document.getElementById('choiceArea');
+      if (step === 1) {
+        choiceArea.innerHTML = `
+          <button class="choice-btn" onclick="sendMyMessage('그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.', 1)">그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.</button>
+          <button class="choice-btn" onclick="sendMyMessage('당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?', 2)">당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?</button>
+        `;
+      }
+    }
 
     function sendMyMessage(text, choiceNum) {
       const chatList = document.getElementById('chatList');
       const choiceArea = document.getElementById('choiceArea');
 
+      // 내 메시지 버블 추가
       const myBubble = document.createElement('div');
       myBubble.className = 'bubble me';
       myBubble.textContent = text;
@@ -623,24 +762,25 @@
         const ghostReply = document.createElement('div');
         ghostReply.className = 'bubble ghost';
 
+        /* 단계별 스토리 흐름 */
         if (step === 1) {
           if (choiceNum === 1) {
-            ghostReply.textContent = "낭군님, 저 역시 이승의 미련을 버리지 못해 이슬을 머금고 찾아왔습니다. 기억하시나요... 담장 너머로 처음 시를 주고받았던 그날을...";
+            ghostReply.textContent = "낭군님, 저 역시 이승의 미련을 버리지 못해 이슬을 머금고 찾아왔습니다. 기억하시나요... 담장 너머로 기왓장에 시를 묶어 던지며 마음을 고백하던 그날을...";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
 
             choiceArea.innerHTML = `
-              <button class="choice-btn" onclick="sendMyMessage('어찌 잊겠소. 그대가 넘겨준 시 한 구절에 내 마음이 모두 흔들렸거늘.', 1)">어찌 잊겠소. 그대가 넘겨준 시 한 구절에 내 마음이 모두 흔들렸거늘.</button>
-              <button class="choice-btn" onclick="sendMyMessage('그 참혹했던 도적들의 난 속에서 정녕 목숨을 잃었던 것이오?', 2)">그 참혹했던 도적들의 난 속에서 정녕 목숨을 잃었던 것이오?</button>
+              <button class="choice-btn" onclick="sendMyMessage('어찌 잊겠소. 그대의 붉은 낭자 시 한 구절에 내 영혼이 빠져들었거늘.', 1)">어찌 잊겠소. 그대의 붉은 낭자 시 한 구절에 내 영혼이 빠져들었거늘.</button>
+              <button class="choice-btn" onclick="sendMyMessage('그때는 우리가 이토록 참혹한 운명에 처할 줄 몰랐소.', 2)">그때는 우리가 이토록 참혹한 운명에 처할 줄 몰랐소.</button>
             `;
             step = 2;
           } else {
-            ghostReply.textContent = "낭군님께서 저를 두려워하시니, 제 슬픈 넋은 더 이상 머무를 수 없군요... 부디 만수무강하십시오...";
+            ghostReply.textContent = "낭군님께서 저를 두려워하시고 멀리하시니... 제 슬픈 넋은 더 이상 이승에 머무를 이유가 없군요. 부디 만수무강하십시오...";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
 
             setTimeout(() => {
-              alert('최낭자의 혼령이 바람처럼 사라졌습니다. (메시지 앱 종료)');
+              alert('최낭자의 혼령이 슬피 울며 사라졌습니다. (배드 엔딩: 차가운 이별)');
               resetChat();
               goHome();
             }, 1200);
@@ -648,45 +788,68 @@
           }
 
         } else if (step === 2) {
-          if (choiceNum === 1) {
-            ghostReply.textContent = "부모님의 반대도 극복하고 부부의 연을 맺었건만, 홍건적의 난으로 절개를 지키다 참변을 당하고 말았습니다... 하지만 낭군님을 향한 맹세는 죽어서도 변하지 않았어요.";
-            chatList.appendChild(ghostReply);
-            chatList.scrollTop = chatList.scrollHeight;
+          ghostReply.textContent = "부모님의 반대를 무릅쓰고 마침내 성사된 우리 혼례날의 기쁨도 잠시... 홍건적의 난으로 절개를 지키다 산천에 몸이 찢기는 참변을 당했습니다. 그러나 정인은 죽어서도 잊을 수 없는 법이지요.";
+          chatList.appendChild(ghostReply);
+          chatList.scrollTop = chatList.scrollHeight;
 
-            choiceArea.innerHTML = `
-              <button class="choice-btn" onclick="sendMyMessage('비록 환신일지라도 내 곁에 남아 영원히 함께해주오.', 1)">비록 환신일지라도 내 곁에 남아 영원히 함께해주오.</button>
-              <button class="choice-btn" onclick="sendMyMessage('저승의 법도가 있을 터인데 어찌 계속 머물 수 있겠소...', 2)">저승의 법도가 있을 터인데 어찌 계속 머물 수 있겠소...</button>
-            `;
-            step = 3;
-          } else {
-            ghostReply.textContent = "도적들에게 절개를 지키고자 스스로 목숨을 끊었답니다... 비록 육신은 산천에 버려졌으나 정인은 잊지 못해 찾아왔습니다.";
-            chatList.appendChild(ghostReply);
-            chatList.scrollTop = chatList.scrollHeight;
-
-            choiceArea.innerHTML = `
-              <button class="choice-btn" onclick="sendMyMessage('내 손으로 시신을 거두고 그대의 억울함을 달래주겠소.', 1)">내 손으로 시신을 거두고 그대의 억울함을 달래주겠소.</button>
-              <button class="choice-btn" onclick="sendMyMessage('음양의 길이 다르니 이제 그만 미련을 거두시오.', 2)">음양의 길이 다르니 이제 그만 미련을 거두시오.</button>
-            `;
-            step = 3;
-          }
+          choiceArea.innerHTML = `
+            <button class="choice-btn" onclick="sendMyMessage('내 당장 들판으로 달려가 그대의 흩어진 유골을 거두어 정성껏 묻어주겠소.', 1)">내 당장 들판으로 달려가 그대의 흩어진 유골을 거두어 정성껏 묻어주겠소.</button>
+            <button class="choice-btn" onclick="sendMyMessage('이 모두가 내 탓이오. 그대를 지키지 못한 나를 원망하시오.', 2)">이 모두가 내 탓이오. 그대를 지키지 못한 나를 원망하시오.</button>
+          `;
+          step = 3;
 
         } else if (step === 3) {
           if (choiceNum === 1) {
-            ghostReply.textContent = "낭군님... 비록 3년의 짧은 세월 동안만 이승에서 함께할 수 있는 명수이나, 당신과의 사랑은 천년이 지나도 영원할 것입니다.";
+            ghostReply.textContent = "고맙습니다, 낭군님... 은혜를 잊지 않겠어요. 이제 신수(저승의 보물)와 은병을 찾아 가산을 정리하고, 남은 세월을 사람들의 눈을 피해 함께 보내요.";
+          } else {
+            ghostReply.textContent = "낭군 탓이 아닙니다. 난리 속에서 누구를 원망하겠습니까. 비록 육신은 사라졌으나 함께할 수 있는 시간이 우리에게 남겨져 있습니다.";
+          }
+          chatList.appendChild(ghostReply);
+          chatList.scrollTop = chatList.scrollHeight;
+
+          choiceArea.innerHTML = `
+            <button class="choice-btn" onclick="sendMyMessage('비록 귀신이라 할지라도 내 곁에서 영원히 함께해주오. 세상의 시선 따위 상관없소.', 1)">비록 귀신이라 할지라도 내 곁에서 영원히 함께해주오.</button>
+            <button class="choice-btn" onclick="sendMyMessage('인간과 혼령의 길은 엄연히 다른 법, 저승의 법도가 두렵지 않소?', 2)">인간과 혼령의 길은 엄연히 다른 법, 저승의 법도가 두렵지 않소?</button>
+          `;
+          step = 4;
+
+        } else if (step === 4) {
+          if (choiceNum === 1) {
+            ghostReply.textContent = "이승에서의 명수가 정해져 있어 우리에게 허락된 시간은 몇 년뿐입니다. 그러나 낭군님과 나눈 사랑은 정해진 운명마저 뛰어넘었습니다...";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
 
-            choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#8e8e93; padding:10px;">[트루 엔딩: 죽음을 초월한 영원한 약속]</div>`;
+            choiceArea.innerHTML = `
+              <button class="choice-btn" onclick="sendMyMessage('저승으로 떠나는 날, 나 역시 그대를 따라 목숨을 버릴 것이오.', 1)">저승으로 떠나는 날, 나 역시 그대를 따라 목숨을 버릴 것이오.</button>
+              <button class="choice-btn" onclick="sendMyMessage('남은 날 동안 매일 밤 시를 나누며 서로의 슬픔을 달래봅시다.', 2)">남은 날 동안 매일 밤 시를 나누며 서로의 슬픔을 달래봅시다.</button>
+            `;
+            step = 5;
           } else {
-            ghostReply.textContent = "저승의 명수가 다하여 이제는 참으로 헤어질 시간인가 봅니다... 낭군님, 부디 평안히 지내소서...";
+            ghostReply.textContent = "저승의 명수가 다하여 참으로 떠날 시간이 다가오고 있습니다. 낭군님과의 인연에 감사하며 이만 미련을 거두겠습니다...";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
 
             setTimeout(() => {
-              alert('최낭자가 눈물을 흘리며 은하수 저편으로 사라졌습니다. (메시지 앱 종료)');
+              alert('최낭자가 은하수 너머로 떠났습니다. (노멀 엔딩: 현실적 이별)');
               resetChat();
               goHome();
             }, 1200);
+            return;
+          }
+
+        } else if (step === 5) {
+          if (choiceNum === 1) {
+            ghostReply.textContent = "낭군님... 삼기삼별(三生三世)의 약속이 마침내 이루어졌군요. 죽음조차 우리 갈라놓지 못할 것입니다. 다음 생에서도 반드시 그대의 아내가 되겠습니다.";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
+
+            choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#007aff; padding:10px; font-weight:bold;">[트루 엔딩: 죽음을 초월한 영원한 사랑]</div>`;
+          } else {
+            ghostReply.textContent = "짧았던 며칠이 지나고 최낭자는 눈물을 흘리며 옥피리 소리와 함께 바람 속으로 사라졌습니다. 이생은 얼마 뒤 병을 얻어 세상을 떠났습니다.";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
+
+            choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#8e8e93; padding:10px;">[원작 엔딩: 애절한 환상적 재회]</div>`;
           }
         }
       }, 600);
@@ -694,14 +857,13 @@
 
     function resetChat() {
       const chatList = document.getElementById('chatList');
-      const choiceArea = document.getElementById('choiceArea');
       chatList.innerHTML = `<div class="bubble ghost">낭군님, 이 깊은 밤 홀로 등불을 밝히고 계시나요...</div>`;
-      choiceArea.innerHTML = `
-        <button class="choice-btn" onclick="sendMyMessage('그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.', 1)">그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.</button>
-        <button class="choice-btn" onclick="sendMyMessage('당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?', 2)">당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?</button>
-      `;
       step = 1;
+      renderStepChoices();
     }
+
+    // 페이지 로드시 미연시 초기 선택지 세팅
+    renderStepChoices();
   </script>
 </body>
 </html>
