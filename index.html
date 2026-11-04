@@ -122,7 +122,7 @@
     }
     .unlock-btn:hover { background: rgba(255, 255, 255, 0.5); }
 
-    /* --- 1. 아이폰 홈화면 & 다양한 앱 아이콘 + 커플 사진 위젯 --- */
+    /* --- 1. 아이폰 홈화면 --- */
     .home-container {
       display: flex;
       flex-direction: column;
@@ -221,7 +221,7 @@
     .icon-messages { background: linear-gradient(180deg, #34c759, #30d158); }
     .icon-music { background: linear-gradient(180deg, #ff2d55, #ff375f); }
 
-    /* --- 2. 전화 앱 (iOS 다크모드 최근 기록 UI) --- */
+    /* --- 2. 전화 앱 --- */
     #phone-app {
       background: #000000;
       color: white;
@@ -288,7 +288,7 @@
       margin: 20px auto 12px; display: flex; align-items: center; justify-content: center; font-size: 40px;
     }
     .call-transcript-box {
-      width: 100%; height: 190px; background: rgba(255, 255, 255, 0.08);
+      width: 100%; height: 210px; background: rgba(255, 255, 255, 0.08);
       border-radius: 16px; padding: 14px; overflow-y: auto; font-size: 12px; line-height: 1.5; color: #e5e5ea;
     }
     .call-transcript-box .speaker { font-weight: 600; color: #64d2ff; }
@@ -301,7 +301,51 @@
     }
     .call-btn-end { background: #ff3b30; grid-column: 2; cursor: pointer; }
 
-    /* --- 3. 메시지 앱 --- */
+    /* --- 3. 인스타그램 앱 (이생의 사생활 피드) --- */
+    #instagram-app {
+      background: #ffffff;
+      padding: 0;
+      overflow-y: auto;
+    }
+    .insta-header {
+      height: 44px;
+      padding: 0 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dbdbdb;
+      font-weight: 700;
+      font-size: 16px;
+      background: #fff;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .insta-profile {
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #efefef;
+    }
+    .insta-avatar {
+      width: 60px; height: 60px; border-radius: 50%; background: #e5e5ea;
+      display: flex; align-items: center; justify-content: center; font-size: 30px; border: 2px solid #ff3b30;
+    }
+    .insta-stats { display: flex; gap: 16px; text-align: center; font-size: 12px; }
+    .insta-stats strong { font-size: 14px; display: block; color: #000; }
+    
+    .insta-bio { padding: 8px 14px; font-size: 12px; line-height: 1.4; color: #262626; border-bottom: 1px solid #efefef; }
+    
+    .insta-feed { display: flex; flex-direction: column; }
+    .insta-post { border-bottom: 1px solid #efefef; padding-bottom: 12px; }
+    .post-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px; font-size: 12px; font-weight: 600; }
+    .post-avatar { width: 28px; height: 28px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .post-img { width: 100%; height: 260px; background-size: cover; background-position: center; }
+    .post-actions { padding: 8px 14px; display: flex; gap: 12px; font-size: 18px; }
+    .post-caption { padding: 0 14px; font-size: 12px; line-height: 1.4; }
+    .post-caption strong { font-weight: 600; margin-right: 4px; }
+    .post-date { padding: 4px 14px 0; font-size: 10px; color: #8e8e93; }
+
+    /* --- 4. 메시지 앱 --- */
     .chat-header {
       text-align: center; padding: 6px 0 12px; border-bottom: 1px solid #e5e5ea; margin-bottom: 10px; background: #fff;
     }
@@ -321,7 +365,7 @@
     }
     .choice-btn:hover { background: var(--accent-blue); color: white; }
 
-    /* --- 4. 사진 앨범 앱 --- */
+    /* --- 5. 사진 앨범 앱 --- */
     .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; overflow-y: auto; }
     .photo-thumb { width: 100%; aspect-ratio: 1 / 1; background-size: cover; background-position: center; border-radius: 4px; cursor: pointer; }
     .modal {
@@ -333,7 +377,7 @@
     .modal-desc { font-size: 12px; color: #ccc; line-height: 1.4; margin-bottom: 16px; }
     .modal-close { background: white; color: black; border: none; padding: 6px 16px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
-    /* --- 5. 메모장 앱 --- */
+    /* --- 6. 메모장 앱 --- */
     .card-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
     .card { background: white; border-radius: 12px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .card-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; color: #000; }
@@ -387,19 +431,16 @@
         <div class="home-container">
           <div>
             <div class="widget-area">
-              <!-- 커플 사진 위젯 -->
               <div class="widget widget-photo">
                 <div class="widget-photo-overlay"></div>
                 <div class="widget-photo-text">🌸 최낭자와의 추억</div>
               </div>
-              <!-- 시계/날씨 위젯 -->
               <div class="widget">
                 <div class="widget-clock">09:41</div>
                 <div class="widget-date">고려 1361년 맑음</div>
               </div>
             </div>
 
-            <!-- 4x4 다채로운 아이폰 앱 그리드 -->
             <div class="app-grid">
               <div class="app-icon" onclick="openApp('photos')">
                 <div class="icon-box icon-photos">🖼️</div>
@@ -425,7 +466,7 @@
                 <div class="icon-box icon-settings">⚙️</div>
                 <span class="app-name">설정</span>
               </div>
-              <div class="app-icon" onclick="alert('고려시대 시 갤러리 피드가 열립니다.')">
+              <div class="app-icon" onclick="openApp('instagram-app')">
                 <div class="icon-box icon-insta">📸</div>
                 <span class="app-name">인스타그램</span>
               </div>
@@ -461,7 +502,7 @@
         </div>
       </div>
 
-      <!-- 2. 전화 앱 (iOS 최근 기록 스타일 UI) -->
+      <!-- 2. 전화 앱 (12월 14일 완전한 이별 수정을 반영) -->
       <div id="phone-app" class="app-screen">
         <div class="phone-header">
           <div class="phone-header-title">최근 기록</div>
@@ -469,7 +510,7 @@
         </div>
 
         <div class="recents-list">
-          <div class="recent-item" onclick="startCall('최낭자 (최씨 처자)', 'before')">
+          <div class="recent-item" onclick="startCall('최낭자 ♡♡', 'farewell')">
             <div>
               <div class="recent-name missed">최낭자 ♡♡ (4)</div>
               <div class="recent-sub">휴대전화 · 연결 안 됨</div>
@@ -480,7 +521,7 @@
             </div>
           </div>
 
-          <div class="recent-item" onclick="startCall('최낭자 (최씨 처자)', 'after')">
+          <div class="recent-item" onclick="startCall('최낭자 ♡♡', 'after')">
             <div>
               <div class="recent-name">최낭자 ♡♡</div>
               <div class="recent-sub">휴대전화 · 재회 통화</div>
@@ -514,7 +555,6 @@
           </div>
         </div>
 
-        <!-- 하단 iOS 스타일 5개 탭 바 -->
         <div class="phone-tab-bar">
           <div class="tab-item"><span class="tab-icon">⭐</span>즐겨찾기</div>
           <div class="tab-item active"><span class="tab-icon">🕒</span>최근 기록</div>
@@ -523,17 +563,14 @@
           <div class="tab-item"><span class="tab-icon">🎙️</span>음성 사서함</div>
         </div>
 
-        <!-- 통화 발신/진행 화면 (팝업 overlay) -->
         <div id="active-call-screen">
           <div style="text-align: center;">
             <div class="call-avatar">🌸</div>
             <h2 id="activeCallName" style="font-size:20px; margin-bottom:4px;">최낭자 ♡♡</h2>
-            <div style="font-size:12px; color:#8e8e93;" id="activeCallTime">00:08</div>
+            <div style="font-size:12px; color:#8e8e93;" id="activeCallTime">00:15</div>
           </div>
 
-          <div class="call-transcript-box" id="activeCallTranscript">
-            <!-- 대화 스크립트 출력 -->
-          </div>
+          <div class="call-transcript-box" id="activeCallTranscript"></div>
 
           <div class="call-controls">
             <div class="call-btn">🔇</div>
@@ -547,7 +584,88 @@
         </div>
       </div>
 
-      <!-- 3. 메시지 앱 (미연시) -->
+      <!-- 3. 인스타그램 앱 (이생의 소소한 사생활 인스타) -->
+      <div id="instagram-app" class="app-screen">
+        <div class="insta-header">
+          <span>lesaeng_songdo</span>
+          <span>➕ ☰</span>
+        </div>
+
+        <div class="insta-profile">
+          <div class="insta-avatar">🌿</div>
+          <div class="insta-stats">
+            <div><strong>4</strong>게시물</div>
+            <div><strong>128</strong>팔로워</div>
+            <div><strong>95</strong>팔로잉</div>
+          </div>
+        </div>
+
+        <div class="insta-bio">
+          <strong>이생 (李生)</strong><br>
+          개성 송도의 흔한 유생 ✍️<br>
+          시 쓰기 / 밤산책 / 벼루와 먹 깎기 🌿
+        </div>
+
+        <div class="insta-feed">
+          <!-- 피드 1 -->
+          <div class="insta-post">
+            <div class="post-header">
+              <div class="post-avatar">🌿</div>
+              <span>lesaeng_songdo</span>
+            </div>
+            <div class="post-img" style="background-image: url('photo3.png');"></div>
+            <div class="post-actions">❤️ 💬 ✈️</div>
+            <div class="post-caption">
+              <strong>lesaeng_songdo</strong> 오늘 밤도 서당에서 글읽기는 뒷전이고 등불 아래 시 한 구절... 벼루를 새로 갈았더니 먹향이 참 그윽하다. #송도유생 #밤샘공부 #시짓기 #먹향
+            </div>
+            <div class="post-date">1일 전</div>
+          </div>
+
+          <!-- 피드 2 -->
+          <div class="insta-post">
+            <div class="post-header">
+              <div class="post-avatar">🌿</div>
+              <span>lesaeng_songdo</span>
+            </div>
+            <div class="post-img" style="background-image: url('photo1.png');"></div>
+            <div class="post-actions">❤️ 💬 ✈️</div>
+            <div class="post-caption">
+              <strong>lesaeng_songdo</strong> 국자감 수업 마치고 돌아오는 길, 버드나무 그늘 아래서 잠깐 쉬어가는 중. 바람이 차가워지는 걸 보니 곧 가을인가 보다. 🍂 #퇴근길 #송도풍경 #버드나무
+            </div>
+            <div class="post-date">3일 전</div>
+          </div>
+
+          <!-- 피드 3 -->
+          <div class="insta-post">
+            <div class="post-header">
+              <div class="post-avatar">🌿</div>
+              <span>lesaeng_songdo</span>
+            </div>
+            <div class="post-img" style="background-image: url('photo7.png');"></div>
+            <div class="post-actions">❤️ 💬 ✈️</div>
+            <div class="post-caption">
+              <strong>lesaeng_songdo</strong> 저녁 늦게 들른 송도 주막. 홀로 마시는 탁주 한 잔에 몸이 풀린다. 주모가 준 파전 맛이 아주 별미임 👍 #혼술 #주막 #탁주한잔 #퇴근후일상
+            </div>
+            <div class="post-date">5일 전</div>
+          </div>
+
+          <!-- 피드 4 -->
+          <div class="insta-post">
+            <div class="post-header">
+              <div class="post-avatar">🌿</div>
+              <span>lesaeng_songdo</span>
+            </div>
+            <div class="post-img" style="background-image: url('photo2.png');"></div>
+            <div class="post-actions">❤️ 💬 ✈️</div>
+            <div class="post-caption">
+              <strong>lesaeng_songdo</strong> 담장 옆을 지나다가 발견한 고양이 한 마리. 한참 동안 날 노려보다가 훌쩍 넘어가 버렸다. 너도 담 넘는 게 취미니? 🐱 #골목길 #개성일상 #길고양이
+            </div>
+            <div class="post-date">1주일 전</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 메시지 앱 (미연시) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -562,7 +680,7 @@
         <div class="choice-area" id="choiceArea"></div>
       </div>
 
-      <!-- 4. 사진 앨범 앱 -->
+      <!-- 5. 사진 앨범 앱 -->
       <div id="photos" class="app-screen">
         <h2 style="font-size: 16px; margin-bottom: 8px;">이생의 갤러리 (8장)</h2>
         <div class="photo-grid">
@@ -585,7 +703,7 @@
         <button class="modal-close" onclick="closePhoto()">닫기</button>
       </div>
 
-      <!-- 5. 메모장 앱 -->
+      <!-- 6. 메모장 앱 (원래 작성되었던 8개 메모 내용 다 복구 완료!) -->
       <div id="notes" class="app-screen">
         <h2 style="font-size: 18px; margin-bottom: 10px;">이생의 메모장 (8개)</h2>
         <div class="card-list">
@@ -593,7 +711,89 @@
             <div class="card-title">메모 01. 잊을 수 없는 그날</div>
             <div class="card-tag"># 첫 번째 만남</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 담장 너머 꽃밭에서 한 여인을 만났다...</div>
+            <div class="card-body">오늘 담장 너머 꽃밭에서 한 여인을 만났다.
+우연히 마주친 눈빛이 어찌나 선명하던지, 돌아오는 길에도 자꾸만 그 모습이 떠올랐다.
+이름은 최씨라 하였다.
+서로 시를 주고받았는데, 글자마다 마음이 담겨 있는 듯했다.
+내일도 그곳에 가면 다시 만날 수 있을까.
+아무래도 내 마음이 그 사람에게 향한 듯하다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 02. 최씨에게 보내지 못한 시</div>
+            <div class="card-tag"># 첫 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">오늘도 그대 생각에 글을 썼다.
+몇 번이고 고쳐 썼으나 마음을 온전히 담을 수 없었다.
+그대와 나눈 시 한 수를 다시 읽었다.
+어찌 몇 줄의 글로 사람의 마음이 이토록 설렐 수 있을까.
+내일은 꼭 직접 전해야겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 03. 반드시 다시 만나리라</div>
+            <div class="card-tag"># 첫 번째 이별</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">부친께서 나를 영남으로 보내셨다.
+최씨에게 작별 인사조차 제대로 건네지 못했다.
+갑작스러운 이별이 이토록 괴로운 것인 줄 몰랐다.
+그대가 나를 기다리고 있을까.
+내가 돌아갈 때까지 부디 무탈하기를.
+반드시 다시 만나러 가겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 04. 혼인하던 날</div>
+            <div class="card-tag"># 두 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">마침내 최씨와 혼인하였다.
+오랜 기다림 끝에 다시 만난 그 사람과 한집에서 살아간다는 것이 아직도 믿기지 않는다.
+아침에 눈을 뜨면 그대가 있고, 저녁에 돌아오면 그대가 있다.
+이보다 더한 행복이 세상에 있을까.
+앞으로도 매일 그대와 시를 나누고 싶다.
+이 행복이 오래도록 계속되기를.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 05. 집으로 돌아가고 싶다</div>
+            <div class="card-tag"># 두 번째 이별</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">홍건적의 난으로 집이 무너지고 말았다.
+최씨는 끝내 돌아오지 못했다.
+집에 돌아와도 나를 맞아주는 사람이 없다.
+함께 걷던 길도, 마주 앉아 시를 읽던 자리도 이제는 모두 사라졌다.
+최씨가 없는 세상에서 내가 무엇을 바라며 살아야 할까.
+그대와 함께했던 날들이 꿈이 아니었으면 좋겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 06. 꿈이라도 좋으니</div>
+            <div class="card-tag"># 세 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">오늘 밤, 최씨가 돌아왔다.
+믿을 수 없었다. 분명 죽었다고 생각했던 그 사람이 내 앞에 서 있었다.
+꿈인지 생시인지 알 수 없었으나 나는 아무것도 묻지 않았다.
+그저 다시 만났다는 사실만으로 충분했다.
+그대가 귀신이라 하여도 상관없다.
+살아서 함께하지 못한 세월을 이제라도 함께하고 싶다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 07. 우리에게 남은 시간</div>
+            <div class="card-tag"># 세 번째 만남</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">그대와 다시 함께한 지 여러 해가 흘렀다.
+우리는 부모님의 장례도 함께 치렀고, 예전처럼 시를 나누며 지냈다.
+문득 생각해 보니 그대와 함께하는 하루하루가 얼마나 소중한지 모르겠다.
+사람들은 우리를 이해하지 못할지도 모른다.
+그러나 내게는 지금 이 순간이 가장 행복하다.
+부디 이 시간이 조금만 더 길었으면 좋겠다.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">메모 08. 마지막으로 남기는 말</div>
+            <div class="card-tag"># 세 번째 이별</div>
+            <div class="card-date">저장된 메모</div>
+            <div class="card-body">오늘 최씨가 떠났다.
+이제는 나를 기다려 달라는 말조차 할 수 없었다.
+세 번이나 그대를 만났고, 세 번이나 그대를 잃었다.
+처음에는 우연이었고, 두 번째는 운명이었으며, 마지막은 기적이었다.
+그대와 함께했던 기억을 잊지 않겠다.
+그대가 없는 이 세상에서 나는 오래 머물 자신이 없다.
+언젠가 다시 만날 수 있기를.</div>
           </div>
         </div>
       </div>
@@ -652,16 +852,20 @@
       document.getElementById('photoModal').style.display = 'none';
     }
 
-    /* --- 전화 앱 통화 연결 기능 --- */
-    function startCall(name, era) {
+    /* --- 전화 앱 통화 스크립트 --- */
+    function startCall(name, type) {
       const activeCallScreen = document.getElementById('active-call-screen');
       const transcriptBox = document.getElementById('activeCallTranscript');
       document.getElementById('activeCallName').innerText = name;
 
-      if(era === 'before') {
+      if(type === 'farewell') {
+        // 12월 14일 완전한 이별 수정을 반영한 애절한 스크립트
         transcriptBox.innerHTML = `
-          <p><span class="speaker">최낭자:</span> 낭군님, 영남으로 먼 길을 떠나신다니 마음이 너무 아픕니다...</p>
-          <p><span class="speaker">이생:</span> 부모님의 명을 거역할 수 없었소. 매일 밤 담장 아래서 주고받던 시를 읊으며 그대만을 기다리겠소.</p>
+          <p><span class="speaker">최낭자:</span> 낭군님... 저승의 명수가 다하여 이제는 정녕 마지막 인사를 드릴 시간이 되었습니다.</p>
+          <p><span class="speaker">이생:</span> 아니 되오, 최 낭자! 어찌 날 두고 또다시 홀로 떠나려 하오? 환신이어도 좋으니 제발 내 곁에 더 머물러 주오!</p>
+          <p><span class="speaker">최낭자:</span> 음양의 길이 달라 더 이상 이승에 지체할 수 없습니다... 함께한 수년의 세월은 참으로 기적 같았습니다. 부디 이승에서 평안히 지내소서.</p>
+          <p><span class="speaker">이생:</span> 그대가 없는 세상에 내가 홀로 살아 무엇하겠소... 내 곧 그대의 뒤를 따라갈 터이니 저승에서 다시 만납시다!</p>
+          <p style="color:#ff453a; font-style:italic; margin-top:8px;">[최낭자의 혼령이 눈물을 흘리며 은하수 저편으로 완전히 사라졌습니다.]</p>
         `;
       } else {
         transcriptBox.innerHTML = `
