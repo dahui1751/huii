@@ -48,7 +48,7 @@
       z-index: 100;
       color: #000;
     }
-    .status-bar.lock-mode {
+    .status-bar.lock-mode, .status-bar.dark-mode {
       color: #fff;
     }
     .dynamic-island {
@@ -74,7 +74,7 @@
     .app-screen { display: none; height: 100%; padding: 16px; flex-direction: column; }
     .app-screen.active { display: flex; }
 
-    /* --- 0. 잠금화면 (최씨와 함께 찍은 셀카 배경) --- */
+    /* --- 0. 잠금화면 --- */
     #lock-screen {
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), 
                   url('photo4.png') center/cover no-repeat;
@@ -122,7 +122,7 @@
     }
     .unlock-btn:hover { background: rgba(255, 255, 255, 0.5); }
 
-    /* --- 1. 아이폰 홈화면 & 위젯 --- */
+    /* --- 1. 아이폰 홈화면 & 다양한 앱 아이콘 + 커플 사진 위젯 --- */
     .home-container {
       display: flex;
       flex-direction: column;
@@ -138,7 +138,7 @@
       margin-bottom: 16px;
     }
     .widget {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(10px);
       border-radius: 18px;
       padding: 14px;
@@ -146,11 +146,30 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
+    .widget-photo {
+      background: url('photo4.png') center/cover no-repeat;
+      color: white;
+      justify-content: flex-end;
+      padding: 10px;
+    }
+    .widget-photo-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+    }
+    .widget-photo-text {
+      position: relative;
+      z-index: 2;
+      font-size: 11px;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+
     .widget-clock { font-size: 26px; font-weight: 700; color: #1c1c1e; }
     .widget-date { font-size: 11px; color: #8e8e93; margin-top: 2px; }
-    .widget-weather { font-size: 13px; font-weight: 600; color: #1c1c1e; }
-    .widget-sub { font-size: 11px; color: #007aff; margin-top: 4px; }
 
     .app-grid {
       display: grid;
@@ -170,7 +189,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 26px;
+      font-size: 24px;
       color: white;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       margin-bottom: 4px;
@@ -183,6 +202,10 @@
     .icon-maps { background: linear-gradient(180deg, #30d158, #10b981); }
     .icon-weather { background: linear-gradient(180deg, #64d2ff, #0a84ff); }
     .icon-settings { background: linear-gradient(180deg, #8e8e93, #48484a); }
+    .icon-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
+    .icon-calendar { background: #ffffff; color: #ff3b30; font-weight: bold; border: 1px solid #e5e5ea; }
+    .icon-podcasts { background: linear-gradient(180deg, #b066fe, #6300d8); }
+    .icon-clock { background: #000000; }
 
     .dock-bar {
       background: rgba(255, 255, 255, 0.45);
@@ -198,184 +221,112 @@
     .icon-messages { background: linear-gradient(180deg, #34c759, #30d158); }
     .icon-music { background: linear-gradient(180deg, #ff2d55, #ff375f); }
 
-    /* --- 2. 전화 앱 (iOS 스타일) --- */
+    /* --- 2. 전화 앱 (iOS 다크모드 최근 기록 UI) --- */
     #phone-app {
       background: #000000;
       color: white;
-      padding: 30px 16px 20px;
+      padding: 10px 0 0 0;
+      justify-content: space-between;
+    }
+    .phone-header {
+      padding: 10px 16px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .phone-header-title { font-size: 28px; font-weight: 700; }
+    .phone-edit-btn { font-size: 14px; color: #0a84ff; }
+
+    .recents-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 16px;
+    }
+    .recent-item {
+      display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 12px 0;
+      border-bottom: 0.5px solid #2c2c2e;
+      cursor: pointer;
     }
-    .call-header {
+    .recent-name { font-size: 15px; font-weight: 600; color: #ffffff; }
+    .recent-name.missed { color: #ff453a; }
+    .recent-sub { font-size: 12px; color: #8e8e93; margin-top: 2px; }
+    .recent-right { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8e8e93; }
+    .info-icon {
+      width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #0a84ff;
+      color: #0a84ff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold;
+    }
+
+    .phone-tab-bar {
+      height: 50px;
+      background: #1c1c1e;
+      border-top: 0.5px solid #2c2c2e;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
       text-align: center;
-      margin-top: 20px;
+    }
+    .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #8e8e93; gap: 2px; }
+    .tab-item.active { color: #0a84ff; }
+    .tab-icon { font-size: 16px; }
+
+    /* 통화 연결 내부 화면 */
+    #active-call-screen {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #000000;
+      z-index: 150;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 16px 30px;
     }
     .call-avatar {
-      width: 80px;
-      height: 80px;
-      background: #333;
-      border-radius: 50%;
-      margin: 0 auto 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+      width: 80px; height: 80px; background: #333; border-radius: 50%;
+      margin: 20px auto 12px; display: flex; align-items: center; justify-content: center; font-size: 40px;
     }
-    .call-name { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
-    .call-status { font-size: 13px; color: #8e8e93; }
-    
-    .call-era-selector {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      justify-content: center;
-    }
-    .era-btn {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 14px;
-      font-size: 11px;
-      cursor: pointer;
-    }
-    .era-btn.active {
-      background: var(--accent-blue);
-      border-color: var(--accent-blue);
-    }
-
     .call-transcript-box {
-      width: 100%;
-      height: 200px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 14px;
-      overflow-y: auto;
-      font-size: 13px;
-      line-height: 1.5;
-      color: #e5e5ea;
-      margin: 16px 0;
-      text-align: left;
+      width: 100%; height: 190px; background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px; padding: 14px; overflow-y: auto; font-size: 12px; line-height: 1.5; color: #e5e5ea;
     }
-    .call-transcript-box p { margin-bottom: 8px; }
     .call-transcript-box .speaker { font-weight: 600; color: #64d2ff; }
-
     .call-controls {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px 10px;
-      justify-items: center;
-      margin-bottom: 20px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; justify-items: center; margin-bottom: 10px;
     }
     .call-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
+      width: 52px; height: 52px; border-radius: 50%; background: rgba(255, 255, 255, 0.15);
+      display: flex; align-items: center; justify-content: center; font-size: 18px; color: white;
     }
-    .call-btn-end {
-      background: #ff3b30;
-      grid-column: 2;
-    }
+    .call-btn-end { background: #ff3b30; grid-column: 2; cursor: pointer; }
 
     /* --- 3. 메시지 앱 --- */
     .chat-header {
-      text-align: center;
-      padding: 6px 0 12px;
-      border-bottom: 1px solid #e5e5ea;
-      margin-bottom: 10px;
-      background: #fff;
+      text-align: center; padding: 6px 0 12px; border-bottom: 1px solid #e5e5ea; margin-bottom: 10px; background: #fff;
     }
     .chat-avatar { width: 44px; height: 44px; background: #f2f2f7; border-radius: 50%; margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
     .chat-name { font-size: 13px; font-weight: 600; }
     .chat-status { font-size: 10px; color: #8e8e93; }
 
-    .message-list {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-bottom: 10px;
-    }
-    .bubble {
-      max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 18px;
-      font-size: 13px;
-      line-height: 1.4;
-      word-break: break-all;
-    }
-    .bubble.me {
-      align-self: flex-end;
-      background-color: var(--accent-blue);
-      color: white;
-      border-bottom-right-radius: 4px;
-    }
-    .bubble.ghost {
-      align-self: flex-start;
-      background-color: #e9e9eb;
-      color: #000;
-      border-bottom-left-radius: 4px;
-    }
+    .message-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; }
+    .bubble { max-width: 80%; padding: 10px 14px; border-radius: 18px; font-size: 13px; line-height: 1.4; word-break: break-all; }
+    .bubble.me { align-self: flex-end; background-color: var(--accent-blue); color: white; border-bottom-right-radius: 4px; }
+    .bubble.ghost { align-self: flex-start; background-color: #e9e9eb; color: #000; border-bottom-left-radius: 4px; }
 
-    .choice-area {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding-top: 10px;
-      border-top: 1px solid #e5e5ea;
-    }
+    .choice-area { display: flex; flex-direction: column; gap: 8px; padding-top: 10px; border-top: 1px solid #e5e5ea; }
     .choice-btn {
-      background: #ffffff;
-      border: 1.5px solid var(--accent-blue);
-      color: var(--accent-blue);
-      padding: 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
+      background: #ffffff; border: 1.5px solid var(--accent-blue); color: var(--accent-blue);
+      padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center;
     }
     .choice-btn:hover { background: var(--accent-blue); color: white; }
 
-    /* --- 4. 사진첩 앱 --- */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 4px;
-      overflow-y: auto;
-    }
-    .photo-thumb {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background-size: cover;
-      background-position: center;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
+    /* --- 4. 사진 앨범 앱 --- */
+    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; overflow-y: auto; }
+    .photo-thumb { width: 100%; aspect-ratio: 1 / 1; background-size: cover; background-position: center; border-radius: 4px; cursor: pointer; }
     .modal {
-      display: none;
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      z-index: 200;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      color: white;
-      text-align: center;
+      display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); z-index: 200; flex-direction: column; justify-content: center; align-items: center; padding: 20px; color: white; text-align: center;
     }
     .modal img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
     .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
@@ -384,32 +335,17 @@
 
     /* --- 5. 메모장 앱 --- */
     .card-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 14px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
+    .card { background: white; border-radius: 12px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .card-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; color: #000; }
     .card-tag { font-size: 10px; color: #007aff; font-weight: 600; margin-bottom: 4px; }
     .card-date { font-size: 11px; color: #8e8e93; margin-bottom: 8px; }
     .card-body { font-size: 12px; color: #3c3c43; white-space: pre-line; line-height: 1.5; }
 
     /* 하단 홈 바 */
-    .home-bar-area {
-      height: 34px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      background: white;
-    }
-    .home-bar {
-      width: 134px;
-      height: 5px;
-      background-color: #000000;
-      border-radius: 3px;
-    }
+    .home-bar-area { height: 34px; display: flex; justify-content: center; align-items: center; cursor: pointer; background: white; }
+    .home-bar-area.dark { background: #1c1c1e; }
+    .home-bar { width: 134px; height: 5px; background-color: #000000; border-radius: 3px; }
+    .home-bar-area.dark .home-bar { background-color: #ffffff; }
   </style>
 </head>
 <body>
@@ -425,7 +361,7 @@
     <!-- 스크린 화면 -->
     <div class="screen">
       
-      <!-- 0. 잠금화면 (최씨 커플 셀카 배경) -->
+      <!-- 0. 잠금화면 -->
       <div id="lock-screen" class="app-screen active">
         <div>
           <div class="lock-date">1361년 고려 공민왕 10년, 달빛 밝은 밤</div>
@@ -441,15 +377,6 @@
             <div class="notif-title">최낭자 (최씨 처자)</div>
             <div class="notif-body">낭군님, 이 깊은 밤 홀로 등불을 밝히고 계시나요...</div>
           </div>
-
-          <div class="notif-card" onclick="unlockAndOpenMsg()">
-            <div class="notif-header">
-              <span>🌸 이생규장전</span>
-              <span>10분 전</span>
-            </div>
-            <div class="notif-title">삼기삼별의 약속</div>
-            <div class="notif-body">달빛 아래에서 은밀히 주고받은 시 한 수...</div>
-          </div>
         </div>
 
         <button class="unlock-btn" onclick="unlockPhone()">🔒 밀어서 잠금해제</button>
@@ -460,16 +387,19 @@
         <div class="home-container">
           <div>
             <div class="widget-area">
+              <!-- 커플 사진 위젯 -->
+              <div class="widget widget-photo">
+                <div class="widget-photo-overlay"></div>
+                <div class="widget-photo-text">🌸 최낭자와의 추억</div>
+              </div>
+              <!-- 시계/날씨 위젯 -->
               <div class="widget">
                 <div class="widget-clock">09:41</div>
-                <div class="widget-date">고려 1361년, 달빛 밝은 밤</div>
-              </div>
-              <div class="widget">
-                <div class="widget-weather">🌙 14° 맑음</div>
-                <div class="widget-sub">담장 밑</div>
+                <div class="widget-date">고려 1361년 맑음</div>
               </div>
             </div>
 
+            <!-- 4x4 다채로운 아이폰 앱 그리드 -->
             <div class="app-grid">
               <div class="app-icon" onclick="openApp('photos')">
                 <div class="icon-box icon-photos">🖼️</div>
@@ -479,21 +409,37 @@
                 <div class="icon-box icon-notes">📝</div>
                 <span class="app-name">메모</span>
               </div>
-              <div class="app-icon" onclick="alert('개성 송도 지도가 로드되었습니다.')">
+              <div class="app-icon" onclick="alert('개성 송도 지도가 연결되었습니다.')">
                 <div class="icon-box icon-maps">🗺️</div>
                 <span class="app-name">지도</span>
               </div>
-              <div class="app-icon" onclick="alert('카메라 앱을 실행할 수 없습니다.')">
+              <div class="app-icon" onclick="alert('카메라 실행 불가')">
                 <div class="icon-box icon-camera">📷</div>
                 <span class="app-name">카메라</span>
               </div>
-              <div class="app-icon" onclick="alert('달빛이 은은하게 비치는 밤입니다.')">
+              <div class="app-icon" onclick="alert('달빛이 비치는 밤입니다.')">
                 <div class="icon-box icon-weather">☀️</div>
                 <span class="app-name">날씨</span>
               </div>
-              <div class="app-icon" onclick="alert('설정 준비 중')">
+              <div class="app-icon" onclick="alert('설정 메뉴')">
                 <div class="icon-box icon-settings">⚙️</div>
                 <span class="app-name">설정</span>
+              </div>
+              <div class="app-icon" onclick="alert('고려시대 시 갤러리 피드가 열립니다.')">
+                <div class="icon-box icon-insta">📸</div>
+                <span class="app-name">인스타그램</span>
+              </div>
+              <div class="app-icon" onclick="alert('신축년 달력')">
+                <div class="icon-box icon-calendar">10</div>
+                <span class="app-name">달력</span>
+              </div>
+              <div class="app-icon" onclick="alert('세계 시계')">
+                <div class="icon-box icon-clock">⏰</div>
+                <span class="app-name">시계</span>
+              </div>
+              <div class="app-icon" onclick="alert('이생규장전 낭독 오디오')">
+                <div class="icon-box icon-podcasts">🎙️</div>
+                <span class="app-name">팟캐스트</span>
               </div>
             </div>
           </div>
@@ -502,48 +448,106 @@
             <div class="app-icon" onclick="openApp('phone-app')">
               <div class="icon-box icon-phone">📞</div>
             </div>
-            <div class="app-icon" onclick="alert('사파리 연결을 찾을 수 없습니다.')">
+            <div class="app-icon" onclick="alert('사파리 연결 불가')">
               <div class="icon-box icon-safari">🧭</div>
             </div>
             <div class="app-icon" onclick="openApp('messages')">
               <div class="icon-box icon-messages">💬</div>
             </div>
-            <div class="app-icon" onclick="alert('이생규장전 시 연작 음원이 재생 중입니다.')">
+            <div class="app-icon" onclick="alert('이생규장전 시 연작 음원 재생중')">
               <div class="icon-box icon-music">🎵</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2. 전화 앱 (iOS 스타일 통화 기능) -->
+      <!-- 2. 전화 앱 (iOS 최근 기록 스타일 UI) -->
       <div id="phone-app" class="app-screen">
-        <div class="call-header">
-          <div class="call-avatar">🌸</div>
-          <div class="call-name">최낭자 (최씨 처자)</div>
-          <div class="call-status" id="callTimer">00:12</div>
+        <div class="phone-header">
+          <div class="phone-header-title">최근 기록</div>
+          <div class="phone-edit-btn">편집</div>
+        </div>
 
-          <div class="call-era-selector">
-            <button class="era-btn active" id="eraBeforeBtn" onclick="setCallEra('before')">홍건적 침입 전</button>
-            <button class="era-btn" id="eraAfterBtn" onclick="setCallEra('after')">홍건적 침입 후 (재회)</button>
+        <div class="recents-list">
+          <div class="recent-item" onclick="startCall('최낭자 (최씨 처자)', 'before')">
+            <div>
+              <div class="recent-name missed">최낭자 ♡♡ (4)</div>
+              <div class="recent-sub">휴대전화 · 연결 안 됨</div>
+            </div>
+            <div class="recent-right">
+              <span>12월 14일</span>
+              <div class="info-icon">i</div>
+            </div>
+          </div>
+
+          <div class="recent-item" onclick="startCall('최낭자 (최씨 처자)', 'after')">
+            <div>
+              <div class="recent-name">최낭자 ♡♡</div>
+              <div class="recent-sub">휴대전화 · 재회 통화</div>
+            </div>
+            <div class="recent-right">
+              <span>12월 12일</span>
+              <div class="info-icon">i</div>
+            </div>
+          </div>
+
+          <div class="recent-item" onclick="alert('부친과의 통화 기록입니다.')">
+            <div>
+              <div class="recent-name missed">엄마 (6)</div>
+              <div class="recent-sub">휴대전화 · 연결 안 됨</div>
+            </div>
+            <div class="recent-right">
+              <span>11월 30일</span>
+              <div class="info-icon">i</div>
+            </div>
+          </div>
+
+          <div class="recent-item" onclick="alert('개성 관아 긴급 연락처입니다.')">
+            <div>
+              <div class="recent-name">112</div>
+              <div class="recent-sub">긴급 전화 · 연결 안 됨</div>
+            </div>
+            <div class="recent-right">
+              <span>11월 25일</span>
+              <div class="info-icon">i</div>
+            </div>
           </div>
         </div>
 
-        <div class="call-transcript-box" id="callTranscript">
-          <!-- 음성 대화 내용이 로드됩니다 -->
+        <!-- 하단 iOS 스타일 5개 탭 바 -->
+        <div class="phone-tab-bar">
+          <div class="tab-item"><span class="tab-icon">⭐</span>즐겨찾기</div>
+          <div class="tab-item active"><span class="tab-icon">🕒</span>최근 기록</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>연락처</div>
+          <div class="tab-item"><span class="tab-icon">🔢</span>키패드</div>
+          <div class="tab-item"><span class="tab-icon">🎙️</span>음성 사서함</div>
         </div>
 
-        <div class="call-controls">
-          <div class="call-btn">🔇</div>
-          <div class="call-btn">⌨️</div>
-          <div class="call-btn">🔊</div>
-          <div class="call-btn">➕</div>
-          <div class="call-btn">🎥</div>
-          <div class="call-btn">👤</div>
-          <div class="call-btn call-btn-end" onclick="goHome()">📞</div>
+        <!-- 통화 발신/진행 화면 (팝업 overlay) -->
+        <div id="active-call-screen">
+          <div style="text-align: center;">
+            <div class="call-avatar">🌸</div>
+            <h2 id="activeCallName" style="font-size:20px; margin-bottom:4px;">최낭자 ♡♡</h2>
+            <div style="font-size:12px; color:#8e8e93;" id="activeCallTime">00:08</div>
+          </div>
+
+          <div class="call-transcript-box" id="activeCallTranscript">
+            <!-- 대화 스크립트 출력 -->
+          </div>
+
+          <div class="call-controls">
+            <div class="call-btn">🔇</div>
+            <div class="call-btn">⌨️</div>
+            <div class="call-btn">🔊</div>
+            <div class="call-btn">➕</div>
+            <div class="call-btn">🎥</div>
+            <div class="call-btn">👤</div>
+            <div class="call-btn call-btn-end" onclick="endCall()">📞</div>
+          </div>
         </div>
       </div>
 
-      <!-- 3. 메시지 앱 (확장된 미연시) -->
+      <!-- 3. 메시지 앱 (미연시) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -555,9 +559,7 @@
           <div class="bubble ghost">낭군님, 이 깊은 밤 홀로 등불을 밝히고 계시나요...</div>
         </div>
 
-        <div class="choice-area" id="choiceArea">
-          <!-- JS에서 동적으로 선택지 구성 -->
-        </div>
+        <div class="choice-area" id="choiceArea"></div>
       </div>
 
       <!-- 4. 사진 앨범 앱 -->
@@ -591,49 +593,7 @@
             <div class="card-title">메모 01. 잊을 수 없는 그날</div>
             <div class="card-tag"># 첫 번째 만남</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 담장 너머 꽃밭에서 한 여인을 만났다. 우연히 마주친 눈빛이 어찌나 선명하던지, 돌아오는 길에도 자꾸만 그 모습이 떠올랐다...</div>
-          </div>
-          <div class="card">
-            <div class="card-title">메모 02. 최씨에게 보내지 못한 시</div>
-            <div class="card-tag"># 첫 번째 만남</div>
-            <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘도 그대 생각에 글을 썼다. 몇 번이고 고쳐 썼으나 마음을 온전히 담을 수 없었다...</div>
-          </div>
-          <div class="card">
-            <div class="card-title">메모 03. 반드시 다시 만나리라</div>
-            <div class="card-tag"># 첫 번째 이별</div>
-            <div class="card-date">저장된 메모</div>
-            <div class="card-body">부친께서 나를 영남으로 보내셨다. 최씨에게 작별 인사조차 제대로 건네지 못했다...</div>
-          </div>
-          <div class="card">
-            <div class="card-title">메모 04. 혼인하던 날</div>
-            <div class="card-tag"># 두 번째 만남</div>
-            <div class="card-date">저장된 메모</div>
-            <div class="card-body">마침내 최씨와 혼인하였다. 오랜 기다림 끝에 다시 만난 그 사람과 한집에서 살아간다는 것이 믿기지 않는다...</div>
-          </div>
-          <div class="card">
-            <div class="card-title">메모 05. 집으로 돌아가고 싶다</div>
-            <div class="card-tag"># 두 번째 이별</div>
-            <div class="card-date">저장된 메모</div>
-            <div class="card-body">홍건적의 난으로 집이 무너지고 말았다. 최씨는 끝내 돌아오지 못했다...</div>
-          </div>
-          <div class="card">
-            <div class="card-title">메모 06. 꿈이라도 좋으니</div>
-            <div class="card-tag"># 세 번째 만남</div>
-            <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 밤, 최씨가 돌아왔다. 분명 죽었다고 생각했던 그 사람이 내 앞에 서 있었다...</div>
-          </div>
-          <div class="card">
-            <div class="card-title">메모 07. 우리에게 남은 시간</div>
-            <div class="card-tag"># 세 번째 만남</div>
-            <div class="card-date">저장된 메모</div>
-            <div class="card-body">그대와 다시 함께한 지 여러 해가 흘렀다. 부모님의 장례도 함께 치렀고 시를 나누며 지냈다...</div>
-          </div>
-          <div class="card">
-            <div class="card-title">메모 08. 마지막으로 남기는 말</div>
-            <div class="card-tag"># 세 번째 이별</div>
-            <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 최씨가 떠났다. 세 번이나 만났고, 세 번이나 잃었다. 언젠가 다시 만날 수 있기를...</div>
+            <div class="card-body">오늘 담장 너머 꽃밭에서 한 여인을 만났다...</div>
           </div>
         </div>
       </div>
@@ -641,13 +601,12 @@
     </div>
 
     <!-- 하단 홈 바 -->
-    <div class="home-bar-area" onclick="goHome()">
+    <div class="home-bar-area" id="homeBarArea" onclick="goHome()">
       <div class="home-bar"></div>
     </div>
   </div>
 
   <script>
-    /* 기본 UI 및 네비게이션 로직 */
     function unlockPhone() {
       document.getElementById('statusBar').classList.remove('lock-mode');
       goHome();
@@ -660,21 +619,26 @@
 
     function openApp(appId) {
       document.querySelectorAll('.app-screen').forEach(el => el.classList.remove('active'));
-      const target = document.getElementById(appId);
-      target.classList.add('active');
+      document.getElementById(appId).classList.add('active');
+
+      const statusBar = document.getElementById('statusBar');
+      const homeBar = document.getElementById('homeBarArea');
 
       if(appId === 'phone-app') {
-        startCallTimer();
-        setCallEra('before');
+        statusBar.classList.add('dark-mode');
+        homeBar.classList.add('dark');
       } else {
-        stopCallTimer();
+        statusBar.classList.remove('dark-mode');
+        homeBar.classList.remove('dark');
       }
     }
 
     function goHome() {
-      stopCallTimer();
+      endCall();
       document.querySelectorAll('.app-screen').forEach(el => el.classList.remove('active'));
       document.getElementById('home').classList.add('active');
+      document.getElementById('statusBar').classList.remove('dark-mode');
+      document.getElementById('homeBarArea').classList.remove('dark');
     }
 
     function showPhoto(title, desc, url) {
@@ -688,53 +652,32 @@
       document.getElementById('photoModal').style.display = 'none';
     }
 
-    /* --- 1. 전화 앱 기능 --- */
-    let callTimerInterval = null;
-    let secondsElapsed = 0;
-
-    function startCallTimer() {
-      stopCallTimer();
-      secondsElapsed = 12;
-      callTimerInterval = setInterval(() => {
-        secondsElapsed++;
-        const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
-        const secs = String(secondsElapsed % 60).padStart(2, '0');
-        document.getElementById('callTimer').innerText = `${mins}:${secs}`;
-      }, 1000);
-    }
-
-    function stopCallTimer() {
-      if(callTimerInterval) clearInterval(callTimerInterval);
-    }
-
-    function setCallEra(era) {
-      const beforeBtn = document.getElementById('eraBeforeBtn');
-      const afterBtn = document.getElementById('eraAfterBtn');
-      const transcript = document.getElementById('callTranscript');
+    /* --- 전화 앱 통화 연결 기능 --- */
+    function startCall(name, era) {
+      const activeCallScreen = document.getElementById('active-call-screen');
+      const transcriptBox = document.getElementById('activeCallTranscript');
+      document.getElementById('activeCallName').innerText = name;
 
       if(era === 'before') {
-        beforeBtn.classList.add('active');
-        afterBtn.classList.remove('active');
-        transcript.innerHTML = `
-          <p><span class="speaker">최낭자:</span> 낭군님, 부친께서 영남으로 보내신다는 소식을 들었습니다... 정말 이대로 떠나시는 건가요?</p>
-          <p><span class="speaker">이생:</span> 내 마음도 찢어질 것 같소. 하지만 부모님의 뜻을 어길 수 없으니... 매일 밤 담장 아래서 주고받던 시를 읽으며 그대를 그리워하겠소.</p>
-          <p><span class="speaker">최낭자:</span> 기다리겠습니다. 낭군님이 돌아오실 때까지 제 마음은 변함없을 것입니다.</p>
+        transcriptBox.innerHTML = `
+          <p><span class="speaker">최낭자:</span> 낭군님, 영남으로 먼 길을 떠나신다니 마음이 너무 아픕니다...</p>
+          <p><span class="speaker">이생:</span> 부모님의 명을 거역할 수 없었소. 매일 밤 담장 아래서 주고받던 시를 읊으며 그대만을 기다리겠소.</p>
         `;
       } else {
-        afterBtn.classList.add('active');
-        beforeBtn.classList.remove('active');
-        transcript.innerHTML = `
-          <p><span class="speaker">이생:</span> 최 낭자! 정녕 그대란 말이오? 난 난리 속에 그대가 목숨을 잃었다 들어 매일 밤 눈물로 지샜소...</p>
-          <p><span class="speaker">최낭자:</span> 낭군님... 비록 제 육신은 홍건적에게 절개를 지키다 산천에 버려졌으나, 낭군님과의 약속을 잊지 못해 이렇게 혼령으로나마 찾아왔습니다.</p>
-          <p><span class="speaker">이생:</span> 환신(幻身)이어도 좋고 귀신이어도 상관없소. 다시는 그대의 손을 놓지 않겠소.</p>
+        transcriptBox.innerHTML = `
+          <p><span class="speaker">이생:</span> 최 낭자! 난리 속에서 목숨을 잃은 줄 알았거늘, 정녕 그대란 말이오?</p>
+          <p><span class="speaker">최낭자:</span> 비록 육신은 참변을 당했으나 정인은 잊지 못해 이렇게 넋이라도 돌아왔습니다...</p>
         `;
       }
+      activeCallScreen.style.display = 'flex';
     }
 
-    /* --- 2. 미연시 스토리 분기 로직 (5단계 확장) --- */
-    let step = 1;
+    function endCall() {
+      document.getElementById('active-call-screen').style.display = 'none';
+    }
 
-    // 미연시 선택지 초기화
+    /* --- 미연시 로직 --- */
+    let step = 1;
     function renderStepChoices() {
       const choiceArea = document.getElementById('choiceArea');
       if (step === 1) {
@@ -749,7 +692,6 @@
       const chatList = document.getElementById('chatList');
       const choiceArea = document.getElementById('choiceArea');
 
-      // 내 메시지 버블 추가
       const myBubble = document.createElement('div');
       myBubble.className = 'bubble me';
       myBubble.textContent = text;
@@ -762,94 +704,20 @@
         const ghostReply = document.createElement('div');
         ghostReply.className = 'bubble ghost';
 
-        /* 단계별 스토리 흐름 */
         if (step === 1) {
           if (choiceNum === 1) {
-            ghostReply.textContent = "낭군님, 저 역시 이승의 미련을 버리지 못해 이슬을 머금고 찾아왔습니다. 기억하시나요... 담장 너머로 기왓장에 시를 묶어 던지며 마음을 고백하던 그날을...";
+            ghostReply.textContent = "낭군님, 저 역시 이승의 미련을 버리지 못해 찾아왔습니다. 기억하시나요... 담장 너머로 시를 묶어 던지며 마음을 나누던 순간을...";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
-
             choiceArea.innerHTML = `
-              <button class="choice-btn" onclick="sendMyMessage('어찌 잊겠소. 그대의 붉은 낭자 시 한 구절에 내 영혼이 빠져들었거늘.', 1)">어찌 잊겠소. 그대의 붉은 낭자 시 한 구절에 내 영혼이 빠져들었거늘.</button>
-              <button class="choice-btn" onclick="sendMyMessage('그때는 우리가 이토록 참혹한 운명에 처할 줄 몰랐소.', 2)">그때는 우리가 이토록 참혹한 운명에 처할 줄 몰랐소.</button>
+              <button class="choice-btn" onclick="sendMyMessage('어찌 잊겠소. 그대의 시 한 구절에 내 마음이 모두 흔들렸거늘.', 1)">어찌 잊겠소. 그대의 시 한 구절에 내 마음이 모두 흔들렸거늘.</button>
             `;
             step = 2;
           } else {
-            ghostReply.textContent = "낭군님께서 저를 두려워하시고 멀리하시니... 제 슬픈 넋은 더 이상 이승에 머무를 이유가 없군요. 부디 만수무강하십시오...";
+            ghostReply.textContent = "낭군님께서 저를 두려워하시니 제 넋은 떠나겠습니다...";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
-
-            setTimeout(() => {
-              alert('최낭자의 혼령이 슬피 울며 사라졌습니다. (배드 엔딩: 차가운 이별)');
-              resetChat();
-              goHome();
-            }, 1200);
-            return;
-          }
-
-        } else if (step === 2) {
-          ghostReply.textContent = "부모님의 반대를 무릅쓰고 마침내 성사된 우리 혼례날의 기쁨도 잠시... 홍건적의 난으로 절개를 지키다 산천에 몸이 찢기는 참변을 당했습니다. 그러나 정인은 죽어서도 잊을 수 없는 법이지요.";
-          chatList.appendChild(ghostReply);
-          chatList.scrollTop = chatList.scrollHeight;
-
-          choiceArea.innerHTML = `
-            <button class="choice-btn" onclick="sendMyMessage('내 당장 들판으로 달려가 그대의 흩어진 유골을 거두어 정성껏 묻어주겠소.', 1)">내 당장 들판으로 달려가 그대의 흩어진 유골을 거두어 정성껏 묻어주겠소.</button>
-            <button class="choice-btn" onclick="sendMyMessage('이 모두가 내 탓이오. 그대를 지키지 못한 나를 원망하시오.', 2)">이 모두가 내 탓이오. 그대를 지키지 못한 나를 원망하시오.</button>
-          `;
-          step = 3;
-
-        } else if (step === 3) {
-          if (choiceNum === 1) {
-            ghostReply.textContent = "고맙습니다, 낭군님... 은혜를 잊지 않겠어요. 이제 신수(저승의 보물)와 은병을 찾아 가산을 정리하고, 남은 세월을 사람들의 눈을 피해 함께 보내요.";
-          } else {
-            ghostReply.textContent = "낭군 탓이 아닙니다. 난리 속에서 누구를 원망하겠습니까. 비록 육신은 사라졌으나 함께할 수 있는 시간이 우리에게 남겨져 있습니다.";
-          }
-          chatList.appendChild(ghostReply);
-          chatList.scrollTop = chatList.scrollHeight;
-
-          choiceArea.innerHTML = `
-            <button class="choice-btn" onclick="sendMyMessage('비록 귀신이라 할지라도 내 곁에서 영원히 함께해주오. 세상의 시선 따위 상관없소.', 1)">비록 귀신이라 할지라도 내 곁에서 영원히 함께해주오.</button>
-            <button class="choice-btn" onclick="sendMyMessage('인간과 혼령의 길은 엄연히 다른 법, 저승의 법도가 두렵지 않소?', 2)">인간과 혼령의 길은 엄연히 다른 법, 저승의 법도가 두렵지 않소?</button>
-          `;
-          step = 4;
-
-        } else if (step === 4) {
-          if (choiceNum === 1) {
-            ghostReply.textContent = "이승에서의 명수가 정해져 있어 우리에게 허락된 시간은 몇 년뿐입니다. 그러나 낭군님과 나눈 사랑은 정해진 운명마저 뛰어넘었습니다...";
-            chatList.appendChild(ghostReply);
-            chatList.scrollTop = chatList.scrollHeight;
-
-            choiceArea.innerHTML = `
-              <button class="choice-btn" onclick="sendMyMessage('저승으로 떠나는 날, 나 역시 그대를 따라 목숨을 버릴 것이오.', 1)">저승으로 떠나는 날, 나 역시 그대를 따라 목숨을 버릴 것이오.</button>
-              <button class="choice-btn" onclick="sendMyMessage('남은 날 동안 매일 밤 시를 나누며 서로의 슬픔을 달래봅시다.', 2)">남은 날 동안 매일 밤 시를 나누며 서로의 슬픔을 달래봅시다.</button>
-            `;
-            step = 5;
-          } else {
-            ghostReply.textContent = "저승의 명수가 다하여 참으로 떠날 시간이 다가오고 있습니다. 낭군님과의 인연에 감사하며 이만 미련을 거두겠습니다...";
-            chatList.appendChild(ghostReply);
-            chatList.scrollTop = chatList.scrollHeight;
-
-            setTimeout(() => {
-              alert('최낭자가 은하수 너머로 떠났습니다. (노멀 엔딩: 현실적 이별)');
-              resetChat();
-              goHome();
-            }, 1200);
-            return;
-          }
-
-        } else if (step === 5) {
-          if (choiceNum === 1) {
-            ghostReply.textContent = "낭군님... 삼기삼별(三生三世)의 약속이 마침내 이루어졌군요. 죽음조차 우리 갈라놓지 못할 것입니다. 다음 생에서도 반드시 그대의 아내가 되겠습니다.";
-            chatList.appendChild(ghostReply);
-            chatList.scrollTop = chatList.scrollHeight;
-
-            choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#007aff; padding:10px; font-weight:bold;">[트루 엔딩: 죽음을 초월한 영원한 사랑]</div>`;
-          } else {
-            ghostReply.textContent = "짧았던 며칠이 지나고 최낭자는 눈물을 흘리며 옥피리 소리와 함께 바람 속으로 사라졌습니다. 이생은 얼마 뒤 병을 얻어 세상을 떠났습니다.";
-            chatList.appendChild(ghostReply);
-            chatList.scrollTop = chatList.scrollHeight;
-
-            choiceArea.innerHTML = `<div style="text-align:center; font-size:12px; color:#8e8e93; padding:10px;">[원작 엔딩: 애절한 환상적 재회]</div>`;
+            setTimeout(() => { resetChat(); goHome(); }, 1200);
           }
         }
       }, 600);
@@ -862,7 +730,6 @@
       renderStepChoices();
     }
 
-    // 페이지 로드시 미연시 초기 선택지 세팅
     renderStepChoices();
   </script>
 </body>
