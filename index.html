@@ -23,6 +23,7 @@
       padding: 20px;
     }
 
+    /* 아이폰 프레임 */
     .iphone {
       width: 375px;
       height: 760px;
@@ -35,6 +36,7 @@
       flex-direction: column;
     }
 
+    /* 상단바 & 노치 */
     .status-bar {
       height: 48px;
       padding: 0 24px;
@@ -68,7 +70,7 @@
     .app-screen { display: none; height: 100%; padding: 16px; flex-direction: column; }
     .app-screen.active { display: flex; }
 
-    /* 홈화면 */
+    /* --- 홈화면 & 위젯 --- */
     .home-container {
       display: flex;
       flex-direction: column;
@@ -144,7 +146,7 @@
     .icon-messages { background: linear-gradient(180deg, #34c759, #30d158); }
     .icon-music { background: linear-gradient(180deg, #ff2d55, #ff375f); }
 
-    /* 메시지 앱 */
+    /* --- 메시지 앱 --- */
     .chat-header {
       text-align: center;
       padding: 6px 0 12px;
@@ -206,7 +208,7 @@
     }
     .choice-btn:hover { background: var(--accent-blue); color: white; }
 
-    /* 사진첩 */
+    /* --- 사진첩 앱 (3열 그리드) --- */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -240,7 +242,7 @@
     .modal-desc { font-size: 12px; color: #ccc; line-height: 1.4; margin-bottom: 16px; }
     .modal-close { background: white; color: black; border: none; padding: 6px 16px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
-    /* 메모장 */
+    /* --- 메모장 앱 --- */
     .card-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
     .card {
       background: white;
@@ -361,20 +363,20 @@
         </div>
       </div>
 
-      <!-- 3. 사진 앨범 앱 -->
+      <!-- 3. 사진 앨범 앱 (이생의 POV 실사 사진 10장) -->
       <div id="photos" class="app-screen">
-        <h2 style="font-size: 16px; margin-bottom: 8px;">라이브러리 (10장)</h2>
+        <h2 style="font-size: 16px; margin-bottom: 8px;">이생의 갤러리 (10장)</h2>
         <div class="photo-grid">
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300');" onclick="showPhoto('🌸 담장 너머의 첫 만남', '담장 안으로 글을 넘기며 그대와 처음 눈을 맞추던 날.', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300');" onclick="showPhoto('🌙 달빛 아래 시회', '은은한 달빛을 조명 삼아 함께 시를 읊던 소중한 시간.', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=300');" onclick="showPhoto('💍 언약의 증표', '양가 부모님의 반대를 무릅쓰고 주고받았던 은가락지.', 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=300');" onclick="showPhoto('⛰️ 송림 산책', '서당 수업이 끝나고 함께 거닐던 개성 송악산 길.', 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=300');" onclick="showPhoto('🍁 단풍 밑 맹세', '가을 단풍처럼 붉고 영원한 사랑을 약속하던 날.', 'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300');" onclick="showPhoto('🍵 신혼의 안락함', '마침내 결실을 맺고 부부의 정을 나누던 날들.', 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300');" onclick="showPhoto('🔥 홍건적의 난 비극', '전쟁의 화마가 휩쓸고 지나가 최씨를 잃었던 비통한 순간.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300');" onclick="showPhoto('👻 혼령의 환생', '죽음을 초월하여 밤 안개 속에서 환생해 나타난 최씨.', 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=300');" onclick="showPhoto('✨ 3년간의 행복', '이승 사람들의 눈을 피해 다시 나눈 기적 같은 나날.', 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=400')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=300');" onclick="showPhoto('🌅 영원한 이별', '저승의 기한이 다하여 바람처럼 사라진 최씨의 넋.', 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400');" onclick="showPhoto('🌸 1. 담장 너머의 첫 만남', '버드나무 아래서 최씨 낭자의 담장 안 꽃밭을 바라보던 순간.', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=400');" onclick="showPhoto('📜 2. 기왓장에 던진 시', '기왓장에 실로 묶어 담장 넘어로 조심스레 던졌던 내 마음.', 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400');" onclick="showPhoto('🌙 3. 담을 넘던 첫날밤', '복사꽃 드리워진 밤, 그넷줄 바구니에 몸을 실어 담을 넘다.', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=400');" onclick="showPhoto('⛰️ 4. 영남 유배지의 길', '아버지의 호통에 작별인사도 없이 쫓겨나 홀로 걷던 울주 길.', 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=400');" onclick="showPhoto('💍 5. 마침내 치른 혼례', '모든 역경을 딛고 성사된 우리 둘만의 소중한 혼례상.', 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=400');" onclick="showPhoto('🍵 6. 신혼의 달빛 시회', '등불을 켜두고 최씨 낭자와 둘이 마주 앉아 시를 주고받던 시절.', 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400');" onclick="showPhoto('🔥 7. 잿더미가 된 집', '홍건적의 난이 휩쓸고 지나가 아내와 집을 모두 잃은 비극의 날.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400');" onclick="showPhoto('👻 8. 밤안개 속 귀신의 재회', '죽은 줄 알았던 최씨 낭자가 환신이 되어 내 앞에 서 있던 순간.', 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=400');" onclick="showPhoto('✨ 9. 함께 나눈 기적의 술잔', '세상의 눈을 피해 몇 년 동안이나 정을 나누었던 꿈같은 날들.', 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400');" onclick="showPhoto('🌅 10. 저승으로 떠난 아침', '명수가 다하여 마지막 인사를 남기고 이슬처럼 사라진 자리.', 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600')"></div>
         </div>
       </div>
 
@@ -386,7 +388,7 @@
         <button class="modal-close" onclick="closePhoto()">닫기</button>
       </div>
 
-      <!-- 4. 메모장 앱 (삼기삼별 8개 메모 완벽 적용) -->
+      <!-- 4. 메모장 앱 -->
       <div id="notes" class="app-screen">
         <h2 style="font-size: 18px; margin-bottom: 10px;">이생의 메모장 (8개)</h2>
         <div class="card-list">
