@@ -46,6 +46,10 @@
       font-size: 14px;
       font-weight: 600;
       z-index: 100;
+      color: #000;
+    }
+    .status-bar.lock-mode {
+      color: #fff;
     }
     .dynamic-island {
       width: 110px;
@@ -70,7 +74,55 @@
     .app-screen { display: none; height: 100%; padding: 16px; flex-direction: column; }
     .app-screen.active { display: flex; }
 
-    /* --- 홈화면 & 위젯 --- */
+    /* --- 0. 잠금화면 --- */
+    #lock-screen {
+      background: linear-gradient(180deg, rgba(20,20,35,0.85) 0%, rgba(40,30,60,0.95) 100%), 
+                  url('image_generation_content/2823796965326386448') center/cover;
+      color: white;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+    .lock-time { font-size: 64px; font-weight: 200; letter-spacing: -2px; margin-top: 10px; }
+    .lock-date { font-size: 14px; opacity: 0.9; font-weight: 500; }
+    
+    .notification-area {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .notif-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      padding: 12px 14px;
+      text-align: left;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .notif-header { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 4px; }
+    .notif-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .notif-body { font-size: 12px; opacity: 0.95; line-height: 1.3; }
+
+    .unlock-btn {
+      margin-top: auto;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .unlock-btn:hover { background: rgba(255, 255, 255, 0.5); }
+
+    /* --- 1. 아이폰 홈화면 & 위젯 --- */
     .home-container {
       display: flex;
       flex-direction: column;
@@ -276,8 +328,8 @@
 
   <div class="iphone">
     <!-- 상단바 -->
-    <div class="status-bar">
-      <span>9:41</span>
+    <div class="status-bar lock-mode" id="statusBar">
+      <span>09:41</span>
       <div class="dynamic-island"></div>
       <span>5G 🔋</span>
     </div>
@@ -285,8 +337,38 @@
     <!-- 스크린 화면 -->
     <div class="screen">
       
+      <!-- 0. 잠금화면 (Lock Screen) -->
+      <div id="lock-screen" class="app-screen active">
+        <div>
+          <div class="lock-date">조선 세종 해, 달빛 밝은 밤</div>
+          <div class="lock-time">09:41</div>
+        </div>
+
+        <div class="notification-area">
+          <div class="notif-card" onclick="unlockAndOpenMsg()">
+            <div class="notif-header">
+              <span>💬 메시지</span>
+              <span>방금 전</span>
+            </div>
+            <div class="notif-title">최낭자 (최씨 처자)</div>
+            <div class="notif-body">낭군님, 이 깊은 밤 홀로 등불을 밝히고 계시나요...</div>
+          </div>
+
+          <div class="notif-card" onclick="unlockAndOpenMsg()">
+            <div class="notif-header">
+              <span>🌸 이생규장전</span>
+              <span>10분 전</span>
+            </div>
+            <div class="notif-title">삼기삼별의 약속</div>
+            <div class="notif-body">달빛 아래에서 은밀히 주고받은 시 한 수...</div>
+          </div>
+        </div>
+
+        <button class="unlock-btn" onclick="unlockPhone()">🔒 밀어서 잠금해제</button>
+      </div>
+
       <!-- 1. 아이폰 홈 화면 -->
-      <div id="home" class="app-screen active">
+      <div id="home" class="app-screen">
         <div class="home-container">
           <div>
             <div class="widget-area">
@@ -363,20 +445,20 @@
         </div>
       </div>
 
-      <!-- 3. 사진 앨범 앱 (이생의 POV 실사 사진 10장) -->
+      <!-- 3. 사진 앨범 앱 (이생의 POV 실사 생성 사진 10장 적용) -->
       <div id="photos" class="app-screen">
         <h2 style="font-size: 16px; margin-bottom: 8px;">이생의 갤러리 (10장)</h2>
         <div class="photo-grid">
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400');" onclick="showPhoto('🌸 1. 담장 너머의 첫 만남', '버드나무 아래서 최씨 낭자의 담장 안 꽃밭을 바라보던 순간.', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=400');" onclick="showPhoto('📜 2. 기왓장에 던진 시', '기왓장에 실로 묶어 담장 넘어로 조심스레 던졌던 내 마음.', 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400');" onclick="showPhoto('🌙 3. 담을 넘던 첫날밤', '복사꽃 드리워진 밤, 그넷줄 바구니에 몸을 실어 담을 넘다.', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=400');" onclick="showPhoto('⛰️ 4. 영남 유배지의 길', '아버지의 호통에 작별인사도 없이 쫓겨나 홀로 걷던 울주 길.', 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=400');" onclick="showPhoto('💍 5. 마침내 치른 혼례', '모든 역경을 딛고 성사된 우리 둘만의 소중한 혼례상.', 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=400');" onclick="showPhoto('🍵 6. 신혼의 달빛 시회', '등불을 켜두고 최씨 낭자와 둘이 마주 앉아 시를 주고받던 시절.', 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400');" onclick="showPhoto('🔥 7. 잿더미가 된 집', '홍건적의 난이 휩쓸고 지나가 아내와 집을 모두 잃은 비극의 날.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400');" onclick="showPhoto('👻 8. 밤안개 속 귀신의 재회', '죽은 줄 알았던 최씨 낭자가 환신이 되어 내 앞에 서 있던 순간.', 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=400');" onclick="showPhoto('✨ 9. 함께 나눈 기적의 술잔', '세상의 눈을 피해 몇 년 동안이나 정을 나누었던 꿈같은 날들.', 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=600')"></div>
-          <div class="photo-thumb" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400');" onclick="showPhoto('🌅 10. 저승으로 떠난 아침', '명수가 다하여 마지막 인사를 남기고 이슬처럼 사라진 자리.', 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/7007586767479673747');" onclick="showPhoto('🌸 1. 담장 너머의 첫 만남', '버드나무 아래서 최씨 낭자의 담장 안 꽃밭을 바라보던 순간.', 'image_generation_content/7007586767479673747')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/14346923724754405363');" onclick="showPhoto('📜 2. 기왓장에 던진 시', '기왓장에 실로 묶어 담장 넘어로 조심스레 던졌던 내 마음.', 'image_generation_content/14346923724754405363')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/2823796965326386448');" onclick="showPhoto('🌙 3. 담을 넘던 첫날밤', '복사꽃 드리워진 밤, 그넷줄 바구니에 몸을 실어 담을 넘다.', 'image_generation_content/2823796965326386448')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/3425548670187492066');" onclick="showPhoto('⛰️ 4. 영남 유배지의 길', '아버지의 호통에 작별인사도 없이 쫓겨나 홀로 걷던 울주 길.', 'image_generation_content/3425548670187492066')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/16976009575145888488');" onclick="showPhoto('💍 5. 마침내 치른 혼례', '모든 역경을 딛고 성사된 우리 둘만의 소중한 혼례상.', 'image_generation_content/16976009575145888488')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/665881769623181568');" onclick="showPhoto('🍵 6. 신혼의 달빛 시회', '등불을 켜두고 최씨 낭자와 둘이 마주 앉아 시를 주고받던 시절.', 'image_generation_content/665881769623181568')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/1349195674408476417');" onclick="showPhoto('🔥 7. 잿더미가 된 집', '홍건적의 난이 휩쓸고 지나가 아내와 집을 모두 잃은 비극의 날.', 'image_generation_content/1349195674408476417')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/10653022208419850171');" onclick="showPhoto('👻 8. 밤안개 속 귀신의 재회', '죽은 줄 알았던 최씨 낭자가 환신이 되어 내 앞에 서 있던 순간.', 'image_generation_content/10653022208419850171')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/2542842743353684465');" onclick="showPhoto('✨ 9. 함께 나눈 기적의 술잔', '세상의 눈을 피해 몇 년 동안이나 정을 나누었던 꿈같은 날들.', 'image_generation_content/2542842743353684465')"></div>
+          <div class="photo-thumb" style="background-image: url('image_generation_content/2352091660355925737');" onclick="showPhoto('🌅 10. 저승으로 떠난 아침', '명수가 다하여 마지막 인사를 남기고 이슬처럼 사라진 자리.', 'image_generation_content/2352091660355925737')"></div>
         </div>
       </div>
 
@@ -466,7 +548,7 @@
 문득 생각해 보니 그대와 함께하는 하루하루가 얼마나 소중한지 모르겠다.
 사람들은 우리를 이해하지 못할지도 모른다.
 그러나 내게는 지금 이 순간이 가장 행복하다.
-부디 이 시간이 조금만 더 길었으면 좋겠다.</div>
+부디 이 시간이 조금만 더 길했으면 좋겠다.</div>
           </div>
           <div class="card">
             <div class="card-title">메모 08. 마지막으로 남기는 말</div>
@@ -492,6 +574,16 @@
   </div>
 
   <script>
+    function unlockPhone() {
+      document.getElementById('statusBar').classList.remove('lock-mode');
+      goHome();
+    }
+
+    function unlockAndOpenMsg() {
+      document.getElementById('statusBar').classList.remove('lock-mode');
+      openApp('messages');
+    }
+
     function openApp(appId) {
       document.querySelectorAll('.app-screen').forEach(el => el.classList.remove('active'));
       document.getElementById(appId).classList.add('active');
@@ -613,4 +705,4 @@
     }
   </script>
 </body>
-</html>
+</html>   
