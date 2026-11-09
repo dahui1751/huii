@@ -65,7 +65,7 @@
     .screen {
       flex: 1;
       position: relative;
-      background: url('photo9.png') center/cover no-repeat;
+      background-color: var(--bg-color);
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -150,7 +150,7 @@
       overflow: hidden;
     }
     .widget-photo {
-      background: url('photo9.png') center/cover no-repeat;
+      background: url('photo1.png') center/cover no-repeat;
       color: white;
       justify-content: flex-end;
       padding: 10px;
@@ -386,7 +386,7 @@
     .card-date { font-size: 11px; color: #8e8e93; margin-bottom: 8px; }
     .card-body { font-size: 12px; color: #3c3c43; white-space: pre-line; line-height: 1.5; }
 
-    /* --- 7. 유교 덕목 & 교훈 앱 --- */
+    /* --- 7. 금오신화 유교적 덕목 & 교훈 앱 --- */
     #ethics-app {
       background: #fdfdfd;
       padding: 16px;
@@ -676,12 +676,12 @@
         </div>
       </div>
 
-      <!-- 4. 메시지 앱 (풍성하게 확장된 미연시 대화) -->
+      <!-- 4. 메시지 앱 (지연 시간 적용 및 긴 호흡의 미연시 대화) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
           <div class="chat-name">최낭자 (최씨 처자)</div>
-          <div class="chat-status">달빛 아래 접속 중...</div>
+          <div class="chat-status" id="chatStatus">달빛 아래 접속 중...</div>
         </div>
         
         <div class="message-list" id="chatList">
@@ -908,20 +908,30 @@
       document.getElementById('active-call-screen').style.display = 'none';
     }
 
-    /* --- 풍성하게 확장된 미연시 대화 (다채로운 티키타카 및 2개 엔딩) --- */
+    /* --- 확장된 호흡과 스토리성 티키타카 미연시 대화 --- */
     let chatStage = 1;
+
+    function setTypingStatus(isTyping) {
+      const statusEl = document.getElementById('chatStatus');
+      statusEl.textContent = isTyping ? "최낭자가 입력 중..." : "달빛 아래 접속 중...";
+    }
 
     function renderStepChoices() {
       const choiceArea = document.getElementById('choiceArea');
       if (chatStage === 1) {
         choiceArea.innerHTML = `
-          <button class="choice-btn" onclick="handleChatChoice(1, '그대의 목소리가 환청처럼 들려 밤마다 잠을 이룰 수 없소. 제발 내 곁으로 와주오.')">1. 환청처럼 들려 잠을 잘 수가 없소. 내 곁으로 와주오.</button>
+          <button class="choice-btn" onclick="handleChatChoice(1, '환청처럼 들려 밤마다 잠을 이룰 수 없소. 제발 내 곁으로 와주오.')">1. 환청처럼 들려 잠을 잘 수가 없소. 내 곁으로 와주오.</button>
           <button class="choice-btn" onclick="handleChatChoice(2, '비록 귀신이 되었을지라도 낭자와 나누었던 옛기억에 눈물만 흐르는구려.')">2. 귀신이 되었을지라도 옛기억에 눈물만 흐르는구려.</button>
         `;
       } else if (chatStage === 3) {
         choiceArea.innerHTML = `
           <button class="choice-btn" onclick="handleChatChoice(3, '암 그렇고말고, 남은 세월 비록 험난해도 부부의 연을 깊이 이어가자.')">1. 남은 세월 비록 험난해도 부부의 연을 깊이 이어가자.</button>
           <button class="choice-btn" onclick="handleChatChoice(4, '아니다, 음양의 도리에 어긋나니 이제 그만 저승으로 떠나거라.')">2. 음양의 도리에 어긋나니 이제 저승으로 떠나라.</button>
+        `;
+      } else if (chatStage === 5) {
+        choiceArea.innerHTML = `
+          <button class="choice-btn" onclick="handleChatChoice(5, '그대의 손을 잡은 이상, 내 남은 삶은 오직 그대만을 위해 바치겠소.')">1. 내 남은 삶은 오직 그대만을 위해 바치겠소.</button>
+          <button class="choice-btn" onclick="handleChatChoice(6, '이런 기적이 계속될 수 있다면 하늘에 감사하며 살겠소.')">2. 이 기적이 계속되기를 하늘에 간절히 빌겠소.</button>
         `;
       }
     }
@@ -938,58 +948,93 @@
       chatList.appendChild(myBubble);
       chatList.scrollTop = chatList.scrollHeight;
 
-      setTimeout(() => {
-        if (chatStage === 1) {
-          const ghost1 = document.createElement('div');
-          ghost1.className = 'bubble ghost';
-          ghost1.textContent = (choiceNum === 1) 
+      // 1분(약 60초)의 호흡을 고려하여 자연스럽게 대화가 깊어지도록 순차 지연 타임라인 구성
+      if (chatStage === 1) {
+        setTypingStatus(true);
+        setTimeout(() => {
+          setTypingStatus(false);
+          const g1 = document.createElement('div');
+          g1.className = 'bubble ghost';
+          g1.textContent = (choiceNum === 1) 
             ? "낭군님... 제 넋이 이승을 떠돌며 오직 낭군님만을 연모하여 이렇게 찾아왔습니다. 우리가 함께 거닐던 복사꽃담 아래를 기억하시나요?" 
             : "두려우신가요... 제 참혹한 죽음이 원망스러우신가요. 허나 제 영혼은 오직 낭군님을 향한 애틋한 연정 하나로 이승의 문을 건너왔습니다.";
-          chatList.appendChild(ghost1);
+          chatList.appendChild(g1);
           chatList.scrollTop = chatList.scrollHeight;
 
-          // 두 번째 티키타카 (자동 출력)
+          setTypingStatus(true);
           setTimeout(() => {
-            const ghost2 = document.createElement('div');
-            ghost2.className = 'bubble ghost';
-            ghost2.textContent = "황천길을 건너는 동안에도 낭군님과 시를 짓던 기억만이 제 유일한 위안이었습니다. 다시 그 시절로 돌아갈 수만 있다면오... 주사위는 던져졌고, 제 마음은 이미 낭군님 곁에 있사옵니다.";
-            chatList.appendChild(ghost2);
+            setTypingStatus(false);
+            const g2 = document.createElement('div');
+            g2.className = 'bubble ghost';
+            g2.textContent = "황천길을 건너는 동안에도 낭군님과 시를 짓던 기억만이 제 유일한 위안이었습니다. 다시 그 시절로 돌아갈 수만 있다면오...";
+            chatList.appendChild(g2);
             chatList.scrollTop = chatList.scrollHeight;
 
-            // 세 번째 티키타카 (자동 출력)
+            setTypingStatus(true);
             setTimeout(() => {
-              const ghost3 = document.createElement('div');
-              ghost3.className = 'bubble ghost';
-              ghost3.textContent = "비록 산 자와 죽은 자의 길이 다르다 하나, 낭군님께서 저를 진정으로 품어주신다면 남은 세월 세상의 비난 따위 두렵지 않사옵니다. 제 손을 잡아 주시겠습니까?";
-              chatList.appendChild(ghost3);
+              setTypingStatus(false);
+              const g3 = document.createElement('div');
+              g3.className = 'bubble ghost';
+              g3.textContent = "비록 산 자와 죽은 자의 길이 다르다 하나, 낭군님께서 저를 진정으로 품어주신다면 남은 세월 세상의 비난 따위 두렵지 않사옵니다. 제 손을 잡아 주시겠습니까?";
+              chatList.appendChild(g3);
               chatList.scrollTop = chatList.scrollHeight;
 
-              chatStage = 3; // 최종 선택지 단계로 진입
+              chatStage = 3;
               renderStepChoices();
-            }, 1000);
-          }, 1000);
+            }, 3000);
+          }, 3000);
+        }, 2000);
 
-        } else if (chatStage === 3) {
-          // 네 번째 티키타카 (최종 엔딩 분기)
+      } else if (chatStage === 3) {
+        setTypingStatus(true);
+        setTimeout(() => {
+          setTypingStatus(false);
+          const g4 = document.createElement('div');
+          g4.className = 'bubble ghost';
+          g4.textContent = (choiceNum === 3)
+            ? "아, 낭군님의 그 말씀을 들으니 흩어졌던 제 넋이 온전히 꽃처럼 피어나는 듯합니다. 오늘 밤은 달빛도 우리를 축복해 주는군요."
+            : "낭군님께서 그리 말씀하시니 제 마음이 한없이 아려옵니다... 허나 저 역시 낭군님을 두고 홀로 떠날 수 없는 사정이 있사옵니다.";
+          chatList.appendChild(g4);
+          chatList.scrollTop = chatList.scrollHeight;
+
+          setTypingStatus(true);
+          setTimeout(() => {
+            setTypingStatus(false);
+            const g5 = document.createElement('div');
+            g5.className = 'bubble ghost';
+            g5.textContent = "앞으로 수년 동안 우리는 세상의 눈을 피해 깊은 정을 나누게 될 것입니다. 비록 비극의 그늘이 드리워져 있다 해도 지금 이 순간만큼은 진실로 행복할 거예요.";
+            chatList.appendChild(g5);
+            chatList.scrollTop = chatList.scrollHeight;
+
+            chatStage = 5;
+            renderStepChoices();
+          }, 3500);
+        }, 2500);
+
+      } else if (chatStage === 5) {
+        setTypingStatus(true);
+        setTimeout(() => {
+          setTypingStatus(false);
           const endingBubble = document.createElement('div');
           endingBubble.className = 'bubble ghost';
 
-          if (choiceNum === 3) {
-            endingBubble.innerHTML = "✨ <b>[엔딩 A: 재회의 삶]</b><br>고맙습니다 낭군님... 하늘이 허락한 수년 동안 원없이 낭군님을 모시며 양친의 장례를 치르고 알콩달콩 시를 읊었습니다. 하지만 마침내 저승의 법도에 따라 최씨는 눈물을 흘리며 은하수로 떠나갔고, 이생은 깊은 산속으로 자취를 감추었습니다.";
+          if (choiceNum === 5) {
+            endingBubble.innerHTML = "✨ <b>[엔딩 A: 영원히 지지 않는 복사꽃의 연인]</b><br>낭군님의 맹세에 최씨는 감격의 눈물을 흘리며 품에 안겼습니다. 비록 저승의 법도가 다가온다 하여도 두 사람의 영원한 사랑은 금오신화의 영원한 전설로 이승에 깊이 각인되었습니다.";
           } else {
-            endingBubble.innerHTML = "✨ <b>[엔딩 B: 비극적 단절]</b><br>이생의 단호한 거절에 최씨의 넋은 하염없이 핏눈물을 흘리며 밤안개 속으로 서둘러 사라졌습니다. 이생은 평생을 시린 죄책감과 뼈저린 그리움 속에 홀로 늙어갔습니다.";
+            endingBubble.innerHTML = "✨ <b>[엔딩 B: 황혼의 안개 속으로]</b><br>하늘이 허락한 기적 같은 시간 속에서 두 사람은 매일 밤 시를 읊으며 서로의 상처를 보듬었습니다. 시간이 흘러 이별의 시각이 다가왔을 때, 두 사람의 얼굴에는 슬픔 대신 깊은 평온이 깃들었습니다.";
           }
           chatList.appendChild(endingBubble);
           chatList.scrollTop = chatList.scrollHeight;
           choiceArea.innerHTML = `<button class="choice-btn" onclick="resetChat()">처음부터 다시 대화하기</button>`;
-        }
-      }, 700);
+        }, 3000);
+      }
     }
 
     function resetChat() {
       const chatList = document.getElementById('chatList');
       chatList.innerHTML = `<div class="bubble ghost">낭군님... 홍건적의 난으로 이승과 저승이 갈라지고 모든 것이 불타버린 그날 이후, 홀로 남겨진 제 영혼은 잠시도 낭군님을 잊은 적이 없습니다.</div>`;
       chatStage = 1;
+      document.getElementById('chatStatus').textContent = "달빛 아래 접속 중...";
       renderStepChoices();
     }
 
