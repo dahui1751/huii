@@ -206,6 +206,7 @@
     .icon-calendar { background: #ffffff; color: #ff3b30; font-weight: bold; border: 1px solid #e5e5ea; }
     .icon-podcasts { background: linear-gradient(180deg, #b066fe, #6300d8); }
     .icon-clock { background: #000000; }
+    .icon-ethics { background: linear-gradient(180deg, #5856d6, #af52de); }
 
     .dock-bar {
       background: rgba(255, 255, 255, 0.45);
@@ -385,6 +386,29 @@
     .card-date { font-size: 11px; color: #8e8e93; margin-bottom: 8px; }
     .card-body { font-size: 12px; color: #3c3c43; white-space: pre-line; line-height: 1.5; }
 
+    /* --- 7. 유교 덕목 & 교훈 앱 (신규 추가) --- */
+    #ethics-app {
+      background: #fdfdfd;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .ethics-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .ethics-header h2 { font-size: 18px; color: #1c1c1e; margin-bottom: 4px; }
+    .ethics-header p { font-size: 11px; color: #8e8e93; }
+    .virtue-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-left: 4px solid #5856d6;
+    }
+    .virtue-title { font-size: 14px; font-weight: 700; color: #3a3a3c; margin-bottom: 4px; }
+    .virtue-desc { font-size: 12px; color: #48484a; line-height: 1.4; }
+
     /* 하단 홈 바 */
     .home-bar-area { height: 34px; display: flex; justify-content: center; align-items: center; cursor: pointer; background: white; }
     .home-bar-area.dark { background: #1c1c1e; }
@@ -481,6 +505,10 @@
               <div class="app-icon" onclick="alert('이생규장전 낭독 오디오')">
                 <div class="icon-box icon-podcasts">🎙️</div>
                 <span class="app-name">팟캐스트</span>
+              </div>
+              <div class="app-icon" onclick="openApp('ethics-app')">
+                <div class="icon-box icon-ethics">📜</div>
+                <span class="app-name">금오신화</span>
               </div>
             </div>
           </div>
@@ -601,7 +629,7 @@
         </div>
 
         <div class="insta-bio">
-          <strong>이생 (李生)</strong><br>
+          <strong>이생 (李生)</strong><br>
           개성 송도의 흔한 유생 ✍️<br>
           시 쓰기 / 밤산책 / 벼루와 먹 깎기 🌿
         </div>
@@ -665,7 +693,7 @@
         </div>
       </div>
 
-      <!-- 4. 메시지 앱 (미연시) -->
+      <!-- 4. 메시지 앱 (미연시 - 3가지 엔딩 확장) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -674,7 +702,7 @@
         </div>
         
         <div class="message-list" id="chatList">
-          <div class="bubble ghost">낭군님, 이 깊은 밤 홀로 등불을 밝히고 계시나요...</div>
+          <div class="bubble ghost">낭군님, 홍건적의 난 이후 홀로 남겨진 저를 찾아 이승의 문을 두드립니다... 저와 함께 남은 세월을 더 누리시겠습니까?</div>
         </div>
 
         <div class="choice-area" id="choiceArea"></div>
@@ -787,14 +815,31 @@
             <div class="card-title">메모 08. 마지막으로 남기는 말</div>
             <div class="card-tag"># 세 번째 이별</div>
             <div class="card-date">저장된 메모</div>
-            <div class="card-body">오늘 최씨가 떠났다.
-이제는 나를 기다려 달라는 말조차 할 수 없었다.
-세 번이나 그대를 만났고, 세 번이나 그대를 잃었다.
-처음에는 우연이었고, 두 번째는 운명이었으며, 마지막은 기적이었다.
-그대와 함께했던 기억을 잊지 않겠다.
-그대가 없는 이 세상에서 나는 오래 머물 자신이 없다.
-언젠가 다시 만날 수 있기를.</div>
+            <div class="card-body">오늘 최씨가 떠날 때의 눈물을 잊을 수 없다.
+세 번이나 만났고, 세 번이나 헤어졌다.
+이승과 저승의 벽 앞에서 내가 할 수 있는 것은 아무것도 없었다.
+그대 없는 세상에 홀로 남겨진 이 슬픔을 안고, 나 역시 세속의 인연을 정리하리라.</div>
           </div>
+        </div>
+      </div>
+
+      <!-- 7. 김시습 '이생규장전' 유교적 덕목 & 교훈 앱 (신규 추가) -->
+      <div id="ethics-app" class="app-screen">
+        <div class="ethics-header">
+          <h2>📜 금오신화: 이생규장전의 교훈</h2>
+          <p>김시습이 작품을 통해 강조하고자 한 유교적 덕목과 가치관</p>
+        </div>
+        <div class="virtue-card">
+          <div class="virtue-title">1. 불변의 지조와 열(烈)</div>
+          <div class="virtue-desc">난란 속에서도 정절을 지키고 죽음을 초월하여 사랑을 완성한 최씨 녀의 모습은 전통 사회가 요구하던 고결한 도덕적 지조를 상징합니다.</div>
+        </div>
+        <div class="virtue-card">
+          <div class="virtue-title">2. 깊은 효행과 윤리(孝)</div>
+          <div class="virtue-desc">귀신이 되어 돌아온 후에도 이생과 함께 양친의 장례를 극진히 치르고 상복을 입어 도리를 다한 것은 유교적 효사상의 실천을 보여줍니다.</div>
+        </div>
+        <div class="virtue-card">
+          <div class="virtue-title">3. 현실을 초월한 인간적 정(情)</div>
+          <div class="virtue-desc">비합리적인 운명과 비극적 시대 상황 속에서도 인간의 진실한 감정과 애정을 억압하지 않고 소중히 여긴 작가의 휴머니즘적 메시지를 담고 있습니다.</div>
         </div>
       </div>
 
@@ -859,7 +904,6 @@
       document.getElementById('activeCallName').innerText = name;
 
       if(type === 'farewell') {
-        // 12월 14일 완전한 이별 수정을 반영한 애절한 스크립트
         transcriptBox.innerHTML = `
           <p><span class="speaker">최낭자:</span> 낭군님... 저승의 명수가 다하여 이제는 정녕 마지막 인사를 드릴 시간이 되었습니다.</p>
           <p><span class="speaker">이생:</span> 아니 되오, 최 낭자! 어찌 날 두고 또다시 홀로 떠나려 하오? 환신이어도 좋으니 제발 내 곁에 더 머물러 주오!</p>
@@ -880,14 +924,15 @@
       document.getElementById('active-call-screen').style.display = 'none';
     }
 
-    /* --- 미연시 로직 --- */
+    /* --- 미연시 로직 (3가지 엔딩 확장) --- */
     let step = 1;
     function renderStepChoices() {
       const choiceArea = document.getElementById('choiceArea');
       if (step === 1) {
         choiceArea.innerHTML = `
-          <button class="choice-btn" onclick="sendMyMessage('그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.', 1)">그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.</button>
-          <button class="choice-btn" onclick="sendMyMessage('당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?', 2)">당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?</button>
+          <button class="choice-btn" onclick="sendMyMessage('그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.', 1)">1. 그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소.</button>
+          <button class="choice-btn" onclick="sendMyMessage('당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?', 2)">2. 당신은 이미 세상을 떠났거늘, 어찌 혼령이 되어 나타났소?</button>
+          <button class="choice-btn" onclick="sendMyMessage('귀신인들 어떠하리, 오직 그대와 남은 세월을 함께하겠소.', 3)">3. 귀신인들 어떠하리, 오직 그대와 남은 세월을 함께하겠소.</button>
         `;
       }
     }
@@ -910,19 +955,50 @@
 
         if (step === 1) {
           if (choiceNum === 1) {
-            ghostReply.textContent = "낭군님, 저 역시 이승의 미련을 버리지 못해 찾아왔습니다. 기억하시나요... 담장 너머로 시를 묶어 던지며 마음을 나누던 순간을...";
+            ghostReply.textContent = "낭군님, 제 넋이 이승을 떠돌며 오직 낭군님만을 연모하여 이렇게 찾아왔습니다. 저와 함께 지난날처럼 시를 읊으며 살아가시겠습니까?";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
             choiceArea.innerHTML = `
-              <button class="choice-btn" onclick="sendMyMessage('어찌 잊겠소. 그대의 시 한 구절에 내 마음이 모두 흔들렸거늘.', 1)">어찌 잊겠소. 그대의 시 한 구절에 내 마음이 모두 흔들렸거늘.</button>
+              <button class="choice-btn" onclick="sendMyMessage('암 그렇고말고, 남은 세월 부부의 연을 이어가자.', 101)">[엔딩 A: 재회의 삶] 부부의 연을 이어가자.</button>
+              <button class="choice-btn" onclick="sendMyMessage('아니다, 음양의 도리에 어긋나니 이제 그만 떠나거라.', 102)">[엔딩 B: 비극적 단절] 음양의 도리에 어긋나니 떠나라.</button>
+            `;
+            step = 2;
+          } else if (choiceNum === 2) {
+            ghostReply.textContent = "두려우신가요... 제 참혹한 죽음이 원망스러우신가요. 허나 제 진심은 오직 낭군님을 향해 있었습니다.";
+            chatList.appendChild(ghostReply);
+            chatList.scrollTop = chatList.scrollHeight;
+            choiceArea.innerHTML = `
+              <button class="choice-btn" onclick="sendMyMessage('두려움보다 그리움이 큽니다. 제 곁에 머물러주오.', 101)">그리움이 큽니다. 곁에 머물러주오.</button>
+              <button class="choice-btn" onclick="sendMyMessage('저승으로 돌아가 평안을 찾으소서.', 103)">[엔딩 C: 홀로 남은 유생] 저승으로 돌아가 평안을 찾으소서.</button>
             `;
             step = 2;
           } else {
-            ghostReply.textContent = "낭군님께서 저를 두려워하시니 제 넋은 떠나겠습니다...";
+            ghostReply.textContent = "고맙습니다 낭군님... 하늘이 허락한 수년 동안 원없이 낭군님을 모시겠습니다.";
             chatList.appendChild(ghostReply);
             chatList.scrollTop = chatList.scrollHeight;
-            setTimeout(() => { resetChat(); goHome(); }, 1200);
+            setTimeout(() => {
+              const endingBubble = document.createElement('div');
+              endingBubble.className = 'bubble ghost';
+              endingBubble.style.background = "#d4edda";
+              endingBubble.textContent = "✨ [엔딩 A 도달] 수년간 함께 행복한 세월을 보낸 뒤, 저승의 법도에 따라 최씨는 눈물을 흘리며 은하수로 떠나갔고 이생은 그 슬픔을 안고 홀로 남았습니다.";
+              chatList.appendChild(endingBubble);
+              chatList.scrollTop = chatList.scrollHeight;
+          }, 1000);
           }
+        } else if (step === 2) {
+          const endingBubble = document.createElement('div');
+          endingBubble.className = 'bubble ghost';
+          endingBubble.style.background = "#d4edda";
+          
+          if (choiceNum === 101) {
+            endingBubble.textContent = "✨ [엔딩 A: 재회의 삶] 수년 동안 양친의 장례를 치르고 알콩달콩 지내다 저승의 법도에 따라 작별을 고한 뒤, 이생은 세상을 등지고 깊은 산속으로 숨어들었습니다.";
+          } else if (choiceNum === 102) {
+            endingBubble.textContent = "✨ [엔딩 B: 비극적 단절] 이생의 단호한 거절에 최씨의 넋은 하염없이 눈물을 흘리며 밤안개 속으로 서둘러 사라졌고, 이생은 평생을 죄책감과 그리움 속에 살았습니다.";
+          } else {
+            endingBubble.textContent = "✨ [엔딩 C: 홀로 남은 유생] 이생의 따뜻한 배웅을 받으며 최씨는 미소 지으며 저승으로 돌아갔고, 이생은 남은 인생 동안 글과 시를 지으며 혼자만의 추억을 간직했습니다.";
+          }
+          chatList.appendChild(endingBubble);
+          chatList.scrollTop = chatList.scrollHeight;
         }
       }, 600);
     }
