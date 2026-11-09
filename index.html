@@ -65,7 +65,7 @@
     .screen {
       flex: 1;
       position: relative;
-      background-color: var(--bg-color);
+      background: url('photo9.png') center/cover no-repeat;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -77,7 +77,7 @@
     /* --- 0. 잠금화면 --- */
     #lock-screen {
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), 
-                  url('watermarked_img_13252387392627829667.png') center/cover no-repeat;
+                  url('photo9.png') center/cover no-repeat;
       color: white;
       justify-content: space-between;
       align-items: center;
@@ -150,7 +150,7 @@
       overflow: hidden;
     }
     .widget-photo {
-      background: url('watermarked_img_13252387392627829667.png') center/cover no-repeat;
+      background: url('photo9.png') center/cover no-repeat;
       color: white;
       justify-content: flex-end;
       padding: 10px;
@@ -612,7 +612,7 @@
         </div>
       </div>
 
-      <!-- 3. 인스타그램 앱 (사진 3장 반영, 4번째 삭제) -->
+      <!-- 3. 인스타그램 앱 -->
       <div id="instagram-app" class="app-screen">
         <div class="insta-header">
           <span>lesaeng_songdo</span>
@@ -635,7 +635,6 @@
         </div>
 
         <div class="insta-feed">
-          <!-- 피드 1: 고양이 사진 -->
           <div class="insta-post">
             <div class="post-header">
               <div class="post-avatar">🌿</div>
@@ -649,7 +648,6 @@
             <div class="post-date">1일 전</div>
           </div>
 
-          <!-- 피드 2: 하늘 사진 (과거급제 멘트 삭제) -->
           <div class="insta-post">
             <div class="post-header">
               <div class="post-avatar">🌿</div>
@@ -663,7 +661,6 @@
             <div class="post-date">3일 전</div>
           </div>
 
-          <!-- 피드 3: 술상 사진 -->
           <div class="insta-post">
             <div class="post-header">
               <div class="post-avatar">🌿</div>
@@ -679,7 +676,7 @@
         </div>
       </div>
 
-      <!-- 4. 메시지 앱 (엔딩 2개, 4번의 달달한 티키타카 대화 구조) -->
+      <!-- 4. 메시지 앱 (풍성하게 확장된 미연시 대화) -->
       <div id="messages" class="app-screen">
         <div class="chat-header">
           <div class="chat-avatar">🌸</div>
@@ -717,7 +714,7 @@
         <button class="modal-close" onclick="closePhoto()">닫기</button>
       </div>
 
-      <!-- 6. 메모장 앱 (오타 수정 완료) -->
+      <!-- 6. 메모장 앱 -->
       <div id="notes" class="app-screen">
         <h2 style="font-size: 18px; margin-bottom: 10px;">이생의 메모장 (8개)</h2>
         <div class="card-list">
@@ -899,6 +896,7 @@
         `;
       } else {
         transcriptBox.innerHTML = `
+          <p><span class="speaker">최낭자:</span> 낭군님, 제 목소리가 들리시옵니까?</p>
           <p><span class="speaker">이생:</span> 최 낭자! 난리 속에서 목숨을 잃은 줄 알았거늘, 정녕 그대란 말이오? 꿈인지 생시인지 분간할 수가 없소.</p>
           <p><span class="speaker">최낭자:</span> 비록 육신은 흉적의 칼날에 흩어졌으나, 낭군님을 향한 그리움과 서린 정념은 소멸하지 않아 이렇게 넋이라도 빌려 돌아왔습니다...</p>
         `;
@@ -910,19 +908,19 @@
       document.getElementById('active-call-screen').style.display = 'none';
     }
 
-    /* --- 메시지 대화 (4번의 티키타카 및 2개 엔딩 구조) --- */
-    let chatTurn = 1;
+    /* --- 풍성하게 확장된 미연시 대화 (다채로운 티키타카 및 2개 엔딩) --- */
+    let chatStage = 1;
 
     function renderStepChoices() {
       const choiceArea = document.getElementById('choiceArea');
-      if (chatTurn === 1) {
+      if (chatStage === 1) {
         choiceArea.innerHTML = `
-          <button class="choice-btn" onclick="handleChatChoice(1, '그대의 목소리가 환청처럼 들려 밤마다 잠을 이룰 수 없소. 제발 내 곁으로 와주오.')">1. 그대의 목소리가 환청처럼 들려 잠을 이룰 수 없소. 내 곁으로 와주오.</button>
-          <button class="choice-btn" onclick="handleChatChoice(2, '비록 귀신이 되었을지라도 낭자와 나누었던 옛기억에 눈물만 흐르는구려.')">2. 비록 귀신이 되었을지라도 옛기억에 눈물만 흐르는구려.</button>
+          <button class="choice-btn" onclick="handleChatChoice(1, '그대의 목소리가 환청처럼 들려 밤마다 잠을 이룰 수 없소. 제발 내 곁으로 와주오.')">1. 환청처럼 들려 잠을 잘 수가 없소. 내 곁으로 와주오.</button>
+          <button class="choice-btn" onclick="handleChatChoice(2, '비록 귀신이 되었을지라도 낭자와 나누었던 옛기억에 눈물만 흐르는구려.')">2. 귀신이 되었을지라도 옛기억에 눈물만 흐르는구려.</button>
         `;
-      } else if (chatTurn === 3) {
+      } else if (chatStage === 3) {
         choiceArea.innerHTML = `
-          <button class="choice-btn" onclick="handleChatChoice(3, '암 그렇고말고, 남은 세월 비록 험난해도 부부의 연을 깊이 이어가자.')">1. 남은 세월 부부의 연을 깊이 이어가자.</button>
+          <button class="choice-btn" onclick="handleChatChoice(3, '암 그렇고말고, 남은 세월 비록 험난해도 부부의 연을 깊이 이어가자.')">1. 남은 세월 비록 험난해도 부부의 연을 깊이 이어가자.</button>
           <button class="choice-btn" onclick="handleChatChoice(4, '아니다, 음양의 도리에 어긋나니 이제 그만 저승으로 떠나거라.')">2. 음양의 도리에 어긋나니 이제 저승으로 떠나라.</button>
         `;
       }
@@ -933,7 +931,7 @@
       const choiceArea = document.getElementById('choiceArea');
       choiceArea.innerHTML = '';
 
-      // 내 메시지 추가
+      // 내 메시지 출력
       const myBubble = document.createElement('div');
       myBubble.className = 'bubble me';
       myBubble.textContent = myText;
@@ -941,38 +939,47 @@
       chatList.scrollTop = chatList.scrollHeight;
 
       setTimeout(() => {
-        const ghostBubble = document.createElement('div');
-        ghostBubble.className = 'bubble ghost';
-
-        if (chatTurn === 1) {
-          if (choiceNum === 1) {
-            ghostBubble.textContent = "낭군님... 제 넋이 이승을 떠돌며 오직 낭군님만을 연모하여 이렇게 찾아왔습니다. 우리가 함께 거닐던 복사꽃담 아래를 기억하시나요?";
-          } else {
-            ghostBubble.textContent = "두려우신가요... 제 참혹한 죽음이 원망스러우신가요. 허나 제 영혼은 오직 낭군님을 향한 애틋한 연정 하나로 이승의 문을 건너왔습니다.";
-          }
-          chatList.appendChild(ghostBubble);
+        if (chatStage === 1) {
+          const ghost1 = document.createElement('div');
+          ghost1.className = 'bubble ghost';
+          ghost1.textContent = (choiceNum === 1) 
+            ? "낭군님... 제 넋이 이승을 떠돌며 오직 낭군님만을 연모하여 이렇게 찾아왔습니다. 우리가 함께 거닐던 복사꽃담 아래를 기억하시나요?" 
+            : "두려우신가요... 제 참혹한 죽음이 원망스러우신가요. 허나 제 영혼은 오직 낭군님을 향한 애틋한 연정 하나로 이승의 문을 건너왔습니다.";
+          chatList.appendChild(ghost1);
           chatList.scrollTop = chatList.scrollHeight;
 
-          // 2번째 티키타카 (자동 진행)
+          // 두 번째 티키타카 (자동 출력)
           setTimeout(() => {
-            const ghostBubble2 = document.createElement('div');
-            ghostBubble2.className = 'bubble ghost';
-            ghostBubble2.textContent = "황천길을 건너는 동안에도 낭군님과 시를 짓던 기억만이 제 유일한 위안이었습니다. 다시 그 시절로 돌아갈 수만 있다면오... 주사위는 던져졌고, 제 마음은 이미 낭군님 곁에 있사옵니다.";
-            chatList.appendChild(ghostBubble2);
+            const ghost2 = document.createElement('div');
+            ghost2.className = 'bubble ghost';
+            ghost2.textContent = "황천길을 건너는 동안에도 낭군님과 시를 짓던 기억만이 제 유일한 위안이었습니다. 다시 그 시절로 돌아갈 수만 있다면오... 주사위는 던져졌고, 제 마음은 이미 낭군님 곁에 있사옵니다.";
+            chatList.appendChild(ghost2);
             chatList.scrollTop = chatList.scrollHeight;
 
-            chatTurn = 3; // 다음 선택지 단계로
-            renderStepChoices();
+            // 세 번째 티키타카 (자동 출력)
+            setTimeout(() => {
+              const ghost3 = document.createElement('div');
+              ghost3.className = 'bubble ghost';
+              ghost3.textContent = "비록 산 자와 죽은 자의 길이 다르다 하나, 낭군님께서 저를 진정으로 품어주신다면 남은 세월 세상의 비난 따위 두렵지 않사옵니다. 제 손을 잡아 주시겠습니까?";
+              chatList.appendChild(ghost3);
+              chatList.scrollTop = chatList.scrollHeight;
+
+              chatStage = 3; // 최종 선택지 단계로 진입
+              renderStepChoices();
+            }, 1000);
           }, 1000);
 
-        } else if (chatTurn === 3) {
-          // 4번째 티키타카 (최종 엔딩 분기)
+        } else if (chatStage === 3) {
+          // 네 번째 티키타카 (최종 엔딩 분기)
+          const endingBubble = document.createElement('div');
+          endingBubble.className = 'bubble ghost';
+
           if (choiceNum === 3) {
-            ghostBubble.innerHTML = "✨ <b>[엔딩 A: 재회의 삶]</b><br>고맙습니다 낭군님... 하늘이 허락한 수년 동안 원없이 낭군님을 모시며 양친의 장례를 치르고 알콩달콩 시를 읊었습니다. 하지만 마침내 저승의 법도에 따라 최씨는 눈물을 흘리며 은하수로 떠나갔고, 이생은 깊은 산속으로 자취를 감추었습니다.";
+            endingBubble.innerHTML = "✨ <b>[엔딩 A: 재회의 삶]</b><br>고맙습니다 낭군님... 하늘이 허락한 수년 동안 원없이 낭군님을 모시며 양친의 장례를 치르고 알콩달콩 시를 읊었습니다. 하지만 마침내 저승의 법도에 따라 최씨는 눈물을 흘리며 은하수로 떠나갔고, 이생은 깊은 산속으로 자취를 감추었습니다.";
           } else {
-            ghostBubble.innerHTML = "✨ <b>[엔딩 B: 비극적 단절]</b><br>이생의 단호한 거절에 최씨의 넋은 하염없이 핏눈물을 흘리며 밤안개 속으로 서둘러 사라졌습니다. 이생은 평생을 시린 죄책감과 뼈저린 그리움 속에 홀로 늙어갔습니다.";
+            endingBubble.innerHTML = "✨ <b>[엔딩 B: 비극적 단절]</b><br>이생의 단호한 거절에 최씨의 넋은 하염없이 핏눈물을 흘리며 밤안개 속으로 서둘러 사라졌습니다. 이생은 평생을 시린 죄책감과 뼈저린 그리움 속에 홀로 늙어갔습니다.";
           }
-          chatList.appendChild(ghostBubble);
+          chatList.appendChild(endingBubble);
           chatList.scrollTop = chatList.scrollHeight;
           choiceArea.innerHTML = `<button class="choice-btn" onclick="resetChat()">처음부터 다시 대화하기</button>`;
         }
@@ -982,7 +989,7 @@
     function resetChat() {
       const chatList = document.getElementById('chatList');
       chatList.innerHTML = `<div class="bubble ghost">낭군님... 홍건적의 난으로 이승과 저승이 갈라지고 모든 것이 불타버린 그날 이후, 홀로 남겨진 제 영혼은 잠시도 낭군님을 잊은 적이 없습니다.</div>`;
-      chatTurn = 1;
+      chatStage = 1;
       renderStepChoices();
     }
 
